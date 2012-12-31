@@ -1,0 +1,12 @@
+<div class="span12" style="padding-bottom:20px">
+	<%= link_to t('buttons.edit'), edit_currency_path(@currency), class: 'btn' %>
+	<%= link_to t('buttons.destroy'), currency_path(@currency), method: :delete, confirm: t('buttons.destroy_confirm'), class: 'btn' %>
+</div>
+
+<div class="show span4">
+	  <b><%= t('attributes.currency.name') %>:</b>
+	  <%= @currency.name %>
+		<br>
+	  <b><%= t('attributes.currency.symbol') %>:</b>
+	  <%= @currency.symbol %>
+</div>

@@ -1,0 +1,25 @@
+<%= form_for(@account) do |f| %>
+  <%= render 'invoice_bar/forms/errors', :model => @account %>
+  <div class="control-group">
+    <%= f.label :name, t('attributes.account.name') %>
+    <%= f.text_field :name, placeholder: t('attributes.account.name'), class: 'suggested' %>
+  </div>
+  <div class="control-group">
+    <%= f.label :bank_account_number, t('attributes.account.bank_account_number') %>
+    <%= f.text_field :bank_account_number, placeholder: t('attributes.account.bank_account_number') %>
+  </div>
+  <div class="control-group">
+    <%= f.label :iban, t('attributes.account.iban') %>
+    <%= f.text_field :iban, placeholder: t('attributes.account.iban') %>
+  </div>
+  <div class="control-group">
+    <%= f.label :swift, t('attributes.account.swift') %>
+    <%= f.text_field :swift, placeholder: t('attributes.account.swift') %>
+  </div>	
+  <div class="control-group">
+    <%= f.label :currency_id, t('attributes.account.currency_id') %>
+    <%= f.collection_select :currency_id, @currencies, :id, :name %>
+  </div>
+  <%= f.hidden_field :user_id %>
+  <%= f.submit t('buttons.save'), class: 'btn btn-primary' %>
+<% end %>

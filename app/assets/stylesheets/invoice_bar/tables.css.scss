@@ -1,0 +1,14 @@
+// Tables
+
+// Bills table
+
+.table {
+	td { padding-left: 10px; padding-right: 10px; }
+	span { display: block; padding-top: 0px; }
+	
+	.name { }
+	.amount { width: 115px; text-align: right; }
+	.number { width: 200px; }
+	.issue_date, .due_date { width: 80px; text-align: right; }
+	.state { width: 50px; }
+}

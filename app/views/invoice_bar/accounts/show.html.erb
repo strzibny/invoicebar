@@ -1,0 +1,24 @@
+<div class="span12" style="padding-bottom:20px">
+	<%= link_to t('buttons.edit'), edit_account_path(@account), class: 'btn' %>
+	<%= link_to t('buttons.destroy'), account_path(@account), method: :delete, confirm: t('buttons.destroy_confirm'), class: 'btn' %>
+</div>
+
+<div class="show span4">
+  <b><%= t('attributes.account.name') %></b>
+  <%= @account.name %>
+	<br>
+  <b><%= t('attributes.account.bank_account_number') %></b>
+  <%= @account.bank_account_number %>
+	<br>
+  <b><%= t('attributes.account.iban') %></b>
+  <%= @account.iban %>
+	<br>
+  <b><%= t('attributes.account.swift') %></b>
+  <%= @account.swift %>
+	<br>
+  <b><%= t('attributes.account.currency_id') %></b>
+  <%= @account.currency_name %>
+	<br>
+  <b><%= t('attributes.account.amount') %></b>
+  <%= @account.amount %>
+</div>

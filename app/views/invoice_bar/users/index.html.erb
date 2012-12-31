@@ -1,0 +1,46 @@
+<%= content_for :sub_navigation do %>
+	
+<% end %>
+
+<h1><%= t('titles.users.list') %></h1>
+
+<table class="table table-striped table-bordered table-hover">
+	<thead>
+	    <tr>
+				<th><%= t('attributes.user.id') %></th>
+	      <th class="name"><%= t('attributes.user.name') %></th>
+				<th><%= t('attributes.user.ic') %></th>
+				<th class="hidden-phone"><%= t('attributes.user.email') %></th>
+				<th></th>
+			</tr>
+	  </thead>
+	<tbody>
+		<% @users.each do |user| %>
+			<tr>
+				<td>
+					<span><%= user.id %></span>
+				</td>
+				<td class="name">
+					<span><%= user.name %></span>
+				</td>
+				<td>
+					<span><%= user.ic %></span>
+				</td>
+				<td class="hidden-phone">
+					<span><%= user.email %></span>
+				</td>
+				<td>
+					<span><%= link_to t('links.delete_item'), user_path(user), method: :delete %></span>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<% if @users.size == 0 %>
+	<div class="no-data">
+		<%= t('invoice_bar.no_data') %>
+	</div>
+<% end %>
+
+<%= paginate @users %>

@@ -1,0 +1,170 @@
+// Bootstrap adjustments
+
+.fixmax1 { max-width: 55px; }
+.fixmax2 { max-width: 110px; }
+.fixmax3 { max-width: 165px; }
+.fixmax4 { max-width: 220px; }
+.fixmax5 { max-width: 275px; }
+
+
+// Headers
+
+h1 { margin-bottom: 30px; }
+
+
+// Buttons
+
+.btn-no-link, .btn-no-link:hover { text-decoration: none; }
+
+
+// Links
+
+form a:hover, table a:hover { background: #0C6591; color: white; text-decoration: none; }
+
+
+// Navigation
+
+.sub-navigation .btn-group, .sub-navigation .nav { margin-top: 5px }
+.sub-navigation h1 {
+	float: left;
+	margin-top: 0;
+	padding-top: 0;
+	margin-left: 20px;
+	font-size: 30px
+}
+
+@mixin rounded-corners($px) {
+	-moz-border-radius: $px;
+	-webkit-border-radius: $px;
+	border-radius: $px;
+}
+
+
+// Fieldsets
+
+.show,
+fieldset.user,
+fieldset.customer,
+fieldset.account {
+	border: 3px solid lightgrey;
+	padding: 10px;
+	@include rounded-corners(6px);
+}
+
+fieldset .top {
+	padding-bottom: 10px;
+	color: grey;
+}
+
+
+// Filter status options
+.status-filter {
+	margin-bottom: 20px;
+  .not-selected .btn-info,
+  .not-selected .btn-success,
+	.not-selected .btn-warning,
+	.not-selected .btn-inverse,
+	.not-selected .btn-danger {
+		background: grey;
+	}
+}
+
+
+// Listing items in #show
+#total {
+	clear:both;
+	font-size: 25px;
+	padding-top: 35px;
+	text-align: right;
+	width: 770px;
+}
+
+#bill-items {
+	margin-top: 20px;
+	clear:both;
+	
+	.header { font-weight: bold; }
+		
+	.item {
+		clear: both;
+		
+		div { 
+			float: left;
+			text-align: right;
+			border-bottom: 1px solid lightgrey;
+			padding-right: 10px;
+		}
+		.name { width: 400px; text-align: left; }
+		.number { width: 50px; }
+		.unit { width: 80px; }
+		.price { width: 80px; }
+		.amount { width: 120px; }
+		
+	}
+}
+
+// Prefill toggle part of form
+
+.prefill-toggle { background: lightgrey; margin-top: 25px; }
+.prefill-toggle:hover { background: white; }
+#prefill-form { 
+	margin-top: 20px;
+	margin-bottom: 20px;
+	
+	input { margin-top: 25px; }
+}
+
+
+// No data
+.no-data {
+	padding: 20px;
+	border: 2px solid lightgrey;
+	color: grey;
+	@include rounded-corners(6px);
+}
+
+
+// fix .input-block-level
+
+@media (max-width: 767px) {
+	body form div.fixmax4 {
+		max-width: 100%;
+	}	
+	body form div.fixmax4,
+	body form input,
+	body form select {	
+		display: block;
+	  width: 100%;
+	  min-height: 30px;
+	  -webkit-box-sizing: border-box;
+	     -moz-box-sizing: border-box;
+	          box-sizing: border-box;
+	}	
+	
+	body input.city { width: 75%; margin-left: 4%; }
+	body input.postcode { width: 20%; }
+	body input.street { width: 75%; }
+	body input.street_number { width: 20%; margin-left: 4%; }
+	html body input.contact_name { width: 100%; }
+	html body select.contact_name-select { width: 100%; }
+	body input.contact_ic { width: 90%; }
+	html body input.contact_dic { width: 100%; }
+	.fixmax4 { max-width: 100%; }
+	.fixmax5 { max-width: 100%; }
+
+}
+
+@media (max-width: 480px) {
+	body input.city { width: 74%; margin-left: 4%; }
+	body input.postcode { width: 20%; }
+	body input.street { width: 74%; }
+	body input.street_number { width: 20%; margin-left: 4%; }
+	html body input.contact_name { width: 100%; }
+	html body select.contact_name-select { width: 100%; }
+	body input.contact_ic { width: 90%; }
+	body input.contact_dic { width: 100%; }
+	.fixmax4 { max-width: 100%; }
+	.fixmax5 { max-width: 100%; }
+	
+	body .sub-navigation h1 { clear: both; }
+}

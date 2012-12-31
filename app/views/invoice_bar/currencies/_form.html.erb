@@ -1,0 +1,16 @@
+<%= form_for(@currency) do |f| %>
+  <%= render 'invoice_bar/forms/errors', :model => @currency %>
+  <div class="control-group">
+    <%= f.label :name, t('attributes.currency.name') %>
+    <%= f.text_field :name, class: 'suggested', placeholder: t('attributes.currency.name') %>
+  </div>
+  <div class="control-group">
+    <%= f.label :symbol, t('attributes.currency.symbol') %>
+    <%= f.text_field :symbol, class: 'suggested', placeholder: t('attributes.currency.symbol') %>
+  </div>
+	<div class="control-group">
+    <%= f.label :priority, t('attributes.currency.priority') %>
+    <%= f.text_field :priority, placeholder: t('attributes.currency.priority') %>
+  </div>
+	<%= f.submit t('buttons.save'), class: 'btn btn-primary' %>
+<% end %>

@@ -1,0 +1,22 @@
+<%# Address fields %>
+
+<div class="control-group">
+	<%= f.label :street, I18n.t('attributes.address.street_and_number') %>
+	<div class="controls controls-row">
+		<%= f.text_field :street, placeholder: I18n.t('attributes.address.street'), class: 'street suggested' %>
+  	<%= f.text_field :street_number, placeholder: I18n.t('attributes.address.street_number'), class: 'street_number suggested' %>
+	</div>
+</div>
+<div class="control-group">
+	<%= f.label :city, I18n.t('attributes.address.city_and_postcode') %>
+	<div class="controls controls-row">
+  	<%= f.text_field :postcode, placeholder: I18n.t('attributes.address.postcode'), class: 'postcode suggested' %>
+  	<%= f.text_field :city, placeholder: I18n.t('attributes.address.city'), class: 'city suggested' %>
+	</div>
+</div>
+<div class="control-group">
+  <%= f.text_field :city_part, placeholder: I18n.t('attributes.address.city_part'), class: 'optional' %>
+</div>
+<div class="control-group">
+  <%= f.text_field :extra_address_line, placeholder: I18n.t('attributes.address.extra_address_line'), class: 'optional' %>
+</div>

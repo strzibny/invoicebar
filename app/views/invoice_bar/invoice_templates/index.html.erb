@@ -1,0 +1,51 @@
+<%= content_for :sub_navigation do %>
+	<ul class="nav nav-pills" style="float:right;">
+		<li>
+			<%= link_to t('titles.invoices'), invoices_path %>
+		</li>
+		<li class="active">
+			<%= link_to t('titles.invoice_templates'), invoice_templates_path %>
+		</li>
+	</ul>
+	<div class="btn-group"  style="float:left;">
+	  <a class="btn btn-success" href="<%= new_invoice_template_path %>">
+			<i class="icon-pencil icon-white"></i> <%= t('links.new_invoice_template') %>
+		</a>
+	</div>
+	<h1>
+		<%= t('titles.invoice_templates') %>
+	</h1>
+<% end %>
+
+<table class="table table-striped table-bordered table-hover">
+	<thead>
+	    <tr>
+	      <th class="name"><%= t('attributes.invoice_template.name') %></th>
+				<th class="contact_name"><%= t('attributes.invoice_template.contact_name') %></th>				
+				<th class="amount"><%= t('attributes.invoice_template.amount') %></th>
+	    </tr>
+	  </thead>
+	<tbody>
+		<% @invoice_templates.each do |invoice| %>
+			<tr>
+				<td class="name">
+					<span><%= link_to invoice do %><%= invoice.name %><% end %></span>
+				</td>
+				<td class="contact_name">
+					<span><%= invoice.contact_name %></span>
+				</td>
+				<td class="amount">
+					<span><%= formatted_amount(invoice.amount, invoice.account.currency_symbol) %></span>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<% if @invoice_templates.size == 0 %>
+	<div class="no-data">
+		<%= t('invoice_bar.no_data') %>
+	</div>
+<% end %>
+
+<%= paginate @invoice_templates %>

@@ -1,0 +1,40 @@
+<%# Invoice and receipt items for #show %>
+
+<div class="item header">
+	<div class="name">
+		<%= t('attributes.item.name') %>
+	</div>
+	<div class="number">
+		<%= t('attributes.item.number') %>
+	</div>
+	<div class="unit">
+		<%= t('attributes.item.unit') %>
+	</div>
+	<div class="price">
+		<%= t('attributes.item.price') %>
+	</div>
+	<div class="amount">
+		<%= t('attributes.item.amount') %>
+	</div>
+</div>
+
+<% items.each do |item| %>
+	<div class="item">
+		<div class="name">
+			<%= item.name %>
+		</div>
+		<div class="number">
+			&nbsp;<%= item.number unless item.number %>
+		</div>
+		<div class="unit">
+			&nbsp;<%= item.unit unless item.unit %>
+		</div>
+		<div class="price">
+			<%= formatted_amount(item.price) %>
+		</div>
+		<div class="amount">
+			<%= formatted_amount(item.amount) %>
+		</div>
+	</div>
+<% end %>
+

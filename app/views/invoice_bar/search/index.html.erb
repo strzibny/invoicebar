@@ -1,0 +1,201 @@
+<% if @invoices.size == 0 && @invoice_templates.size == 0 && @receipts.size == 0 && @receipt_templates.size == 0 && @contacts.size == 0 %>
+	<div class="no-data">
+		<%= t('invoice_bar.nothing_found') %>
+	</div>
+<% end %>
+
+<% if @invoices.size > 0 %>
+	<h3>
+		<%= t('titles.invoices') %>
+	</h3>
+	<table class="table table-striped table-bordered table-hover">
+		<thead>
+		 	<tr>
+	      <th class="number hidden-phone">
+					<%= t('attributes.invoice.number') %>
+				</th>
+				<th class="contact_name">
+					<%= t('attributes.invoice.contact_name') %>
+				</th>
+		     <th class="issue_date hidden-phone">
+					<%= t('attributes.invoice.issue_date') %>
+				</th>
+				<th class="due_date hidden-phone">
+					<%= t('attributes.invoice.due_date') %>
+				</th>
+				<th class="amount">
+					<%= t('attributes.invoice.amount') %>
+				</th>
+				<th>
+					Stav
+				</th>
+	    </tr>
+		</thead>
+		<tbody>
+			<% @invoices.each do |invoice| %>
+				<tr>
+					<td class="number hidden-phone">
+						<span><%= link_to invoice do %><%= invoice.number %><% end %></span>
+					</td>
+					<td class="contact_name">
+						<span><%= invoice.contact_name %></span>
+					</td>
+					<td class="issue_date hidden-phone">
+						<span><%= l(invoice.issue_date) %></span>
+					</td>
+					<td class="due_date hidden-phone">
+						<span><%= l(invoice.due_date) %></span>
+					</td>
+					<td class="amount">
+						<span><%= invoice.amount %></span>
+					</td>
+					<td class="state">
+						<% if invoice.paid %>
+							<%= link_to 'Zaplaceno', invoice_path(invoice), class: 'btn-small btn-success btn-no-link' %>
+						<% elsif invoice.due_date >= Date.today and invoice.issued? %>	
+							<% if invoice.sent? %>
+								<%= link_to 'Posláno', invoice_path(invoice), class: 'btn-small btn-info btn-no-link' %>
+							<% else %>
+								<%= link_to 'Neposláno', invoice_path(invoice), class: 'btn-small btn-warning btn-no-link' %>
+							<% end %>
+						<% else %>
+							<%= link_to 'Nezaplaceno', invoice_path(invoice), class: 'btn-small btn-danger btn-no-link' %>
+						<% end %>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
+
+<% if @receipts.size > 0 %>
+	<h3>
+		<%= t('titles.receipts') %>
+	</h3>
+	<table class="table table-striped table-bordered table-hover">
+		<thead>
+		  <tr>
+	      <th class="number hidden-phone">
+					<%= t('attributes.receipt.number') %>
+				</th>
+				<th class="contact_name">
+					<%= t('attributes.receipt.contact_name') %>
+				</th>
+	      <th class="issue_date hidden-phone">
+					<%= t('attributes.receipt.issue_date') %>
+				</th>
+				<th class="amount">
+					<%= t('attributes.receipt.amount') %>
+				</th>
+	    </tr>
+		</thead>
+		<tbody>
+			<% @receipts.each do |receipt| %>
+				<tr>
+					<td class="number hidden-phone">
+						<span><%= link_to receipt do %><%= receipt.number %><% end %></span>
+					</td>
+					<td class="contact_name">
+						<span><%= receipt.contact_name %></span>
+					</td>
+					<td class="issue_date hidden-phone">
+						<span><%= l(receipt.issue_date) %></span>
+					</td>
+					<td class="amount">
+						<span><%= receipt.amount %></span>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
+
+<% for invoice_template in @invoice_templates %>
+	<h3>
+		<%= t('titles.invoice_templates') %>
+	</h3>
+	<table class="table table-striped table-bordered table-hover">
+		<thead>
+		    <tr>
+		      <th class="name"><%= t('attributes.invoice_template.name') %></th>
+					<th class="contact_name"><%= t('attributes.invoice_template.contact_name') %></th>				
+					<th class="amount"><%= t('attributes.invoice_template.amount') %></th>
+		    </tr>
+		  </thead>
+		<tbody>
+			<% @invoice_templates.each do |invoice| %>
+				<tr>
+					<td class="name">
+						<span><%= link_to invoice do %><%= invoice.name %><% end %></span>
+					</td>
+					<td class="contact_name">
+						<span><%= invoice.contact_name %></span>
+					</td>
+					<td class="amount">
+						<span><%= invoice.amount %></span>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
+
+<% for receipt_template in @receipt_templates %>
+	<h3>
+		<%= t('titles.receipt_templates') %>
+	</h3>
+	<table class="table table-striped table-bordered table-hover">
+		<thead>
+			<tr>
+		    <th class="name"><%= t('attributes.receipt_template.name') %></th>
+				<th class="contact_name"><%= t('attributes.receipt_template.contact_name') %></th>				
+				<th class="amount"><%= t('attributes.receipt_template.amount') %></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @receipt_templates.each do |receipt| %>
+				<tr>
+					<td class="name">
+						<span><%= link_to receipt do %><%= receipt.name %><% end %></span>
+					</td>
+					<td class="contact_name">
+						<span><%= receipt.contact_name %></span>
+					</td>
+					<td class="amount">
+						<span><%= receipt.amount %></span>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
+
+<% for contact in @contacts %>
+	<h3>
+		<%= t('titles.contacts.list') %>
+	</h3>
+	<table class="table table-striped table-bordered table-hover">
+		<thead>
+		    <tr>
+		      <th class="name"><%= t('attributes.contact.name') %></th>
+					<th><%= t('attributes.contact.ic') %></th>
+					<th class="hidden-phone"><%= t('attributes.contact.email') %></th>
+				</tr>
+		  </thead>
+		<tbody>
+			<% @contacts.each do |contact| %>
+				<tr>
+					<td class="name">
+						<span><%= link_to contact do %><%= contact.name %><% end %></span>
+					</td>
+					<td>
+						<span><%= contact.ic %></span>
+					</td>
+					<td class="hidden-phone">
+						<span><%= contact.email %></span>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>

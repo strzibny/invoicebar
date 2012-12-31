@@ -1,0 +1,22 @@
+<%# Address fields for an party in invoices#show %>
+
+<div class="address">
+	<div class="street-line">
+		<div class="street">
+			<%= address.street %> <%= address.street_number %>
+		</div>
+	</div>
+	<div class="city-line">
+		<div class="city">
+			<%= formatted_postcode(address.postcode) %>
+			<%= address.city %>
+			<% unless address.city_part.empty? %>
+				<br>
+				<%= address.city_part %>
+			<% end %>
+		</div>
+	</div>
+	<div class="extra-address-line">
+		<%= address.extra_address_line unless address.extra_address_line.empty? %>
+	</div>
+</div>

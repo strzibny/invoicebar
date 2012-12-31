@@ -1,0 +1,424 @@
+cs:
+  invoice_bar:
+    invoice_bar: FakturačníBar
+    navbar:
+      dashboard: Přehled
+      invoices: Faktury
+      receipts: Doklady
+      contacts: Kontakty
+      users: Správa uživatelů
+      currencies: Správa měn
+      profile: Nastavení
+      settings: Nastavení
+      stats: Statistiky
+      accounts: Účty
+      search: Vyhledat
+      logout: Odhlásit se
+    nothing_found: Nic nenalezeno
+    no_data: Žádná data k dispozici
+  navigation:
+    all: Všechny
+    received: Přijaté
+    issued: Vydané
+    expence: Výdajové
+    income: Příjmové
+  form:
+    contact: pro/od firmy
+    from_date: od data
+    to_date: do data
+    from_amount: od částky
+    to_amount: do částky
+    bill_number: číslo dokladu
+  keywords:
+    payment: Platba
+  titles:
+    receipts: Doklady
+    receipt_templates: Šablony
+    invoices: Faktury
+    invoice_templates: Šablony
+    invoice_pdf: Faktura
+    number: č.
+    bill: Účetní doklad
+    users:
+      list: Uživatelé
+      new: Registrace
+      edit: Profil
+    contacts: 
+      list: Kontakty
+      new: Přidat kontakt
+      edit: Změnit kontakt
+    accounts:
+      list: Účty
+      new: Přidat účet
+      edit: Změnit účet
+    currencies: 
+      list: Měny
+      new: Přidat měnu
+      edit: Změnit měnu
+  links:
+    new_invoice: Nová faktura
+    new_invoice_for_contact: Pro klienta
+    new_invoice_from_template: Ze šablony
+    new_invoice_template: Nová šablona faktury
+    new_receipt: Nový doklad
+    new_receipt_template: Nová šablona dokladu
+    new_receipt_for_contact: Pro klienta
+    new_receipt_from_template: Ze šablony
+    new_item: Nová položka
+    new_account: Nový účet
+    delete_item: Smazat
+    prefill: Použít   
+  buttons:
+    all: Všechny
+    paid: Zaplaceno
+    not_paid: Nezaplaceno
+    sent: Posláno
+    not_sent:  Neposláno
+    filter: Filtrovat
+    save: Uložit
+    new_contact: Přidat kontakt
+    add: Přidat položku
+    delete_selected: Smazat vybrané
+    edit: Upravit
+    destroy: Smazat
+    destroy_confirm: Určitě smazat?
+    login: Přihlásit
+    logout: Odhlásit se
+    signup: Registrovat
+  inputs:
+    remember_me: Zapamatovat?
+  models:
+    user: Uživatel
+    invoice_template_item: Položka faktury
+    invoice_template: Šablona faktury
+    item: Položka faktury
+    invoice: Faktura
+    currency: Měna
+    contact: Kontakt
+    address: Adresa
+    account: Účet
+  attributes: &attributes
+    user:
+      id: ID
+      address_id: Adresa
+      bill_number_format: Formát čísla vydaných dokladů
+      email: E-mail
+      ic: IČ
+      invoice_number_format: Formát čísla faktur
+      name: Jméno
+      next_bill_number: Číslo dalšího vydaného dokladu
+      next_invoice_number: Číslo další faktury
+      next_received_bill_number: Číslo dalšího přijatého dokladu
+      phone: Telefon
+      received_bill_number_format: Formát čísla přijatých dokladů
+      web: Web
+      password: Heslo
+      account: Účet
+    currency:
+      name: Označení měny
+      symbol: Symbol
+      priority: Priorita pořadí
+    address:
+      city: Město
+      city_part: Městská část
+      extra_address_line: Volitelný řádek adresy
+      postcode: PSČ
+      city_and_postcode: PSČ a město
+      street: Ulice
+      street_number: Číslo
+      street_and_number: Ulice a číslo popisné
+    account:
+      amount: Částka
+      bank_account_number: Číslo bankovního účtu
+      currency_id: Měna
+      iban: IBAN
+      name: Název účtu
+      swift: BIC/SWIFT
+      user_id: Uživatel
+    contact:
+      address_id: Adresa
+      bank_account: Číslo bankovního účtu
+      dic: DIČ
+      email: E-mail
+      ic: IČ
+      name: Jméno osoby/Název firmy
+      phone: Telefon
+      web: Web
+      user_id: Uživatel
+    invoice:
+      status: Stav
+      payment: Platba
+      purchaser: Odběratel
+      provider: Dodavatel
+      account_id: Účet
+      amount: Celková částka
+      contact_address_id: Adresa
+      contact_dic: DIČ
+      contact_ic: IČ
+      contact_name: Firma
+      currency_id: Měna
+      due_date: Datum splatnosti
+      issue_date: Datum vystavení
+      number: Číslo faktury
+      paid: Zaplaceno?
+      payment_identification_number: Variabilní symbol
+      published: Vystaveno?
+      sent: Posláno?
+      user_address_id: Adresa uživatele
+      user_id: Uživatel
+    invoice_template:
+      account_id: Účet
+      amount: Celková částka
+      contact_address_id: Adresa
+      contact_dic: DIČ
+      contact_ic: IČ
+      contact_name: Firma
+      currency_id: Měna
+      due_date: Datum splatnosti
+      issue_date: Datum vystavení
+      name: Název šablony
+      payment_identification_number: Variabilní symbol
+      user_address_id: Adresa uživatele
+      user_id: Uživatel
+    receipt:
+      payment: Platba
+      purchaser: Odběratel
+      provider: Dodavatel
+      account_id: Účet
+      amount: Celková částka
+      contact_address_id: Adresa
+      contact_dic: DIČ
+      contact_ic: IČ
+      contact_name: Firma
+      currency_id: Měna
+      due_date: Datum splatnosti
+      issue_date: Datum vystavení
+      number: Číslo dokladu
+      paid: Zaplaceno?
+      payment_identification_number: Variabilní symbol
+      published: Vystaveno?
+      sent: Posláno?
+      user_address_id: Adresa uživatele
+      user_id: Uživatel
+    receipt_template:
+      account_id: Účet
+      amount: Celková částka
+      contact_address_id: Adresa
+      contact_dic: DIČ
+      contact_ic: IČ
+      contact_name: Firma
+      currency_id: Měna
+      due_date: Datum splatnosti
+      issue_date: Datum vystavení
+      name: Název šablony
+      payment_identification_number: Variabilní symbol
+      user_address_id: Adresa uživatele
+      user_id: Uživatel  
+    item:
+      amount: Celková částka
+      invoice_id: Faktura
+      name: Položka
+      number: Počet
+      price: Cena za MJ
+      unit: MJ
+      default_unit: ks
+    invoice_template_item:
+      amount: Celková částka
+      invoice_id: Faktura
+      name: Popis
+      number: Počet
+      price: Cena za MJ
+      unit: MJ
+  date:
+    abbr_day_names:
+    - Ne
+    - Po
+    - Út
+    - St
+    - Čt
+    - Pá
+    - So
+    abbr_month_names:
+    - 
+    - Led
+    - Úno
+    - Bře
+    - Dub
+    - Kvě
+    - Čvn
+    - Čvc
+    - Srp
+    - Zář
+    - Říj
+    - Lis
+    - Pro
+    day_names:
+    - Neděle
+    - Pondělí
+    - Úterý
+    - Středa
+    - Čtvrtek
+    - Pátek
+    - Sobota
+    formats:
+      default: ! '%d. %m. %Y'
+      long: ! '%d. %B %Y'
+      short: ! '%d %b'
+      invoice: ! '%d. %m. %Y'
+    month_names:
+    - 
+    - Leden
+    - Únor
+    - Březen
+    - Duben
+    - Květen
+    - Červen
+    - Červenec
+    - Srpen
+    - Září
+    - Říjen
+    - Listopad
+    - Prosinec
+    order:
+    - :day
+    - :month
+    - :year
+  errors: &errors
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: musí být potvrzeno
+      blank: je povinná položka
+      confirmation: nebylo potvrzeno
+      empty: nesmí být prázdný/á/é
+      equal_to: musí být rovno %{count}
+      even: musí být sudé číslo
+      exclusion: je vyhrazeno pro jiný účel
+      greater_than: musí být větší než %{count}
+      greater_than_or_equal_to: musí být větší nebo rovno %{count}
+      inclusion: není v seznamu povolených hodnot
+      invalid: není platná hodnota
+      less_than: musí být méně než %{count}
+      less_than_or_equal_to: musí být méně nebo rovno %{count}
+      not_a_number: není číslo
+      not_an_integer: musí být celé číslo
+      odd: musí být liché číslo
+      uniqueness: není unikátní (již existuje)
+      record_invalid: ! 'Validace je neúspešná: %{errors}'
+      taken: již databáze obsahuje
+      too_long: je příliš dlouhý/á/é (max. %{count} znaků)
+      too_short: je příliš krátký/á/é (min. %{count} znaků)
+      wrong_length: nemá správnou délku (očekáváno %{count} znaků)
+    template:
+      body: ! 'Následující pole obsahují chybně vyplněné údaje: '
+      header:
+        one: Při ukládání došlo k chybě
+        few: Při ukládání došlo k %{count} chybám
+        other: Při ukládání došlo k %{count} chybám
+  helpers:
+    select:
+      prompt: Prosím vyberte si
+    submit:
+      create: Vytvořit %{model}
+      submit: Uložit %{model}
+      update: Aktualizovat %{model}
+  number:
+    currency:
+      format:
+        delimiter: ! ' '
+        format: ! '%n %u'
+        precision: 2
+        separator: ! ','
+        significant: false
+        strip_insignificant_zeros: false
+        unit: Kč
+    format:
+      delimiter: ! ','
+      precision: 3
+      separator: .
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion: Miliarda
+          million: Milion
+          quadrillion: Kvadrilion
+          thousand: Tisíc
+          trillion: Bilion
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 1
+        significant: false
+        strip_insignificant_zeros: false
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte: B
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: ! ' a '
+      two_words_connector: ! ' a '
+      words_connector: ! ', '
+  time:
+    am: am
+    formats:
+      default: ! '%a %d. %B %Y %H:%M %z'
+      long: ! '%A %d. %B %Y %H:%M'
+      short: ! '%d. %m. %H:%M'
+    pm: pm
+  activemodel:
+    errors:
+      <<: *errors
+  activerecord:
+    errors:
+      <<: *errors
+    models:
+      user: uživatele
+      invoice_template: šablony
+      invoice: faktury
+      receipt: dokladu
+      receipt_templates: šablony
+      currency: měny
+      contact: kontaktu
+      address: adresy
+      account: účtu
+    attributes:
+      <<: *attributes
+  views:
+    pagination:
+      first: "&laquo; Na začátek"
+      last: "Na konec &raquo;"
+      previous: "&lsaquo; Předchozí"
+      next: "Následující &rsaquo;"
+      truncate: "&hellip;"
+  flash:
+    actions:
+      create:
+        notice: "V pořádku vytvořeno."
+      update:
+        notice: "V pořádku změněno."
+      destroy:
+        notice: "Smazáno."
+        alert: "Nepodařilo se smazat."
+  messages:
+    not_authenticated: Prosím přihlašte se.
+    not_administrator: Pro daný úkon nemáte potřebná práva.
+    cannot_log_in: Přihlášení se nepodařilo. Prosím zkontrolujte své přihlašovací údaje.
+    ic_loaded: Informace o subjektu načteny.
+    cannot_load_ic: Nepodařilo se načíst údaje z databáze ARES.
+    signed_up: Byli jste v pořádku zaregistrování. Prosím, přihlašte se.
+    logged_out: Byli jste v pořádku odhlášení.
+    no_currencies: Nejdříve vytvořte měnu.
+    no_accounts: Nejdříve vytvořte účet.

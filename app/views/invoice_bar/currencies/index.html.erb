@@ -1,0 +1,40 @@
+<%= content_for :sub_navigation do %>
+	<ul class="nav nav-pills">
+			<div class="btn-group">
+			  <a class="btn btn-success" href="<%= new_currency_path %>"><i class="icon-plus icon-white"></i> <%= t('titles.currencies.new') %></a>
+			</div>
+	</ul>
+<% end %>
+
+<h1><%= t('titles.currencies.list') %></h1>
+
+<table class="table table-striped table-bordered table-hover">
+	<thead>
+	    <tr>
+	      <th><%= t('attributes.currency.name') %></th>
+				<th><%= t('attributes.currency.symbol') %></th>
+				<th><%= t('attributes.currency.priority') %></th>
+			</tr>
+	  </thead>
+	<tbody>
+		<% @currencies.each do |currency| %>
+			<tr>
+				<td>
+					<span><%= link_to currency do %><%= currency.name %><% end %></span>
+				</td>
+				<td>
+					<span><%= currency.symbol %></span>
+				</td>
+				<td>
+					<span><%= currency.priority %></span>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<% if @currencies.size == 0 %>
+	<div class="no-data">
+		<%= t('invoice_bar.no_data') %>
+	</div>
+<% end %>

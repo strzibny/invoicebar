@@ -1,0 +1,23 @@
+<%# Contact main fields %>
+
+<div class="control-group">
+  <%= f.label :contact_name, I18n.t('attributes.invoice.contact_name') %>
+  <%= f.text_field :contact_name, placeholder: I18n.t('attributes.invoice.contact_name'), class: 'suggested contact_name' %>
+	<% unless @contacts.size == 0 %>
+	<div class="input-append">
+		<%= select_tag :contact_id, options_from_collection_for_select(@contacts, :id, :name), class: 'contact_name-select' %>
+		<%= f.submit t('links.prefill'), name: 'fill_in_contact', class: 'btn btn-small load-contact-button' %>
+	</div>
+	<% end %>
+</div>
+<div class="control-group">
+  <%= f.label :contact_ic, I18n.t('attributes.invoice.contact_ic') %>
+	<div class="input-append">
+  	<%= f.text_field :contact_ic, placeholder: I18n.t('attributes.invoice.contact_ic'), class: 'suggested contact_ic' %>
+		<%= f.submit 'Načíst', name: 'ic', class: 'btn btn-medium load-ic-button' %>
+	</div>
+</div>
+<div class="control-group">
+  <%= f.label :contact_dic, I18n.t('attributes.invoice.contact_dic') %>
+  <%= f.text_field :contact_dic, placeholder: I18n.t('attributes.invoice.contact_dic'), class: 'optional contact_dic' %>
+</div>

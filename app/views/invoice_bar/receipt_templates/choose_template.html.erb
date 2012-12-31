@@ -1,0 +1,7 @@
+<h1>Listing invoice_templates</h1>
+
+<% @receipt_templates.each do |template| %>
+	<%= link_to template.name, receipt_from_template_path(template) %>
+<% end %>
+
+<%= link_to 'New receipt template', new_receipt_template_path %>
