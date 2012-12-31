@@ -29,3 +29,4 @@ First created user is an administrator, who should create list of currencies. Th
 * Contacts -- address book with autofilling when creating bills
 * Invoice and receipt templates
 * Loading contact information by IČ from ARES database when creating bills
+* Search
