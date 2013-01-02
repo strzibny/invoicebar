@@ -11,6 +11,12 @@ module InvoiceBar
     before_filter :fetch_user_contacts, :only => [:new, :create, :edit, :update, :from_template]
     before_filter :fetch_user_receipt_templates, :only => [:new, :create, :edit, :update, :from_template]
   
+    def index
+      @receipts = current_user.receipts.page(params[:page])
+      
+      index! {}
+    end
+    
     def show
       @receipt = current_user.receipts.find(params[:id])
       @address = @receipt.address
@@ -127,10 +133,6 @@ module InvoiceBar
     end
   
     protected
-    
-      def begin_of_association_chain
-        current_user
-      end
     
       def filter_params(bills)
         @bills = bills.for_numbers(params[:number])

@@ -11,6 +11,12 @@ module InvoiceBar
     before_filter :fetch_user_contacts, :only => [:new, :create, :edit, :update, :from_template]
     before_filter :fetch_user_invoice_templates, :only => [:new, :create, :edit, :update, :from_template]
   
+    def index
+      @invoices = current_user.invoices.page(params[:page])
+      
+      index! {}
+    end
+    
     def show
       @invoice = current_user.invoices.find(params[:id])
       @address = @invoice.address

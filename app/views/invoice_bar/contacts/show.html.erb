@@ -1,43 +1,47 @@
-<div class="span12" style="padding-bottom:20px">
-	<%= link_to t('buttons.edit'), edit_contact_path(@contact), class: 'btn' %>
-	<%= link_to t('buttons.destroy'), contact_path(@contact), method: :delete, confirm: t('buttons.destroy_confirm'), class: 'btn' %>
-</div>
+<div class="controller">
+	<div class="row">
+		<div class="span12" style="padding-bottom:20px">
+			<%= link_to t('buttons.edit'), edit_contact_path(@contact), class: 'btn' %>
+			<%= link_to t('buttons.destroy'), contact_path(@contact), method: :delete, confirm: t('buttons.destroy_confirm'), class: 'btn' %>
+		</div>
 
-<div class="show span4">
-  <b><%= t('attributes.contact.name') %></b>
-  <%= @contact.name %>
-	<br>
-  <b><%= t('attributes.contact.email') %></b>
-  <%= @contact.email %>
-	<br>
-  <b><%= t('attributes.contact.phone') %></b>
-  <%= @contact.phone %>
-	<br>
-  <b><%= t('attributes.contact.web') %></b>
-  <%= @contact.web %>
-	<br>
-  <b><%= t('attributes.contact.bank_account') %></b>
-  <%= @contact.bank_account %>
-	<br>
-  <b><%= t('attributes.contact.ic') %></b>
-  <%= @contact.ic %>
-	<br>
-  <b><%= t('attributes.contact.dic') %></b>
-  <%= @contact.dic %>
-</div>
+		<div class="show span4">
+		  <b><%= t('attributes.contact.name') %></b>
+		  <%= @contact.name %>
+			<br>
+		  <b><%= t('attributes.contact.email') %></b>
+		  <%= @contact.email %>
+			<br>
+		  <b><%= t('attributes.contact.phone') %></b>
+		  <%= @contact.phone %>
+			<br>
+		  <b><%= t('attributes.contact.web') %></b>
+		  <%= @contact.web %>
+			<br>
+		  <b><%= t('attributes.contact.bank_account') %></b>
+		  <%= @contact.bank_account %>
+			<br>
+		  <b><%= t('attributes.contact.ic') %></b>
+		  <%= @contact.ic %>
+			<br>
+		  <b><%= t('attributes.contact.dic') %></b>
+		  <%= @contact.dic %>
+		</div>
 
-<% if @contact.address %>
-	<div class="show span4">
-			<b><%= t('attributes.address.street') %></b>
-			<%= @contact.address.street %> <%= @contact.address.street_number %>
-			<br>
-			<b><%= t('attributes.address.city') %></b>
-			<%= @contact.address.postcode %> <%= @contact.address.city %>
-			<br>
-			<b><%= t('attributes.address.city_part') %></b>
-			<%= @contact.address.city_part %>
-			<br>
-			<b><%= t('attributes.address.extra_address_line') %></b>
-			<%= @contact.address.extra_address_line %>
-	</div>
-<% end %>
+		<% if @contact.address %>
+			<div class="show span4">
+					<b><%= t('attributes.address.street') %></b>
+					<%= @contact.address.street %> <%= @contact.address.street_number %>
+					<br>
+					<b><%= t('attributes.address.city') %></b>
+					<%= @contact.address.postcode %> <%= @contact.address.city %>
+					<br>
+					<b><%= t('attributes.address.city_part') %></b>
+					<%= @contact.address.city_part %>
+					<br>
+					<b><%= t('attributes.address.extra_address_line') %></b>
+					<%= @contact.address.extra_address_line %>
+			</div>
+		<% end %>
+	<div>
+</div>
