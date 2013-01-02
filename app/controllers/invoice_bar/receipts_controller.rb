@@ -128,6 +128,10 @@ module InvoiceBar
   
     protected
     
+      def begin_of_association_chain
+        current_user
+      end
+    
       def filter_params(bills)
         @bills = bills.for_numbers(params[:number])
                       .within_dates(params[:from_date], params[:to_date])

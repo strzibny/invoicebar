@@ -14,6 +14,7 @@
 						<li class="<%= active_for_controller('/invoice') %>"><%= link_to t('invoice_bar.navbar.invoices'), invoices_path %></li>
 						<li class="<%= active_for_controller('/receipt') %>"><%= link_to t('invoice_bar.navbar.receipts'), receipts_path %></li>
 						<li class="<%= active_for_controller('/contact') %>"><%= link_to t('invoice_bar.navbar.contacts'), contacts_path %></li>
+						<li class="<%= active_for_controller('/account') %>"><%= link_to t('invoice_bar.navbar.accounts'), accounts_path %></li>
 						<li class="<%= active_for_controller('/settings') %>"><%= link_to t('invoice_bar.navbar.profile'), profile_path %></li>
 						<% if current_user.administrator %>
 							<li class="<%= active_for_controller('/users') %>"><%= link_to t('invoice_bar.navbar.users'), users_path %></li>

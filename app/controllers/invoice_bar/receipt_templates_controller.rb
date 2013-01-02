@@ -94,6 +94,10 @@ module InvoiceBar
   
     protected
   
+      def begin_of_association_chain
+        current_user
+      end
+        
       def collection
         @receipt_templates ||= end_of_association_chain.page(params[:page])
       end
