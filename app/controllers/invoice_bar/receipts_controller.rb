@@ -11,8 +11,6 @@ module InvoiceBar
     before_filter :fetch_user_contacts, :only => [:new, :create, :edit, :update, :from_template]
     before_filter :fetch_user_receipt_templates, :only => [:new, :create, :edit, :update, :from_template]
   
-    #prawnto :prawn => { :top_margin => 75 }
-
     def show
       @receipt = current_user.receipts.find(params[:id])
       @address = @receipt.address

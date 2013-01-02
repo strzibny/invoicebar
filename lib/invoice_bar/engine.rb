@@ -3,6 +3,7 @@
 require 'bootstrap-sass'
 require 'kaminari'
 require 'prawn'
+require 'prawnto'
 require 'jquery-rails'
 require 'jquery-ui-rails'
 require 'sorcery'
