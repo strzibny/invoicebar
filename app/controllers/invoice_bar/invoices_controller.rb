@@ -192,10 +192,6 @@ module InvoiceBar
   
     protected
     
-      def begin_of_association_chain
-        current_user
-      end
-    
       def filter_params(bills)
         unless params[:from_amount].blank?
           params[:from_amount] = FormattedMoney.cents(params[:from_amount])
