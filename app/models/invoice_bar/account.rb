@@ -17,6 +17,8 @@ module InvoiceBar
   
     belongs_to :currency 
     belongs_to :user
+    has_many :invoices
+    has_many :receipts
   
     validates :currency_id, :presence => true
     validates :user_id, :presence => true
@@ -34,6 +36,20 @@ module InvoiceBar
     
     def currency_symbol
       currency.symbol if currency
+    end
+    
+    def balance
+      balance = amount
+      
+      self.receipts.expense.each do |receipt|
+        balance = balance - receipt.amount
+      end
+      
+      self.receipts.income.each do |receipt|
+        balance = balance + receipt.amount
+      end
+      
+      balance
     end
   
     private

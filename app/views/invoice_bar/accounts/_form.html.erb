@@ -20,6 +20,10 @@
     <%= f.label :currency_id, t('attributes.account.currency_id') %>
     <%= f.collection_select :currency_id, @currencies, :id, :name %>
   </div>
+	<div class="control-group">
+    <%= f.label :amount, t('attributes.account.amount') %>
+    <%= f.text_field :amount, placeholder: t('attributes.account.amount'), class: 'suggested' %>
+  </div>
   <%= f.hidden_field :user_id %>
   <%= f.submit t('buttons.save'), class: 'btn btn-primary' %>
 <% end %>

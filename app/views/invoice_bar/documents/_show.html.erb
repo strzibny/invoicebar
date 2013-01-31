@@ -6,6 +6,8 @@
 		<%= link_to t('buttons.edit'), edit_invoice_path(document), class: 'btn' %>
 		<%= link_to t('buttons.destroy'), invoice_path(document), method: :delete, confirm: t('buttons.destroy_confirm'), class: 'btn' %>
 		<%= link_to "Zobrazit v PDF", invoice_path(document, format: 'pdf'), class: 'btn' %>
+		
+
 <% end %>
 
 <% if document.instance_of? InvoiceBar::Receipt %>

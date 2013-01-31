@@ -5,7 +5,7 @@ module InvoiceBar
     before_filter :require_login
     
     def index
-      redirect_to invoices_path
+      @accounts = current_user.accounts
     end
   end
 end

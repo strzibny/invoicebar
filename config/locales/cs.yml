@@ -128,7 +128,8 @@ cs:
       street_number: Číslo
       street_and_number: Ulice a číslo popisné
     account:
-      amount: Částka
+      balance: Zůstatek
+      amount: Počáteční zůstatek
       bank_account_number: Číslo bankovního účtu
       currency_id: Měna
       iban: IBAN
