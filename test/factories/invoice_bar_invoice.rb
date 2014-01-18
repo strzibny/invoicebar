@@ -12,7 +12,7 @@ FactoryGirl.define do
     account { FactoryGirl.create(:invoice_bar_account) }
     items { [FactoryGirl.build(:invoice_bar_item)] }
   end
-  
+
   factory :invoice_bar_incomplete_invoice, class: InvoiceBar::Invoice do
     number { generate :invoice_bar_invoice_number }
     contact_name 'Company'

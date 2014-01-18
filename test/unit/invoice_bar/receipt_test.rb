@@ -18,23 +18,23 @@ class InvoiceBar::ReceiptTest < ActiveSupport::TestCase
   should accept_nested_attributes_for :items
   should have_one(:address).dependent(:destroy)
   should have_many(:items).dependent(:destroy)
-  
+
   test "receipt should validate uniqueness of number" do
-    user = FactoryGirl.create(:invoice_bar_user)   
-    receipt = FactoryGirl.create(:invoice_bar_receipt, number: '2', user: user)   
+    user = FactoryGirl.create(:invoice_bar_user)
+    receipt = FactoryGirl.create(:invoice_bar_receipt, number: '2', user: user)
     new_receipt = FactoryGirl.build(:invoice_bar_receipt, number: '2', user: user)
-    
+
     assert_equal false, new_receipt.valid?
 
     new_receipt = FactoryGirl.build(:invoice_bar_receipt, user: user)
-    
+
     assert_equal true, new_receipt.valid?
   end
-  
+
   test "receipt should apply template" do
-    receipt_template = FactoryGirl.build(:invoice_bar_filled_receipt_template)  
-    orig_receipt = FactoryGirl.build(:invoice_bar_incomplete_receipt) 
-    receipt = FactoryGirl.build(:invoice_bar_incomplete_receipt) 
+    receipt_template = FactoryGirl.build(:invoice_bar_filled_receipt_template)
+    orig_receipt = FactoryGirl.build(:invoice_bar_incomplete_receipt)
+    receipt = FactoryGirl.build(:invoice_bar_incomplete_receipt)
     receipt.apply_template(receipt_template)
 
     assert_equal orig_receipt.contact_name, receipt.contact_name
@@ -43,6 +43,6 @@ class InvoiceBar::ReceiptTest < ActiveSupport::TestCase
     assert_not_equal receipt_template.contact_dic, receipt.contact_dic
     assert_not_equal orig_receipt.issue_date, receipt.issue_date
     assert_equal orig_receipt.address_city, receipt.address_city
-    assert_equal orig_receipt.address_street, receipt.address_street 
-  end 
+    assert_equal orig_receipt.address_street, receipt.address_street
+  end
 end

@@ -6,8 +6,8 @@ class InvoiceBar::InvoicesControllerTest < ActionController::TestCase
   setup do
     @user = FactoryGirl.create(:invoice_bar_user)
     @account = FactoryGirl.create(:invoice_bar_account, :user => @user)
-    @invoice = FactoryGirl.create(:invoice_bar_invoice, :user => @user, :account => @account)   
-    
+    @invoice = FactoryGirl.create(:invoice_bar_invoice, :user => @user, :account => @account)
+
     login_user
   end
 
@@ -24,14 +24,14 @@ class InvoiceBar::InvoicesControllerTest < ActionController::TestCase
 
   test "should create invoice" do
     @new_invoice = FactoryGirl.build(:invoice_bar_invoice, :user => @user, :account => @account)
-    
+
     assert_difference('InvoiceBar::Invoice.count') do
       post :create, invoice: {
         number: @new_invoice.number,
         amount: @new_invoice.amount,
         contact_name: @new_invoice.contact_name,
         contact_ic: @new_invoice.contact_ic,
-        contact_dic: @new_invoice.contact_dic, 
+        contact_dic: @new_invoice.contact_dic,
         due_date: @new_invoice.due_date,
         issue_date: @new_invoice.issue_date,
         payment_identification_number: @new_invoice.payment_identification_number,
@@ -53,12 +53,12 @@ class InvoiceBar::InvoicesControllerTest < ActionController::TestCase
   end
 
   test "should update invoice" do
-    put :update, id: @invoice, invoice: { 
+    put :update, id: @invoice, invoice: {
       number: @invoice.number,
       amount: @invoice.amount,
       contact_name: @invoice.contact_name,
       contact_ic: @invoice.contact_ic,
-      contact_dic: @invoice.contact_dic, 
+      contact_dic: @invoice.contact_dic,
       due_date: @invoice.due_date,
       issue_date: @invoice.issue_date,
       payment_identification_number: @invoice.payment_identification_number,

@@ -4,17 +4,17 @@ module InvoiceBar
   class ReceiptTemplatesController < InvoiceBar::ApplicationController
     inherit_resources
     respond_to :html, :json
-    
+
     before_filter :require_login
     before_filter :fetch_user_contacts, :only => [:new, :create, :edit, :update]
     before_filter :fetch_user_accounts, :only => [:new, :create, :edit, :update]
 
     def index
       @receipt_templates = current_user.receipt_templates.page(params[:page])
-      
+
       index! {}
     end
-    
+
     def show
       @receipt_template = current_user.receipt_templates.find(params[:id])
       @address = @receipt_template.address
@@ -22,7 +22,7 @@ module InvoiceBar
 
       respond_to do |format|
         format.html
-        format.pdf 
+        format.pdf
         format.json { render json: @receipt_template }
       end
     end
@@ -37,11 +37,11 @@ module InvoiceBar
 
     def create
       flash[:notice], flash[:alert] = nil, nil
-      
+
       @receipt_template = ReceiptTemplate.new(params[:receipt_template])
-    
+
       fill_in_contact if params[:fill_in_contact]
-    
+
       if params[:ic]
         if (@receipt_template.load_contact_from_ic(@receipt_template.contact_ic))
           flash[:notice] = I18n.t('messages.ic_loaded')
@@ -49,7 +49,7 @@ module InvoiceBar
           flash[:alert] = I18n.t('messages.cannot_load_ic')
         end
       end
-    
+
       if params[:fill_in_contact] || params[:ic]
         respond_to do |format|
           format.html { render action: 'new' }
@@ -57,25 +57,25 @@ module InvoiceBar
         end
       else
         current_user.receipt_templates << @receipt_template
-      
+
         create! {}
       end
     end
-  
+
     def edit
       @receipt_template = ReceiptTemplate.find(params[:id])
       @receipt_template.build_address unless @receipt_template.address
-    
+
       edit!
     end
-    
+
     def update
       flash[:notice], flash[:alert] = nil, nil
-      
+
       @receipt_template = current_user.receipt_templates.find(params[:id])
-    
+
       fill_in_contact if params[:fill_in_contact]
-    
+
       if params[:ic]
         if (@receipt_template.load_contact_from_ic(@receipt_template.contact_ic))
           flash[:notice] = I18n.t('messages.ic_loaded')
@@ -83,7 +83,7 @@ module InvoiceBar
           flash[:alert] = I18n.t('messages.cannot_load_ic')
         end
       end
-    
+
       if params[:fill_in_contact] || params[:ic]
         respond_to do |format|
           format.html { render action: 'edit' }
@@ -93,17 +93,17 @@ module InvoiceBar
         update! {}
       end
     end
-    
+
     def destroy
       destroy! {}
     end
-  
+
     protected
-        
+
       def collection
         @receipt_templates ||= end_of_association_chain.page(params[:page])
       end
-      
+
       def fill_in_contact
         if params[:contact_id] and not params[:contact_id].blank?
           contact = current_user.contacts.find(params[:contact_id])

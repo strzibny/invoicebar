@@ -54,12 +54,12 @@ module Dummy
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    
+
     # Internationalization
     config.i18n.available_locales = :cs
     config.i18n.default_locale = :cs
     config.i18n.fallbacks = true
-    
+
     # Factories
     config.generators do |g|
       g.fixture_replacement :factory_girl

@@ -2,14 +2,14 @@
 
 module InvoiceBar
   # Module for billing concerns.
-  module Billable   
-    
+  module Billable
+
     # Filters for narrowing the results when listing bills
     module Filters
       extend ActiveSupport::Concern
-      
+
       included do
-        
+
         # Looks for bills that match +number+
         # and returns a collection of matching bills
         def self.for_numbers(number)
@@ -47,48 +47,48 @@ module InvoiceBar
 
           records
         end
-        
+
         def self.paid(is_paid)
           records = case is_paid
             when true then where('paid = ?', true)
             when false then where('paid = ?', false)
             else limit(nil)
           end
-          
+
           records
         end
-        
+
         def self.sent(is_sent)
           records = case is_sent
             when true then where('sent = ?', true)
             when false then where('sent = ?', false)
             else limit(nil)
           end
-          
+
           records
         end
-      end    
+      end
     end
-  
+
     # Specific features to invoicing. It specifies +due_date+ and
     # whether the invoice is received or issued.
     module Invoicing
       extend ActiveSupport::Concern
-      
+
       included do
         attr_accessible :due_date, :payment_identification_number, :issuer
         validates :payment_identification_number, numericality: true, allow_blank: true
-        
+
         class << self
           def received
             where(:issuer => false)
           end
-          
+
           def issued
             where(:issuer => true)
           end
         end
-        
+
         def received?
           unless self.issuer?
             true
@@ -102,25 +102,25 @@ module InvoiceBar
         end
       end
     end
-    
+
     # Specific features for receipts.
     # It specifies if the receipt is an expense or an income.
     module Receipting
       extend ActiveSupport::Concern
-      
-      included do       
+
+      included do
         attr_accessible :issuer
-         
+
         class << self
           def expense
             where(:issuer => false)
           end
-          
+
           def income
             where(:issuer => true)
           end
         end
-        
+
         def expense?
           unless self.issuer?
             true
@@ -134,32 +134,32 @@ module InvoiceBar
         end
       end
     end
-    
+
     # Common things for both invoices and receipts.
     module Base
       extend ActiveSupport::Concern
-      
+
       included do
         attr_accessible :amount, :contact_dic, :contact_ic, :contact_name, :issue_date, :issuer
 
         validates :contact_ic,  length: { in:  2..8 },  numericality: true, allow_blank: true
-        validates :contact_dic, length: { in:  4..14 }, allow_blank: true     
-        
+        validates :contact_dic, length: { in:  4..14 }, allow_blank: true
+
         # Generates a new bill from a given +template+.
         def self.from_template(template)
           bill = self.new
           bill.apply_template(template)
 
-          bill.address ||= invoice.build_address 
+          bill.address ||= invoice.build_address
           bill.issue_date = Date.today if bill.issue_date.blank?
-          
+
           if self.respond_to? :due_date
             bill.due_date = Date.today + 14.days if bill.due_date.blank?
           end
 
           bill
         end
-        
+
         # Applies values from the given +template+ to the bill.
         def apply_template(template)
           attributes = ['contact_name', 'contact_ic', 'contact_dic', 'issue_date']
@@ -178,7 +178,7 @@ module InvoiceBar
 
           self.contact_name ||= template.contact_name unless template.contact_name.blank?
           self.contact_ic ||= template.contact_ic unless template.contact_ic.blank?
-          self.contact_dic ||= template.contact_dic unless template.contact_dic.blank?  
+          self.contact_dic ||= template.contact_dic unless template.contact_dic.blank?
 
           if self.respond_to? :due_date
             self.due_date ||= template.due_date unless template.due_date.blank?
@@ -198,9 +198,9 @@ module InvoiceBar
 
           template.items.each do |item|
             self.items << item.copy
-          end  
+          end
         end
-        
+
         # Updates +amount+ from the associated items.
         def update_amount
           self.amount = 0
@@ -210,7 +210,7 @@ module InvoiceBar
             self.amount += item.amount unless item.amount.nil?
           end
         end
-        
+
         # Import and overwrites values from the given +contact+
         def use_contact(contact)
           self.contact_name = contact.name
@@ -232,7 +232,7 @@ module InvoiceBar
             contact = RubyARES::Subject.get(ic)
           rescue
             return false
-          end 
+          end
 
           self.contact_name = contact.name
           self.contact_ic = contact.ic
@@ -244,14 +244,14 @@ module InvoiceBar
           self.address.street_number = contact.address.street_number
           self.address.postcode = contact.address.postcode
 
-          return true  
+          return true
         end
       end
     end
-    
+
     module StrictValidations
       extend ActiveSupport::Concern
-      
+
       included do
         validates :issue_date,    presence: true
         validates :account_id,    presence: true
@@ -259,12 +259,12 @@ module InvoiceBar
         validates :contact_ic, length: { in:  2..8 }, numericality: true, allow_blank: true
       end
     end
-    
+
     # Associations for bills.
     module Associations
       module Base
         extend ActiveSupport::Concern
-  
+
         included do
           attr_accessible :account_id, :user_id,
                           :address, :address_attributes,
@@ -283,7 +283,7 @@ module InvoiceBar
           belongs_to :account
           belongs_to :user
 
-          has_one :address, as: :addressable, dependent: :destroy 
+          has_one :address, as: :addressable, dependent: :destroy
           has_many :items, as: :itemable, dependent: :destroy
 
           accepts_nested_attributes_for :items, allow_destroy: true, reject_if: :all_blank
@@ -295,7 +295,7 @@ module InvoiceBar
 
       module StrictValidations
         extend ActiveSupport::Concern
-  
+
         included do
           accepts_nested_attributes_for :address, allow_destroy: true, reject_if: false
         end

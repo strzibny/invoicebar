@@ -17,7 +17,7 @@ class CreateInvoiceBarUsers < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :invoice_bar_users, :reset_password_token
     add_index :invoice_bar_users, :remember_me_token
   end

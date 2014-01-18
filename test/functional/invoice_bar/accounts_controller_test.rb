@@ -4,9 +4,9 @@ require 'test_helper'
 
 class InvoiceBar::AccountsControllerTest < ActionController::TestCase
   setup do
-    @user = FactoryGirl.create(:invoice_bar_user)   
+    @user = FactoryGirl.create(:invoice_bar_user)
     @account = FactoryGirl.create(:invoice_bar_account, :user => @user)
-    
+
     login_user
   end
 
@@ -23,7 +23,7 @@ class InvoiceBar::AccountsControllerTest < ActionController::TestCase
 
   test "should create account" do
     @new_account = FactoryGirl.build(:invoice_bar_account, :name => 'Account', :user => @user)
-    
+
     assert_difference('InvoiceBar::Account.count') do
       post :create, account: {
         name:                @new_account.name,
@@ -61,5 +61,5 @@ class InvoiceBar::AccountsControllerTest < ActionController::TestCase
     assert_difference('InvoiceBar::Account.count', -1) do
       delete :destroy, id: @account, use_route: :invoice_bar
     end
-  end 
+  end
 end

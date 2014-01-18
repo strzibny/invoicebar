@@ -12,7 +12,7 @@ class CreateInvoiceBarReceiptTemplates < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :invoice_bar_receipt_templates, :name
   end
 end

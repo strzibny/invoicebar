@@ -1,15 +1,15 @@
 # encoding: utf-8
 
 module InvoiceBar
-  class ContactsController < InvoiceBar::ApplicationController    
+  class ContactsController < InvoiceBar::ApplicationController
     inherit_resources
     respond_to :html, :json
-    
+
     before_filter :require_login
-    
+
     def index
       @contacts = current_user.contacts.page(params[:page])
-      
+
       index! {}
     end
 
@@ -21,24 +21,24 @@ module InvoiceBar
     end
 
     def create
-      @contact = Contact.new(params[:contact])    
+      @contact = Contact.new(params[:contact])
       current_user.contacts << @contact
-      
+
       @contact.build_address unless @contact.address
 
       create! {}
     end
-    
+
     def update
       update! {}
     end
-    
+
     def destroy
       destroy! {}
     end
-  
+
     protected
-  
+
       def collection
         @contacts ||= end_of_association_chain.page(params[:page])
       end

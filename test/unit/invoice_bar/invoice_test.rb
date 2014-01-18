@@ -17,42 +17,42 @@ class InvoiceBar::InvoiceTest < ActiveSupport::TestCase
   should allow_mass_assignment_of :user_id
   should allow_mass_assignment_of :address
   should allow_mass_assignment_of :address_attributes
-  should allow_mass_assignment_of :items_attributes  
+  should allow_mass_assignment_of :items_attributes
   should accept_nested_attributes_for :address
   should accept_nested_attributes_for :items
   should have_one(:address).dependent(:destroy)
   should have_many(:items).dependent(:destroy)
-  
+
   test "invoice should validate uniqueness of number" do
-    user = FactoryGirl.create(:invoice_bar_user)   
-    invoice = FactoryGirl.create(:invoice_bar_invoice, number: '2', user: user)   
+    user = FactoryGirl.create(:invoice_bar_user)
+    invoice = FactoryGirl.create(:invoice_bar_invoice, number: '2', user: user)
     new_invoice = FactoryGirl.build(:invoice_bar_invoice, number: '2', user: user)
-    
+
     assert_equal false, new_invoice.valid?
 
     new_invoice = FactoryGirl.build(:invoice_bar_invoice, user: user)
-    
+
     assert_equal true, new_invoice.valid?
   end
 
   test "invoice should be marked as paid" do
     invoice = FactoryGirl.create(:invoice_bar_invoice)
     invoice.mark_as_paid
-    
+
     assert_equal true, invoice.paid
   end
-  
+
   test "invoice should be marked as sent" do
     invoice = FactoryGirl.create(:invoice_bar_invoice)
     invoice.mark_as_sent
-    
+
     assert_equal true, invoice.sent
   end
-  
+
   test "invoice should apply template" do
-    invoice_template = FactoryGirl.build(:invoice_bar_filled_invoice_template)  
-    orig_invoice = FactoryGirl.build(:invoice_bar_incomplete_invoice) 
-    invoice = FactoryGirl.build(:invoice_bar_incomplete_invoice) 
+    invoice_template = FactoryGirl.build(:invoice_bar_filled_invoice_template)
+    orig_invoice = FactoryGirl.build(:invoice_bar_incomplete_invoice)
+    invoice = FactoryGirl.build(:invoice_bar_incomplete_invoice)
     invoice.apply_template(invoice_template)
 
     assert_equal orig_invoice.contact_name, invoice.contact_name

@@ -5,7 +5,7 @@ require 'test_helper'
 class InvoiceBar::UsersControllerTest < ActionController::TestCase
   setup do
     @user = FactoryGirl.create(:invoice_bar_user, administrator: true)
-    
+
     login_user
   end
 
@@ -20,11 +20,11 @@ class InvoiceBar::UsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create user" do  
+  test "should create user" do
     @new_user = FactoryGirl.build(:invoice_bar_user)
-    
+
     assert_difference('InvoiceBar::User.count') do
-      post :create, user: {  
+      post :create, user: {
         name: @new_user.name,
         email: @new_user.email,
         ic: @new_user.ic,

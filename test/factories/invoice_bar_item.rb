@@ -1,7 +1,7 @@
 FactoryGirl.define do
-  factory :invoice_bar_item, class: InvoiceBar::Item do    
+  factory :invoice_bar_item, class: InvoiceBar::Item do
     name 'Item'
     price 1000
-    amount { price }  
+    amount { price }
   end
 end

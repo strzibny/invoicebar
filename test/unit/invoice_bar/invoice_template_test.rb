@@ -21,16 +21,16 @@ class InvoiceBar::InvoiceTemplateTest < ActiveSupport::TestCase
   should accept_nested_attributes_for :items
   should have_one(:address).dependent(:destroy)
   should have_many(:items).dependent(:destroy)
-  
+
   test "invoice template should validate uniqueness of name" do
-    user = FactoryGirl.create(:invoice_bar_user)   
-    invoice_template = FactoryGirl.create(:invoice_bar_invoice_template, name: 'name', user: user)   
+    user = FactoryGirl.create(:invoice_bar_user)
+    invoice_template = FactoryGirl.create(:invoice_bar_invoice_template, name: 'name', user: user)
     new_invoice_template = FactoryGirl.build(:invoice_bar_invoice_template, name: 'name', user: user)
-    
+
     assert_equal false, new_invoice_template.valid?
 
     new_invoice_template = FactoryGirl.build(:invoice_bar_invoice_template, user: user)
-    
+
     assert_equal true, new_invoice_template.valid?
   end
 end

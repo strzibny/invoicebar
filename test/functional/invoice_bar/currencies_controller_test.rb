@@ -6,9 +6,9 @@ class InvoiceBar::CurrenciesControllerTest < ActionController::TestCase
   setup do
     @user = FactoryGirl.create(:invoice_bar_user, administrator: true)
     @contact = FactoryGirl.create(:invoice_bar_contact, :user => @user)
-    
+
     login_user
-    
+
     @currency = FactoryGirl.create(:invoice_bar_currency)
   end
 
@@ -25,12 +25,12 @@ class InvoiceBar::CurrenciesControllerTest < ActionController::TestCase
 
   test "should create currency" do
     @new_currency = FactoryGirl.build(:invoice_bar_currency, name: 'Dollars', symbol: '$')
-    
+
     assert_difference('InvoiceBar::Currency.count') do
       post :create, currency: {
         name: @new_currency.name,
         symbol: @new_currency.symbol,
-        priority: @new_currency.priority }, use_route: :invoice_bar     
+        priority: @new_currency.priority }, use_route: :invoice_bar
     end
   end
 

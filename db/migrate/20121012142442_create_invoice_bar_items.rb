@@ -11,7 +11,7 @@ class CreateInvoiceBarItems < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :invoice_bar_items, :name
   end
 end

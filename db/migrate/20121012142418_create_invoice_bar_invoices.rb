@@ -18,7 +18,7 @@ class CreateInvoiceBarInvoices < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :invoice_bar_invoices, :number
     add_index :invoice_bar_invoices, :contact_name
     add_index :invoice_bar_invoices, :contact_ic

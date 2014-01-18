@@ -27,7 +27,7 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   include FactoryGirl::Syntax::Methods
   include Sorcery::TestHelpers::Rails
-  
+
   FactoryGirl.define do
     sequence(:invoice_bar_name) { |n| "Name #{hash[n]}9" }
     sequence(:invoice_bar_email) { |n| "#{hash[n]}#{n}#{n}abc9@email.cz" }

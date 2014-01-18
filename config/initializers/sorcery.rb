@@ -8,7 +8,7 @@ Rails.application.config.sorcery.submodules = [:remember_me, :http_basic_auth]
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
   config.controller_to_realm_map = {"application" => "InvoiceBar"}
-  
+
   # -- core --
   # What controller action to call for non-authenticated users. You can also
   # override the 'not_authenticated' method of course.

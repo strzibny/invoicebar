@@ -7,7 +7,7 @@ class InvoiceBar::InvoiceTemplatesControllerTest < ActionController::TestCase
     @user = FactoryGirl.create(:invoice_bar_user)
     @account = FactoryGirl.create(:invoice_bar_account, :user => @user)
     @invoice_template = FactoryGirl.create(:invoice_bar_invoice_template, :user => @user, :account => @account)
-    
+
     login_user
   end
 
@@ -24,7 +24,7 @@ class InvoiceBar::InvoiceTemplatesControllerTest < ActionController::TestCase
 
   test "should create invoice_template" do
     @new_invoice_template = FactoryGirl.build(:invoice_bar_invoice_template, :user => @user, :account => @account, :name => 'Another template')
-    
+
     assert_difference('InvoiceBar::InvoiceTemplate.count') do
       post :create, invoice_template: {
         account_id: @new_invoice_template.account_id,

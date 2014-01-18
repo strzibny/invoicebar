@@ -14,7 +14,7 @@ class CreateInvoiceBarInvoiceTemplates < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :invoice_bar_invoice_templates, :name
   end
 end
