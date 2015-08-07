@@ -18,6 +18,8 @@ gem "jquery-rails"
 
 source 'https://rubygems.org'
 
+gem 'json', '1.8.3'
+
 # Ruby on Rails
 gem 'rails', '3.2.9'
 gem 'rails-i18n'
@@ -47,7 +49,7 @@ gem 'sorcery'
 gem 'formatted-money'
 
 # ARES db
-gem 'libxml-ruby'
+gem 'libxml-ruby', '2.8.0'
 gem 'ruby-ares'
 
 # Pagination
@@ -55,7 +57,7 @@ gem 'kaminari'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
-  gem 'bootstrap-sass'
+  gem 'bootstrap-sass', '~> 2.0'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'skeleton-rails'
   gem 'uglifier', '>= 1.0.3'
