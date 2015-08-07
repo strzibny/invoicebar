@@ -39,7 +39,6 @@ gem 'jquery-ui-rails'
 
 # PDF creation
 gem 'prawn'
-gem 'prawn-layout'
 gem 'prawnto'
 
 # Auth

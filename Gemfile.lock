@@ -227,7 +227,6 @@ DEPENDENCIES
   libxml-ruby (= 2.8.0)
   nested_form
   prawn
-  prawn-layout
   prawnto
   rails (= 3.2.9)
   rails-i18n
