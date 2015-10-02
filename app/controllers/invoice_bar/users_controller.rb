@@ -23,9 +23,7 @@ module InvoiceBar
       @user = User.new(params[:user])
 
       # First user is an administrator
-      unless User.all.size > 0
-        @user.administrator = true
-      end
+      @user.administrator = true unless User.all.size > 0
 
       respond_to do |format|
         if @user.save

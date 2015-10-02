@@ -26,27 +26,19 @@ module InvoiceBar
 
       def fetch_user_accounts
         @accounts = current_user.accounts
-
-        if @accounts.empty?
-          flash[:alert] = t('messages.no_accounts')
-        end
+        flash[:alert] = t('messages.no_accounts') if @accounts.empty?
       end
 
       def fetch_currencies
         @currencies = Currency.order('priority DESC')
-
-        if @currencies.empty?
-          flash[:alert] = t('messages.no_currencies')
-        end
+        flash[:alert] = t('messages.no_currencies') if @currencies.empty?
       end
 
       def require_admin_rights
-        if current_user
-          unless current_user.administrator?
-            redirect_to root_url, alert: t('messages.not_administrator')
-          end
-        else
-          not_authenticated
+        return not_authenticated unless current_user
+
+        unless current_user.administrator?
+          redirect_to root_url, alert: t('messages.not_administrator')
         end
       end
 
