@@ -17,7 +17,8 @@ module InvoiceBar
     # Associations
     attr_accessible :address_attributes
 
-    delegate :city, :city_part, :extra_address_line, :postcode, :street, :street_number, to: :address
+    delegate :street, :street_number, :city, :city_part, :postcode, :extra_address_line,
+             to: :address
 
     has_many :accounts,           dependent: :destroy
     has_many :contacts,           dependent: :destroy
@@ -34,7 +35,7 @@ module InvoiceBar
     include InvoiceBar::Searchable
 
     def self.searchable_fields
-      ['name', 'ic', 'email', 'phone']
+      %w( name ic email phone )
     end
   end
 end

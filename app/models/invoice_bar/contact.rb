@@ -24,7 +24,7 @@ module InvoiceBar
     include InvoiceBar::Searchable
 
     def self.searchable_fields
-      ['name', 'ic', 'email', 'phone']
+      %w( name ic email phone )
     end
   end
 end

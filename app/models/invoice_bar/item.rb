@@ -31,17 +31,17 @@ module InvoiceBar
     end
 
     def update_amount
-      self.amount = self.total
+      self.amount = total
     end
 
     # Calculates the total by multiplying price by number (of units).
     def total()
-      if self.price.blank? and self.number.blank?
+      if price.blank? and number.blank?
         return 0
       end
 
-      total = Integer(self.price)
-      total = Integer(self.price) * Integer(self.number) unless self.number.nil?
+      total = Integer(price)
+      total = Integer(price) * Integer(number) unless number.nil?
 
       total
     end

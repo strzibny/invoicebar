@@ -1,11 +1,15 @@
 module InvoiceBar
   class Address < ActiveRecord::Base
-    attr_accessible :city, :city_part, :extra_address_line, :postcode, :street, :street_number
+    attr_accessible :street, :street_number, :city, :city_part, :postcode,
+                    :extra_address_line
 
-    validates :city,          presence: true#, length: { maximum: 50 }
-    validates :postcode,      presence: true#, length: { in: 3..10 }
-    validates :street,        presence: true#, length: { maximum: 50 }
-    validates :street_number, presence: true#, length: { maximum: 15 }
+    validates :city,          presence: true, length: { maximum: 50 }
+    validates :postcode,      presence: true, length: { in: 3..10 }
+    validates :street,        presence: true, length: { maximum: 50 }
+    validates :street_number, presence: true, length: { maximum: 15 }
+
+    ADDRESS_COMPONENTS = %w( street street_number city city_part postcode
+                             extra_address_line )
 
     # Assosiations
     attr_accessible :addressable_id, :addressable_type
@@ -16,19 +20,13 @@ module InvoiceBar
     include InvoiceBar::Searchable
 
     def self.searchable_fields
-      ['city', 'city_part', 'extra_address_line', 'postcode', 'street', 'street_number']
+      ADDRESS_COMPONENTS
     end
 
     def empty?
-      attributes = ['city', 'city_part', 'street', 'street_number', 'postcode', 'extra_address_line']
-
-      attributes.each do |attribute|
-        unless eval "self.#{attribute}.blank?"
-          return false
-        end
-      end
-
-      return true
+      ADDRESS_COMPONENTS.each do |attribute|
+        return false unless eval "self.#{attribute}.blank?"
+      end || true
     end
 
     # Copies the address and returns a new instance.
