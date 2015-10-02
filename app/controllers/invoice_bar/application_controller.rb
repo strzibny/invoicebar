@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module InvoiceBar
   class ApplicationController < ActionController::Base
     protect_from_forgery

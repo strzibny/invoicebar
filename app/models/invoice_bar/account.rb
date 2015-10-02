@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module InvoiceBar
   class Account < ActiveRecord::Base
     attr_accessible :amount, :bank_account_number, :iban, :name, :swift

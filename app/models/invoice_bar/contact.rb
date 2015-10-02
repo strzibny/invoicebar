@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module InvoiceBar
   class Contact < ActiveRecord::Base
     attr_accessible :bank_account, :dic, :email, :ic, :name, :phone, :web

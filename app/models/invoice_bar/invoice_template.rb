@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module InvoiceBar
   class InvoiceTemplate < ActiveRecord::Base
     before_validation :update_amount

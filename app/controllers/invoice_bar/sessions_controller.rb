@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module InvoiceBar
   class SessionsController < InvoiceBar::ApplicationController
     layout 'invoice_bar/layouts/signed_out'

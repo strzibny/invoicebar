@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module InvoiceBar
   class Address < ActiveRecord::Base
     attr_accessible :city, :city_part, :extra_address_line, :postcode, :street, :street_number

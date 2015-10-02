@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module InvoiceBar
   class Currency < ActiveRecord::Base
     attr_accessible :name, :symbol, :priority

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module InvoiceBar
 
   # Module that provides +search_for+ method on a model class.

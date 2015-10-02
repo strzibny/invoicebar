@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module InvoiceBar
   class ReceiptsController < InvoiceBar::ApplicationController
     inherit_resources

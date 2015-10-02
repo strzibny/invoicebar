@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module InvoiceBar
   class User < ActiveRecord::Base
     attr_accessible :name, :email, :ic, :phone, :web, :administrator
