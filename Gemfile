@@ -19,7 +19,7 @@ gem "jquery-rails"
 gem 'json', '1.8.3'
 
 # Ruby on Rails
-gem 'rails', '3.2.9'
+gem 'rails', '~> 4.0'
 gem 'rails-i18n'
 
 # DB
@@ -52,12 +52,20 @@ gem 'ruby-ares'
 # Pagination
 gem 'kaminari'
 
+
+# TODO: Update to strong_parameters
+gem 'protected_attributes'
+
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
+  gem 'sass-rails',   '~> 4.0'
   gem 'bootstrap-sass', '~> 2.0'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'coffee-rails', '~> 4.0'
   gem 'skeleton-rails'
   gem 'uglifier', '>= 1.0.3'
+end
+
+group :development do
+  gem 'rdoc'
 end
 
 group :test do

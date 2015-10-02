@@ -13,35 +13,35 @@
 //= require jquery
 //= require bootstrap
 //= require jquery_ujs
-//= require jquery.ui.all
+//= require jquery-ui
 //= require jquery_nested_form
 //= require_tree .
 
 $(function() {
-	$.datepicker.regional['cs'] = { 
-	                closeText: 'Cerrar', 
-	                prevText: 'Předchozí', 
-	                nextText: 'Další', 
-	                currentText: 'Hoy', 
+	$.datepicker.regional['cs'] = {
+	                closeText: 'Cerrar',
+	                prevText: 'Předchozí',
+	                nextText: 'Další',
+	                currentText: 'Hoy',
 	                monthNames: ['Leden','Únor','Březen','Duben','Květen','Červen', 'Červenec','Srpen','Září','Říjen','Listopad','Prosinec'],
-	                monthNamesShort: ['Le','Ún','Bř','Du','Kv','Čn', 'Čc','Sr','Zá','Ří','Li','Pr'], 
-	                dayNames: ['Neděle','Pondělí','Úterý','Středa','Čtvrtek','Pátek','Sobota'], 
-	                dayNamesShort: ['Ne','Po','Út','St','Čt','Pá','So',], 
-	                dayNamesMin: ['Ne','Po','Út','St','Čt','Pá','So'], 
-	                weekHeader: 'Sm', 
-	                dateFormat: 'dd.mm.yy', 
-	                firstDay: 1, 
-	                isRTL: false, 
-	                showMonthAfterYear: false, 
+	                monthNamesShort: ['Le','Ún','Bř','Du','Kv','Čn', 'Čc','Sr','Zá','Ří','Li','Pr'],
+	                dayNames: ['Neděle','Pondělí','Úterý','Středa','Čtvrtek','Pátek','Sobota'],
+	                dayNamesShort: ['Ne','Po','Út','St','Čt','Pá','So',],
+	                dayNamesMin: ['Ne','Po','Út','St','Čt','Pá','So'],
+	                weekHeader: 'Sm',
+	                dateFormat: 'dd.mm.yy',
+	                firstDay: 1,
+	                isRTL: false,
+	                showMonthAfterYear: false,
 	                yearSuffix: ''};
-	
+
 	$.datepicker.setDefaults($.datepicker.regional['cs']);
-	
+
 	// Enables the JQuery's datepicker.
   $('.datepicker').datepicker({
 	    dateFormat: "yy-mm-dd"
 	  });
-	
+
 
 	$("#invoice_issuer_true").each(function(index, button){
      $(button).click(function(){
@@ -79,7 +79,7 @@ $(function() {
 				}
      });
    });
-	
+
 	// Toggles the templates option in bills' forms.
 	var prefill = false
 

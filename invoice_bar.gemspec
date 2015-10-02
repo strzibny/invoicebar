@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 3.2.9"
+  s.add_dependency "rails", "~> 4.0.0"
   s.add_dependency "rails-i18n"
   s.add_dependency "nested_form"
   s.add_dependency "inherited_resources", "1.3.1"
@@ -34,9 +34,9 @@ Gem::Specification.new do |s|
   s.add_dependency "libv8", "~> 3.11.8"
 
   # Assets
-  s.add_dependency "sass-rails", "~> 3.2.3"
+  s.add_dependency "sass-rails", "~> 4.0"
   s.add_dependency "bootstrap-sass"
-  s.add_dependency "coffee-rails", "~> 3.2.1"
+  s.add_dependency "coffee-rails", "~> 4.0"
   s.add_dependency "uglifier"
 
   # Devel

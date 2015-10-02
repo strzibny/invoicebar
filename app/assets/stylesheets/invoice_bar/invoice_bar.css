@@ -6,5 +6,5 @@
  *= require bootstrap
  *= require bootstrap-responsive
  *= require_tree .
- *= require jquery.ui.all
+ *= require jquery-ui
  */

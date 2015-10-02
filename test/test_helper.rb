@@ -17,6 +17,9 @@ require 'faker'
 require 'factory_girl'
 FactoryGirl.find_definitions
 
+# Don't enforce locales for now
+I18n.enforce_available_locales = false
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #
@@ -24,9 +27,12 @@ class ActiveSupport::TestCase
   # -- they do not yet inherit this setting
   #fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+  # Add more helper methods to be used by all tests here
   include FactoryGirl::Syntax::Methods
   include Sorcery::TestHelpers::Rails
+
+  # For login_user method
+  include Sorcery::TestHelpers::Rails::Controller
 
   FactoryGirl.define do
     sequence(:invoice_bar_name) { |n| "Name #{hash[n]}9" }
