@@ -13,4 +13,11 @@ FactoryGirl.define do
 
     currency { FactoryGirl.create(:invoice_bar_currency) }
   end
+
+  factory :invoice_bar_account_with_random_amount, class: InvoiceBar::Account do
+    name 'Bank Account'
+    amount { rand(50_000) }
+
+    currency { FactoryGirl.create(:invoice_bar_currency) }
+  end
 end

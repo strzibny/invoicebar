@@ -1,4 +1,7 @@
-
+# Use FactoryGirl definitions
+require 'faker'
+require 'factory_girl'
+FactoryGirl.find_definitions
 
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
@@ -17,7 +20,6 @@ currencies = InvoiceBar::Currency.create([
 ])
 
 # Create administrator
-=begin
 administrator = InvoiceBar::User.create(
   name: 'admin',
   email: 'admin@admin.cz',
@@ -30,4 +32,25 @@ administrator = InvoiceBar::User.create(
     postcode: '74727'
   )
 )
-=end
+
+10.times {
+  administrator.accounts << FactoryGirl.create(:invoice_bar_account_with_random_amount)
+}
+
+30.times {
+  administrator.invoices << FactoryGirl.create(:invoice_bar_invoice)
+}
+
+3.times {
+  administrator.invoices << FactoryGirl.create(:invoice_bar_filled_invoice_template)
+}
+
+30.times {
+  administrator.invoices << FactoryGirl.create(:invoice_bar_receipt)
+}
+
+3.times {
+  administrator.invoices << FactoryGirl.create(:invoice_bar_filled_receipt_template)
+}
+
+administrator.save
