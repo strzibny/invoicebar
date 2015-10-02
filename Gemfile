@@ -1,4 +1,4 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
 
 # Declare your gem's dependencies in invoicebar.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
@@ -15,8 +15,6 @@ gem "jquery-rails"
 
 # To use debugger
 # gem 'debugger'
-
-source 'https://rubygems.org'
 
 gem 'json', '1.8.3'
 
