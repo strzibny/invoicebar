@@ -6,8 +6,8 @@ module InvoiceBar
     respond_to :html, :json
 
     before_filter :require_login
-    before_filter :fetch_user_contacts, :only => [:new, :create, :edit, :update]
-    before_filter :fetch_user_accounts, :only => [:new, :create, :edit, :update]
+    before_filter :fetch_user_contacts, only: [:new, :create, :edit, :update]
+    before_filter :fetch_user_accounts, only: [:new, :create, :edit, :update]
 
     def index
       @receipt_templates = current_user.receipt_templates.page(params[:page])

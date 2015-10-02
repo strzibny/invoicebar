@@ -81,11 +81,11 @@ module InvoiceBar
 
         class << self
           def received
-            where(:issuer => false)
+            where(issuer: false)
           end
 
           def issued
-            where(:issuer => true)
+            where(issuer: true)
           end
         end
 
@@ -113,11 +113,11 @@ module InvoiceBar
 
         class << self
           def expense
-            where(:issuer => false)
+            where(issuer: false)
           end
 
           def income
-            where(:issuer => true)
+            where(issuer: true)
           end
         end
 

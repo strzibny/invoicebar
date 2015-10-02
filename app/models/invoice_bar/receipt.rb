@@ -56,7 +56,7 @@ module InvoiceBar
 
       # Validates uniqueness of a number for current user.
       def number_is_unique
-        invoices = Receipt.where(:number => self.number, :user_id => self.user_id)
+        invoices = Receipt.where(number: self.number, user_id: self.user_id)
 
         if invoices.any?
           errors.add(:number, :uniqueness) unless invoices.include? self

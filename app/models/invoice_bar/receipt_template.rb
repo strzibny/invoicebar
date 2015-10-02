@@ -6,7 +6,7 @@ module InvoiceBar
 
     attr_accessible :name
 
-    validates :name, :presence => true
+    validates :name, presence: true
     validate :name_is_unique
 
     include InvoiceBar::Billable::Base
@@ -25,7 +25,7 @@ module InvoiceBar
 
       # Validates uniqueness of a name for current user.
       def name_is_unique
-        invoice_templates = ReceiptTemplate.where(:name => self.name, :user_id => self.user_id)
+        invoice_templates = ReceiptTemplate.where(name: self.name, user_id: self.user_id)
 
         if invoice_templates.any?
           errors.add(:name, :uniqueness) unless invoice_templates.include? self

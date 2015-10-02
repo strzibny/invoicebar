@@ -25,7 +25,7 @@ class InvoiceBar::ItemTest < ActiveSupport::TestCase
   end
 
   test "should count total amount for item" do
-    item = FactoryGirl.build(:invoice_bar_item, :name => 'Item', :price => 100, :number => 5)
+    item = FactoryGirl.build(:invoice_bar_item, name: 'Item', price: 100, number: 5)
 
     item.update_amount
 
@@ -38,7 +38,7 @@ class InvoiceBar::ItemTest < ActiveSupport::TestCase
   end
 
   test "should show human price " do
-    item = FactoryGirl.build(:invoice_bar_item, :name => 'Item', :price => 100, :number => 5)
+    item = FactoryGirl.build(:invoice_bar_item, name: 'Item', price: 100, number: 5)
 
     item.update_amount
 

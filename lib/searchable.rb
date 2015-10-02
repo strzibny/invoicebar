@@ -11,7 +11,7 @@ module InvoiceBar
 
     included do
       def self.search_for(query)
-        where(self.build_search_query, :query => "%#{query}%")
+        where(self.build_search_query, query: "%#{query}%")
       end
 
       protected

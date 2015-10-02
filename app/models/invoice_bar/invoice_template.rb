@@ -25,7 +25,7 @@ module InvoiceBar
 
       # Validates uniqueness of a name for current user.
       def name_is_unique
-        invoice_templates = InvoiceTemplate.where(:name => self.name, :user_id => self.user_id)
+        invoice_templates = InvoiceTemplate.where(name: self.name, user_id: self.user_id)
 
         if invoice_templates.any?
           errors.add(:name, :uniqueness) unless invoice_templates.include? self

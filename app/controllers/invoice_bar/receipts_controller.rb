@@ -7,9 +7,9 @@ module InvoiceBar
     respond_to :pdf, only: [:show]
 
     before_filter :require_login
-    before_filter :fetch_user_accounts, :only => [:new, :create, :edit, :update, :from_template]
-    before_filter :fetch_user_contacts, :only => [:new, :create, :edit, :update, :from_template]
-    before_filter :fetch_user_receipt_templates, :only => [:new, :create, :edit, :update, :from_template]
+    before_filter :fetch_user_accounts, only: [:new, :create, :edit, :update, :from_template]
+    before_filter :fetch_user_contacts, only: [:new, :create, :edit, :update, :from_template]
+    before_filter :fetch_user_receipt_templates, only: [:new, :create, :edit, :update, :from_template]
 
     def index
       @receipts = current_user.receipts.page(params[:page])

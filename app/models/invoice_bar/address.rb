@@ -4,15 +4,15 @@ module InvoiceBar
   class Address < ActiveRecord::Base
     attr_accessible :city, :city_part, :extra_address_line, :postcode, :street, :street_number
 
-    validates :city,          :presence => true#, :length => { :maximum => 50 }
-    validates :postcode,      :presence => true#, :length => { :in => 3..10 }
-    validates :street,        :presence => true#, :length => { :maximum => 50 }
-    validates :street_number, :presence => true#, :length => { :maximum => 15 }
+    validates :city,          presence: true#, length: { maximum: 50 }
+    validates :postcode,      presence: true#, length: { in: 3..10 }
+    validates :street,        presence: true#, length: { maximum: 50 }
+    validates :street_number, presence: true#, length: { maximum: 15 }
 
     # Assosiations
     attr_accessible :addressable_id, :addressable_type
 
-    belongs_to :addressable, :polymorphic => true
+    belongs_to :addressable, polymorphic: true
 
     # Search
     include InvoiceBar::Searchable

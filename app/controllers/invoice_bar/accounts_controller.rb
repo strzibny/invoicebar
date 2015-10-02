@@ -6,7 +6,7 @@ module InvoiceBar
     respond_to :html, :json
 
     before_filter :require_login
-    before_filter :fetch_currencies, :only => [:new, :create, :edit, :update]
+    before_filter :fetch_currencies, only: [:new, :create, :edit, :update]
 
     def index
       @accounts = current_user.accounts.page(params[:page])

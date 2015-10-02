@@ -5,7 +5,7 @@ require 'test_helper'
 class InvoiceBar::ContactsControllerTest < ActionController::TestCase
   setup do
     @user = FactoryGirl.create(:invoice_bar_user)
-    @contact = FactoryGirl.create(:invoice_bar_contact, :user => @user)
+    @contact = FactoryGirl.create(:invoice_bar_contact, user: @user)
 
     login_user
   end
@@ -22,7 +22,7 @@ class InvoiceBar::ContactsControllerTest < ActionController::TestCase
   end
 
   test "should create contact" do
-    @new_contact = FactoryGirl.build(:invoice_bar_contact, :user => @user)
+    @new_contact = FactoryGirl.build(:invoice_bar_contact, user: @user)
 
     assert_difference('InvoiceBar::Contact.count') do
       post :create, contact: {

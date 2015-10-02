@@ -8,15 +8,15 @@ module InvoiceBar
 
     attr_accessible :name, :number, :price, :unit, :human_price, :human_amount
 
-    validates :name, :presence => true
-    validates :number, :numericality => true, :length => { :maximum => 10 }, :allow_blank => true
-    validates :price, :presence => true, :numericality => true
-    validates :unit, :length => { :maximum => 10 }, :allow_blank => true
+    validates :name, presence: true
+    validates :number, numericality: true, length: { maximum: 10 }, allow_blank: true
+    validates :price, presence: true, numericality: true
+    validates :unit, length: { maximum: 10 }, allow_blank: true
 
     # Associations
     attr_accessible :itemable_id, :itemable_type
 
-    belongs_to :itemable, :polymorphic => true
+    belongs_to :itemable, polymorphic: true
 
     # Copies the item and returns a new instance.
     def copy

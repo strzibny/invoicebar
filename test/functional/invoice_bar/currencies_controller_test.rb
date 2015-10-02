@@ -5,7 +5,7 @@ require 'test_helper'
 class InvoiceBar::CurrenciesControllerTest < ActionController::TestCase
   setup do
     @user = FactoryGirl.create(:invoice_bar_user, administrator: true)
-    @contact = FactoryGirl.create(:invoice_bar_contact, :user => @user)
+    @contact = FactoryGirl.create(:invoice_bar_contact, user: @user)
 
     login_user
 

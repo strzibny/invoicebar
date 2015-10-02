@@ -5,8 +5,8 @@ require 'test_helper'
 class InvoiceBar::ReceiptsControllerTest < ActionController::TestCase
   setup do
     @user = FactoryGirl.create(:invoice_bar_user)
-    @account = FactoryGirl.create(:invoice_bar_account, :user => @user)
-    @receipt = FactoryGirl.create(:invoice_bar_receipt, :user => @user, :account => @account)
+    @account = FactoryGirl.create(:invoice_bar_account, user: @user)
+    @receipt = FactoryGirl.create(:invoice_bar_receipt, user: @user, account: @account)
 
     login_user
   end
@@ -23,7 +23,7 @@ class InvoiceBar::ReceiptsControllerTest < ActionController::TestCase
   end
 
   test "should create receipt" do
-    @new_receipt = FactoryGirl.build(:invoice_bar_receipt, :user => @user, :account => @account)
+    @new_receipt = FactoryGirl.build(:invoice_bar_receipt, user: @user, account: @account)
 
     assert_difference('InvoiceBar::Receipt.count') do
       post :create, receipt: {
