@@ -56,7 +56,7 @@ module Dummy
     config.assets.version = '1.0'
 
     # Internationalization
-    config.i18n.available_locales = :cs
+    config.i18n.available_locales = [:cs, :en]
     config.i18n.default_locale = :cs
     config.i18n.fallbacks = true
 
