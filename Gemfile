@@ -4,8 +4,8 @@ gemspec
 
 gem 'sqlite3'
 gem 'faker'
-gem 'factory_girl', '~> 3.2'
-gem 'factory_girl_rails', '~> 3.2'
+gem 'factory_girl', '4.5.0'
+gem 'factory_girl_rails', '4.5.0'
 
 group :assets do
   gem 'sass-rails',   '~> 4.0'
