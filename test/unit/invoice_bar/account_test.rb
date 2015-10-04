@@ -10,8 +10,8 @@ class InvoiceBar::AccountTest < ActiveSupport::TestCase
   should validate_presence_of :amount
   should validate_presence_of :user_id
   should validate_presence_of :currency_id
-  should ensure_length_of(:iban).is_at_least(15).is_at_most(34)
-  should ensure_length_of(:swift).is_at_least(8).is_at_most(11)
+  should validate_length_of(:iban).is_at_least(15).is_at_most(34)
+  should validate_length_of(:swift).is_at_least(8).is_at_most(11)
   should belong_to :currency
   should belong_to :user
 
