@@ -40,7 +40,7 @@
 				<strong><%= document.user_name %></strong>
 			</div>
 
-			<%= render 'invoice_bar/forms/address', address: document.address %>
+			<%= render 'invoice_bar/forms/address', address: document.user_address %>
 
 			<% unless document.user_ic.blank? %>
 				<div class='ic-dic'>
