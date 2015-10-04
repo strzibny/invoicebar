@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require 'bootstrap-sass'
 require 'kaminari'
 require 'prawn'
@@ -19,7 +17,7 @@ require 'formatted-money'
 require File.expand_path("../../billable.rb",  __FILE__)
 require File.expand_path("../../searchable.rb",  __FILE__)
 
-I18n.available_locales = [:cs]
+I18n.available_locales = [:cs, :en]
 I18n.locale = :cs
 
 module InvoiceBar

@@ -7,7 +7,7 @@ Rails.application.config.sorcery.submodules = [:remember_me, :http_basic_auth]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
-  config.controller_to_realm_map = {"application" => "InvoiceBar"}
+  config.controller_to_realm_map = { application: 'InvoiceBar' }
 
   # -- core --
   # What controller action to call for non-authenticated users. You can also
@@ -89,22 +89,22 @@ Rails.application.config.sorcery.configure do |config|
   # config.twitter.key = ""
   # config.twitter.secret = ""
   # config.twitter.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=twitter"
-  # config.twitter.user_info_mapping = {:email => "screen_name"}
+  # config.twitter.user_info_mapping = {email: "screen_name"}
   #
   # config.facebook.key = ""
   # config.facebook.secret = ""
   # config.facebook.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=facebook"
-  # config.facebook.user_info_mapping = {:email => "name"}
+  # config.facebook.user_info_mapping = {email: "name"}
   #
   # config.github.key = ""
   # config.github.secret = ""
   # config.github.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=github"
-  # config.github.user_info_mapping = {:email => "name"}
+  # config.github.user_info_mapping = {email: "name"}
   #
   # config.google.key = ""
   # config.google.secret = ""
   # config.google.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=google"
-  # config.google.user_info_mapping = {:email => "email", :username => "name"}
+  # config.google.user_info_mapping = {email: "email", username: "name"}
   #
   # To use liveid in development mode you have to replace mydomain.com with
   # a valid domain even in development. To use a valid domain in development
@@ -113,7 +113,7 @@ Rails.application.config.sorcery.configure do |config|
   # config.liveid.key = ""
   # config.liveid.secret = ""
   # config.liveid.callback_url = "http://mydomain.com:3000/oauth/callback?provider=liveid"
-  # config.liveid.user_info_mapping = {:username => "name"}
+  # config.liveid.user_info_mapping = {username: "name"}
 
 
   # --- user config ---
@@ -397,5 +397,5 @@ Rails.application.config.sorcery.configure do |config|
 
   # This line must come after the 'user config' block.
   # Define which model authenticates with sorcery.
-  config.user_class = "InvoiceBar::User"
+  config.user_class = 'InvoiceBar::User'
 end

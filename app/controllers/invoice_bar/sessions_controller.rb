@@ -1,10 +1,8 @@
-# encoding: utf-8
-
 module InvoiceBar
   class SessionsController < InvoiceBar::ApplicationController
     layout 'invoice_bar/layouts/signed_out'
 
-    before_filter :require_login_from_http_basic, :only => [:login_from_http_basic]
+    before_filter :require_login_from_http_basic, only: [:login_from_http_basic]
 
     # Log in
     def new

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module InvoiceBar
   class Invoice < ActiveRecord::Base
     before_validation :update_amount
@@ -26,7 +24,7 @@ module InvoiceBar
     include InvoiceBar::Searchable
 
     def self.searchable_fields
-      ['number', 'contact_name', 'contact_ic']
+      %w( number contact_name contact_ic )
     end
 
     def mark_as_paid
@@ -41,10 +39,10 @@ module InvoiceBar
 
       # Validates uniqueness of a number for current user.
       def number_is_unique
-        invoices = Invoice.where(:number => self.number, :user_id => self.user_id)
+        invoices = Invoice.where(number: number, user_id: user_id)
 
-        if invoices.any?
-          errors.add(:number, :uniqueness) unless invoices.include? self
+        if invoices.any? && !invoices.include?(self)
+          errors.add(:number, :uniqueness)
         end
       end
   end

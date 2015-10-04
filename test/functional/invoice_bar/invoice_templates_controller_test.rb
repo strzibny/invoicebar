@@ -1,29 +1,28 @@
-# encoding: utf-8
-
 require 'test_helper'
 
 class InvoiceBar::InvoiceTemplatesControllerTest < ActionController::TestCase
   setup do
+    @routes = InvoiceBar::Engine.routes
     @user = FactoryGirl.create(:invoice_bar_user)
-    @account = FactoryGirl.create(:invoice_bar_account, :user => @user)
-    @invoice_template = FactoryGirl.create(:invoice_bar_invoice_template, :user => @user, :account => @account)
+    @account = FactoryGirl.create(:invoice_bar_account, user: @user)
+    @invoice_template = FactoryGirl.create(:invoice_bar_invoice_template, user: @user, account: @account)
 
     login_user
   end
 
   test "should get index" do
-    get :index, use_route: :invoice_bar
+    get :index
     assert_response :success
     assert_not_nil assigns(:invoice_templates)
   end
 
   test "should get new" do
-    get :new, use_route: :invoice_bar
+    get :new
     assert_response :success
   end
 
   test "should create invoice_template" do
-    @new_invoice_template = FactoryGirl.build(:invoice_bar_invoice_template, :user => @user, :account => @account, :name => 'Another template')
+    @new_invoice_template = FactoryGirl.build(:invoice_bar_invoice_template, user: @user, account: @account, name: 'Another template')
 
     assert_difference('InvoiceBar::InvoiceTemplate.count') do
       post :create, invoice_template: {
@@ -35,17 +34,17 @@ class InvoiceBar::InvoiceTemplatesControllerTest < ActionController::TestCase
         due_date: @new_invoice_template.due_date,
         issue_date: @new_invoice_template.issue_date,
         name: @new_invoice_template.name,
-        payment_identification_number: @new_invoice_template.payment_identification_number }, use_route: :invoice_bar
+        payment_identification_number: @new_invoice_template.payment_identification_number }
     end
   end
 
   test "should show invoice_template" do
-    get :show, use_route: :invoice_bar, id: @invoice_template
+    get :show, id: @invoice_template
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, use_route: :invoice_bar, id: @invoice_template
+    get :edit, id: @invoice_template
     assert_response :success
   end
 
@@ -60,12 +59,12 @@ class InvoiceBar::InvoiceTemplatesControllerTest < ActionController::TestCase
       issue_date: @invoice_template.issue_date,
       name: @invoice_template.name,
       payment_identification_number: @invoice_template.payment_identification_number,
-      user_id: @invoice_template.user_id }, use_route: :invoice_bar
+      user_id: @invoice_template.user_id }
   end
 
   test "should destroy invoice_template" do
     assert_difference('InvoiceBar::InvoiceTemplate.count', -1) do
-      delete :destroy, use_route: :invoice_bar, id: @invoice_template
+      delete :destroy, id: @invoice_template
     end
   end
 end

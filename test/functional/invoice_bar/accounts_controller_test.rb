@@ -1,28 +1,27 @@
-# encoding: utf-8
-
 require 'test_helper'
 
 class InvoiceBar::AccountsControllerTest < ActionController::TestCase
   setup do
+    @routes = InvoiceBar::Engine.routes
     @user = FactoryGirl.create(:invoice_bar_user)
-    @account = FactoryGirl.create(:invoice_bar_account, :user => @user)
+    @account = FactoryGirl.create(:invoice_bar_account, user: @user)
 
     login_user
   end
 
   test "should get index" do
-    get :index, use_route: :invoice_bar
+    get :index
     assert_response :success
     assert_not_nil assigns(:accounts)
   end
 
   test "should get new" do
-    get :new, use_route: :invoice_bar
+    get :new
     assert_response :success
   end
 
   test "should create account" do
-    @new_account = FactoryGirl.build(:invoice_bar_account, :name => 'Account', :user => @user)
+    @new_account = FactoryGirl.build(:invoice_bar_account, name: 'Account', user: @user)
 
     assert_difference('InvoiceBar::Account.count') do
       post :create, account: {
@@ -32,17 +31,17 @@ class InvoiceBar::AccountsControllerTest < ActionController::TestCase
         iban:                @new_account.iban,
         swift:               @new_account.swift,
         currency_id:         @new_account.currency_id,
-        user_id:             @new_account.user_id }, use_route: :invoice_bar
+        user_id:             @new_account.user_id }
     end
   end
 
   test "should show account" do
-    get :show, id: @account, use_route: :invoice_bar
+    get :show, id: @account
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @account, use_route: :invoice_bar
+    get :edit, id: @account
     assert_response :success
   end
 
@@ -54,12 +53,12 @@ class InvoiceBar::AccountsControllerTest < ActionController::TestCase
       iban:                @account.iban,
       swift:               @account.swift,
       currency_id:         @account.currency_id,
-      user_id:             @account.user_id }, use_route: :invoice_bar
+      user_id:             @account.user_id }
   end
 
   test "should destroy account" do
     assert_difference('InvoiceBar::Account.count', -1) do
-      delete :destroy, id: @account, use_route: :invoice_bar
+      delete :destroy, id: @account
     end
   end
 end

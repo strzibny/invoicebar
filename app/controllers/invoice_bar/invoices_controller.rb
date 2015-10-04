@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module InvoiceBar
   class InvoicesController < InvoiceBar::ApplicationController
     inherit_resources
@@ -7,9 +5,9 @@ module InvoiceBar
     respond_to :pdf, only: [:show]
 
     before_filter :require_login
-    before_filter :fetch_user_accounts, :only => [:new, :create, :edit, :update, :from_template]
-    before_filter :fetch_user_contacts, :only => [:new, :create, :edit, :update, :from_template]
-    before_filter :fetch_user_invoice_templates, :only => [:new, :create, :edit, :update, :from_template]
+    before_filter :fetch_user_accounts, only: [:new, :create, :edit, :update, :from_template]
+    before_filter :fetch_user_contacts, only: [:new, :create, :edit, :update, :from_template]
+    before_filter :fetch_user_invoice_templates, only: [:new, :create, :edit, :update, :from_template]
 
     def index
       @invoices = current_user.invoices.page(params[:page])

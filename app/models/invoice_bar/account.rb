@@ -1,14 +1,12 @@
-# encoding: utf-8
-
 module InvoiceBar
   class Account < ActiveRecord::Base
     attr_accessible :amount, :bank_account_number, :iban, :name, :swift
 
-    validates :name,    :presence => true
-    validates :amount,  :presence => true, :numericality => true
+    validates :name,    presence: true
+    validates :amount,  presence: true, numericality: true
 
-    validates :iban,  :length => { :in => 15..34 }, :allow_blank => true
-    validates :swift, :length => { :in => 8..11 }, :allow_blank => true
+    validates :iban,  length: { in: 15..34 }, allow_blank: true
+    validates :swift, length: { in: 8..11 }, allow_blank: true
 
     validate :name_is_unique
 
@@ -20,14 +18,14 @@ module InvoiceBar
     has_many :invoices
     has_many :receipts
 
-    validates :currency_id, :presence => true
-    validates :user_id, :presence => true
+    validates :currency_id, presence: true
+    validates :user_id, presence: true
 
     # Search
     include InvoiceBar::Searchable
 
     def self.searchable_fields
-      ['name', 'iban', 'swift', 'bank_account_number']
+      %w( name iban swift bank_account_number )
     end
 
     def currency_name
@@ -41,12 +39,12 @@ module InvoiceBar
     def balance
       balance = amount
 
-      self.receipts.expense.each do |receipt|
-        balance = balance - receipt.amount
+      receipts.expense.each do |receipt|
+        balance -= receipt.amount
       end
 
-      self.receipts.income.each do |receipt|
-        balance = balance + receipt.amount
+      receipts.income.each do |receipt|
+        balance += receipt.amount
       end
 
       balance
@@ -56,10 +54,10 @@ module InvoiceBar
 
       # Validates uniqueness of a name for current user.
       def name_is_unique
-        accounts = Account.where(:name => self.name, :user_id => self.user_id)
+        accounts = Account.where(name: name, user_id: user_id)
 
-        if accounts.any?
-          errors.add(:name, :uniqueness) unless accounts.include? self
+        if accounts.any? && !accounts.include?(self)
+          errors.add(:name, :uniqueness)
         end
       end
   end

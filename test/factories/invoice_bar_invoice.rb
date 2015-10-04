@@ -9,7 +9,7 @@ FactoryGirl.define do
     amount 1000000
 
     user { FactoryGirl.create(:invoice_bar_user) }
-    account { FactoryGirl.create(:invoice_bar_account) }
+    account { FactoryGirl.create(:invoice_bar_account, user: user) }
     items { [FactoryGirl.build(:invoice_bar_item)] }
   end
 

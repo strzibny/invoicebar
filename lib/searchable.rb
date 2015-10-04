@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module InvoiceBar
 
   # Module that provides +search_for+ method on a model class.
@@ -11,7 +9,7 @@ module InvoiceBar
 
     included do
       def self.search_for(query)
-        where(self.build_search_query, :query => "%#{query}%")
+        where(self.build_search_query, query: "%#{query}%")
       end
 
       protected
