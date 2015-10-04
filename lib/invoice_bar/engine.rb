@@ -14,8 +14,9 @@ require 'ruby-ares'
 
 require 'formatted-money'
 
-require File.expand_path("../../billable.rb",  __FILE__)
-require File.expand_path("../../searchable.rb",  __FILE__)
+# Concerns
+require File.expand_path("../../../app/concerns/searchable.rb",  __FILE__)
+require File.expand_path("../../../app/concerns/billable.rb",  __FILE__)
 
 I18n.available_locales = [:cs, :en]
 I18n.locale = :cs
