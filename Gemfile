@@ -66,6 +66,7 @@ end
 
 group :development do
   gem 'rdoc'
+  gem 'web-console', '~> 2.0'
 end
 
 group :test do
