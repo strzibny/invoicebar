@@ -4,13 +4,13 @@ form input.suggested { border: 2px solid #999999; }
 form input.optional {}
 form .item-input-box { float: left; }
 form .item {
-	clear: both;
-	
-	.name { width: 300px; input { width: 219px; } }
-	.unit { width: 90px; input { width: 40px; text-align: right; } }
-	.number { width: 108px; input { width: 40px; text-align: right; } }
-	.price { width: 210px; input { width: 100px; text-align: right; } }
-	.remove { padding-top: 5px; padding-left: 3px; }
+  clear: both;
+
+  .name { width: 300px; input { width: 219px; } }
+  .unit { width: 90px; input { width: 40px; text-align: right; } }
+  .number { width: 108px; input { width: 40px; text-align: right; } }
+  .price { width: 210px; input { width: 100px; text-align: right; } }
+  .remove { padding-top: 5px; padding-left: 3px; }
 }
 //form .item { clear: both; }
 body input.contact_name { width: 90%; }
@@ -27,12 +27,12 @@ body input.contact_dic { width: 90%; }
 // Displaying errors in forms
 
 body .field_with_errors {
-	input { border-color: #DB490B; }
-	
-	input.city,
-	input.postcode,
-	input.street,
-	input.street_number { float: left; }	
+  input { border-color: #DB490B; }
+
+  input.city,
+  input.postcode,
+  input.street,
+  input.street_number { float: left; }
 }
 input.city,
 input.postcode,
@@ -41,16 +41,14 @@ input.street_number { float: left; }
 .add-on { float: left; }
 
 .error_explanation {
-	font-size: 17px;
-	
-	h2 { padding-top: 0; text-align: left; }
-}
+  font-size: 17px;
 
+  h2 { padding-top: 0; text-align: left; }
+}
 
 // Filter form
 
 form .smaller { width: 100px; }
-
 
 // Address form
 

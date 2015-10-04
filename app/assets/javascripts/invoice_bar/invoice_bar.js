@@ -18,81 +18,84 @@
 //= require_tree .
 
 $(function() {
-	$.datepicker.regional['cs'] = {
-	                closeText: 'Cerrar',
-	                prevText: 'Předchozí',
-	                nextText: 'Další',
-	                currentText: 'Hoy',
-	                monthNames: ['Leden','Únor','Březen','Duben','Květen','Červen', 'Červenec','Srpen','Září','Říjen','Listopad','Prosinec'],
-	                monthNamesShort: ['Le','Ún','Bř','Du','Kv','Čn', 'Čc','Sr','Zá','Ří','Li','Pr'],
-	                dayNames: ['Neděle','Pondělí','Úterý','Středa','Čtvrtek','Pátek','Sobota'],
-	                dayNamesShort: ['Ne','Po','Út','St','Čt','Pá','So',],
-	                dayNamesMin: ['Ne','Po','Út','St','Čt','Pá','So'],
-	                weekHeader: 'Sm',
-	                dateFormat: 'dd.mm.yy',
-	                firstDay: 1,
-	                isRTL: false,
-	                showMonthAfterYear: false,
-	                yearSuffix: ''};
+  $.datepicker.regional['cs'] = {
+    closeText: 'Cerrar',
+    prevText: 'Předchozí',
+    nextText: 'Další',
+    currentText: 'Hoy',
+    monthNames: ['Leden','Únor','Březen','Duben','Květen','Červen', 'Červenec','Srpen','Září','Říjen','Listopad','Prosinec'],
+    monthNamesShort: ['Le','Ún','Bř','Du','Kv','Čn', 'Čc','Sr','Zá','Ří','Li','Pr'],
+    dayNames: ['Neděle','Pondělí','Úterý','Středa','Čtvrtek','Pátek','Sobota'],
+    dayNamesShort: ['Ne','Po','Út','St','Čt','Pá','So',],
+    dayNamesMin: ['Ne','Po','Út','St','Čt','Pá','So'],
+    weekHeader: 'Sm',
+    dateFormat: 'dd.mm.yy',
+    firstDay: 1,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: ''
+  };
 
-	$.datepicker.setDefaults($.datepicker.regional['cs']);
+  $.datepicker.setDefaults($.datepicker.regional['cs']);
 
-	// Enables the JQuery's datepicker.
+  // Enables the JQuery's datepicker.
   $('.datepicker').datepicker({
-	    dateFormat: "yy-mm-dd"
-	  });
+      dateFormat: "yy-mm-dd"
+  });
 
-
-	$("#invoice_issuer_true").each(function(index, button){
+  $("#invoice_issuer_true").each(function(index, button){
      $(button).click(function(){
-			  value = $('#issuer_true_hidden').val()
-			  current_value = $("#invoice_number").val()
-				if (value != undefined) {
-        	$("#invoice_number").val(value);
-				}
-     });
-   });
-	$("#invoice_issuer_false").each(function(index, button){
-     $(button).click(function(){
-			  value = $('#issuer_false_hidden').val()
+        value = $('#issuer_true_hidden').val()
         current_value = $("#invoice_number").val()
-				if (value != undefined) {
-        	$("#invoice_number").val(value);
-				}
+        if (value != undefined) {
+          $("#invoice_number").val(value);
+        }
      });
-   });
-	$("#receipt_issuer_true").each(function(index, button){
-     $(button).click(function(){
-			  value = $('#issuer_true_hidden').val()
-        current_value = $("#receipt_number").val()
-				if (value != undefined) {
-        	$("#receipt_number").val(value);
-				}
-     });
-   });
-	$("#receipt_issuer_false").each(function(index, button){
-     $(button).click(function(){
-			  value = $('#issuer_false_hidden').val()
-        current_value = $("#receipt_number").val()
-				if (value != undefined) {
-        	$("#receipt_number").val(value);
-				}
-     });
-   });
+  });
 
-	// Toggles the templates option in bills' forms.
-	var prefill = false
+  $("#invoice_issuer_false").each(function(index, button){
+     $(button).click(function(){
+        value = $('#issuer_false_hidden').val()
+        current_value = $("#invoice_number").val()
+        if (value != undefined) {
+          $("#invoice_number").val(value);
+        }
+     });
+  });
 
-	$('.prefill-toggle').click(function() {
-			if (prefill == false) {
-				prefill = true;
-				$('.prefill-toggle').css('background','lightgrey');
-			} else {
-				prefill = false;
-				$('.prefill-toggle').css('background','white');
-			}
-		  $('#prefill-form').slideToggle('slow', function() {
-		    // Animation complete.
-		  });
-	});
+  $("#receipt_issuer_true").each(function(index, button){
+     $(button).click(function(){
+        value = $('#issuer_true_hidden').val()
+        current_value = $("#receipt_number").val()
+        if (value != undefined) {
+          $("#receipt_number").val(value);
+        }
+     });
+  });
+
+  $("#receipt_issuer_false").each(function(index, button){
+     $(button).click(function(){
+        value = $('#issuer_false_hidden').val()
+        current_value = $("#receipt_number").val()
+        if (value != undefined) {
+          $("#receipt_number").val(value);
+        }
+     });
+  });
+
+  // Toggles the templates option in bills' forms.
+  var prefill = false
+
+  $('.prefill-toggle').click(function() {
+    if (prefill == false) {
+      prefill = true;
+      $('.prefill-toggle').css('background','lightgrey');
+    } else {
+      prefill = false;
+      $('.prefill-toggle').css('background','white');
+    }
+    $('#prefill-form').slideToggle('slow', function() {
+      // Animation complete.
+    });
+  });
 });
