@@ -34,4 +34,7 @@ Dummy::Application.configure do
 
   # Eager loading
   config.eager_load = false
+
+  # Run tests in random order
+  config.active_support.test_order = :random
 end
