@@ -19,10 +19,10 @@ module InvoiceBar
         end
 
         def expense?
-          unless self.issuer?
-            true
-          else
+          if self.issuer?
             false
+          else
+            true
           end
         end
 

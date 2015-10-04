@@ -20,10 +20,10 @@ module InvoiceBar
         end
 
         def received?
-          unless self.issuer?
-            true
-          else
+          if self.issuer?
             false
+          else
+            true
           end
         end
 
