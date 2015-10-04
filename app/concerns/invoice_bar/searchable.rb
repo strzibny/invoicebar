@@ -1,5 +1,4 @@
 module InvoiceBar
-
   # Module that provides +search_for+ method on a model class.
   # It expects +searchable_fields+ to be defined.
   # +searchable_fields+ contains the table fields of the model
@@ -15,17 +14,17 @@ module InvoiceBar
       protected
 
         def self.build_search_query()
-          @query = ''
+          query = ''
 
           self.searchable_fields.each do |field|
-            unless @query.blank?
-              @query += ' OR '
+            unless query.blank?
+              query += ' OR '
             end
 
-            @query += "#{field} LIKE :query"
+            query += "#{field} LIKE :query"
           end
 
-          @query
+          query
         end
     end
   end
