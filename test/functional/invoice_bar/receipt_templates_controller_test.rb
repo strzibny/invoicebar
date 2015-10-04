@@ -2,6 +2,7 @@ require 'test_helper'
 
 class InvoiceBar::ReceiptTemplatesControllerTest < ActionController::TestCase
   setup do
+    @routes = InvoiceBar::Engine.routes
     @user = FactoryGirl.create(:invoice_bar_user)
     @account = FactoryGirl.create(:invoice_bar_account, user: @user)
     @receipt_template = FactoryGirl.create(:invoice_bar_receipt_template, user: @user, account: @account)
@@ -10,13 +11,13 @@ class InvoiceBar::ReceiptTemplatesControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get :index, use_route: :invoice_bar
+    get :index
     assert_response :success
     assert_not_nil assigns(:receipt_templates)
   end
 
   test "should get new" do
-    get :new, use_route: :invoice_bar
+    get :new
     assert_response :success
   end
 
@@ -31,17 +32,17 @@ class InvoiceBar::ReceiptTemplatesControllerTest < ActionController::TestCase
         contact_ic: @new_receipt_template.contact_ic,
         contact_name: @new_receipt_template.contact_name,
         issue_date: @new_receipt_template.issue_date,
-        name: @new_receipt_template.name }, use_route: :invoice_bar
+        name: @new_receipt_template.name }
     end
   end
 
   test "should show receipt_template" do
-    get :show, use_route: :invoice_bar, id: @receipt_template
+    get :show, id: @receipt_template
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, use_route: :invoice_bar, id: @receipt_template
+    get :edit, id: @receipt_template
     assert_response :success
   end
 
@@ -54,12 +55,12 @@ class InvoiceBar::ReceiptTemplatesControllerTest < ActionController::TestCase
       contact_name: @receipt_template.contact_name,
       issue_date: @receipt_template.issue_date,
       name: @receipt_template.name,
-      user_id: @receipt_template.user_id }, use_route: :invoice_bar
+      user_id: @receipt_template.user_id }
   end
 
   test "should destroy receipt_template" do
     assert_difference('InvoiceBar::ReceiptTemplate.count', -1) do
-      delete :destroy, use_route: :invoice_bar, id: @receipt_template
+      delete :destroy, id: @receipt_template
     end
   end
 end

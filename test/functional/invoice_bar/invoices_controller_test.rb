@@ -2,6 +2,7 @@ require 'test_helper'
 
 class InvoiceBar::InvoicesControllerTest < ActionController::TestCase
   setup do
+    @routes = InvoiceBar::Engine.routes
     @user = FactoryGirl.create(:invoice_bar_user)
     @account = FactoryGirl.create(:invoice_bar_account, user: @user)
     @invoice = FactoryGirl.create(:invoice_bar_invoice, user: @user, account: @account)
@@ -10,13 +11,13 @@ class InvoiceBar::InvoicesControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get :index, use_route: :invoice_bar
+    get :index
     assert_response :success
     assert_not_nil assigns(:invoices)
   end
 
   test "should get new" do
-    get :new, use_route: :invoice_bar
+    get :new
     assert_response :success
   end
 
@@ -36,17 +37,17 @@ class InvoiceBar::InvoicesControllerTest < ActionController::TestCase
         sent: @new_invoice.sent,
         paid: @new_invoice.paid,
         account_id: @new_invoice.account_id,
-        user_id: @new_invoice.user_id }, use_route: :invoice_bar
+        user_id: @new_invoice.user_id }
     end
   end
 
   test "should show invoice" do
-    get :show, id: @invoice, use_route: :invoice_bar
+    get :show, id: @invoice
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @invoice, use_route: :invoice_bar
+    get :edit, id: @invoice
     assert_response :success
   end
 
@@ -63,12 +64,12 @@ class InvoiceBar::InvoicesControllerTest < ActionController::TestCase
       sent: @invoice.sent,
       paid: @invoice.paid,
       account_id: @invoice.account_id,
-      user_id: @invoice.user_id }, use_route: :invoice_bar
+      user_id: @invoice.user_id }
   end
 
   test "should destroy invoice" do
     assert_difference('InvoiceBar::Invoice.count', -1) do
-      delete :destroy, id: @invoice, use_route: :invoice_bar
+      delete :destroy, id: @invoice
     end
   end
 end

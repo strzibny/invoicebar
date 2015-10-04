@@ -2,19 +2,20 @@ require 'test_helper'
 
 class InvoiceBar::UsersControllerTest < ActionController::TestCase
   setup do
+    @routes = InvoiceBar::Engine.routes
     @user = FactoryGirl.create(:invoice_bar_user, administrator: true)
 
     login_user
   end
 
   test "should get index" do
-    get :index, use_route: :invoice_bar
+    get :index
     assert_response :success
     assert_not_nil assigns(:users)
   end
 
   test "should get new" do
-    get :new, use_route: :invoice_bar
+    get :new
     assert_response :success
   end
 
@@ -41,12 +42,12 @@ class InvoiceBar::UsersControllerTest < ActionController::TestCase
           postcode: @new_user.postcode,
           city: @new_user.city,
           city_part: @new_user.city_part,
-          extra_address_line: @new_user.extra_address_line }}, use_route: :invoice_bar
+          extra_address_line: @new_user.extra_address_line }}
     end
   end
 
   test "should show user" do
-    get :show, id: @user, use_route: :invoice_bar
+    get :show, id: @user
     assert_response :success
   end
 
@@ -70,12 +71,12 @@ class InvoiceBar::UsersControllerTest < ActionController::TestCase
         postcode: @user.postcode,
         city: @user.city,
         city_part: @user.city_part,
-        extra_address_line: @user.extra_address_line }}, use_route: :invoice_bar
+        extra_address_line: @user.extra_address_line }}
   end
 
   test "should destroy user" do
     assert_difference('InvoiceBar::User.count', -1) do
-      delete :destroy, id: @user, use_route: :invoice_bar
+      delete :destroy, id: @user
     end
   end
 end
