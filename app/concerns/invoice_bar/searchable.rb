@@ -8,7 +8,7 @@ module InvoiceBar
 
     included do
       def self.search_for(query)
-        where(self.build_search_query, query: "%#{query}%")
+        where(build_search_query, query: "%#{query}%")
       end
 
       protected
@@ -16,11 +16,8 @@ module InvoiceBar
         def self.build_search_query()
           query = ''
 
-          self.searchable_fields.each do |field|
-            unless query.blank?
-              query += ' OR '
-            end
-
+          searchable_fields.each do |field|
+            query += ' OR ' unless query.blank?
             query += "#{field} LIKE :query"
           end
 

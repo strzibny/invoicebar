@@ -5,7 +5,6 @@ module InvoiceBar
       extend ActiveSupport::Concern
 
       included do
-
         # Looks for bills that match +number+
         # and returns a collection of matching bills
         def self.for_numbers(number)

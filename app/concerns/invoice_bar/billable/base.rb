@@ -63,7 +63,7 @@ module InvoiceBar
           end
 
           template.items.each do |item|
-            self.items << item.copy
+            items << item.copy
           end
         end
 
@@ -71,7 +71,7 @@ module InvoiceBar
         def update_amount
           self.amount = 0
 
-          self.items.each do |item|
+          items.each do |item|
             item.update_amount
             self.amount += item.amount unless item.amount.nil?
           end
@@ -110,7 +110,7 @@ module InvoiceBar
           self.address.street_number = contact.address.street_number
           self.address.postcode = contact.address.postcode
 
-          return true
+          true
         end
       end
     end
