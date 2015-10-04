@@ -11,7 +11,7 @@
 	      </ul>
 	    </div>
 	  <% end %>
-		
+
 		<div class="field">
 	    <%= f.label :email, I18n.t('attributes.user.email') %>
 	    <%= f.text_field :email %>
@@ -20,6 +20,6 @@
 	    <%= f.label :password, I18n.t('attributes.user.password') %>
 	    <%= f.text_field :password %>
 	  </div>
-		<%= f.submit I18n.t('buttons.signup'), :class => 'main' %>
+		<%= f.submit I18n.t('buttons.signup'), class: 'main' %>
 	<% end %>
 </div>

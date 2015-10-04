@@ -1,5 +1,5 @@
 <%= form_for @contact do |f| %>
-	<%= render 'invoice_bar/forms/errors', :model => @contact %>
+	<%= render 'invoice_bar/forms/errors', model: @contact %>
 	<div class="row">
 		<div class="span4 fixmax4">
 			<div class="control-group">
@@ -16,7 +16,7 @@
 		  </div>
 		</div>
 		<div class="span4 fixmax4">
-			<div class="control-group">	
+			<div class="control-group">
 		  	<%= f.label :email, t('attributes.contact.email') %>
 			  <%= f.text_field :email, placeholder: t('attributes.contact.email') %>
 			</div>

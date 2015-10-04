@@ -1,5 +1,5 @@
 <%= form_for(@currency) do |f| %>
-  <%= render 'invoice_bar/forms/errors', :model => @currency %>
+  <%= render 'invoice_bar/forms/errors', model: @currency %>
   <div class="control-group">
     <%= f.label :name, t('attributes.currency.name') %>
     <%= f.text_field :name, class: 'suggested', placeholder: t('attributes.currency.name') %>

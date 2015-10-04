@@ -96,9 +96,9 @@
 			<br>
 			<span>Forma uhrady:</span> <% if document.account_bank_account_number.blank? %>Hotově<% else %>převodem na účet<% end %>
 			<br>
-			<span><%= t('attributes.invoice.issue_date') %>:</span> <%= l(document.issue_date, :format => :invoice) unless document.issue_date.blank? %><br>
+			<span><%= t('attributes.invoice.issue_date') %>:</span> <%= l(document.issue_date, format: :invoice) unless document.issue_date.blank? %><br>
 			<% if document.instance_of? InvoiceBar::Invoice or document.instance_of? InvoiceBar::InvoiceTemplate %>
-			<span><%= t('attributes.invoice.due_date') %>:</span> <strong><%= l(document.due_date, :format => :invoice) unless document.due_date.blank? %></strong>
+			<span><%= t('attributes.invoice.due_date') %>:</span> <strong><%= l(document.due_date, format: :invoice) unless document.due_date.blank? %></strong>
 			<% end %>
 		</fieldset>
 	</div>

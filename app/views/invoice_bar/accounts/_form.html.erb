@@ -1,5 +1,5 @@
 <%= form_for(@account) do |f| %>
-  <%= render 'invoice_bar/forms/errors', :model => @account %>
+  <%= render 'invoice_bar/forms/errors', model: @account %>
   <div class="control-group">
     <%= f.label :name, t('attributes.account.name') %>
     <%= f.text_field :name, placeholder: t('attributes.account.name'), class: 'suggested' %>
@@ -15,7 +15,7 @@
   <div class="control-group">
     <%= f.label :swift, t('attributes.account.swift') %>
     <%= f.text_field :swift, placeholder: t('attributes.account.swift') %>
-  </div>	
+  </div>
   <div class="control-group">
     <%= f.label :currency_id, t('attributes.account.currency_id') %>
     <%= f.collection_select :currency_id, @currencies, :id, :name %>

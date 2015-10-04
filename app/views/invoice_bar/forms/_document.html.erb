@@ -1,13 +1,11 @@
 <%# Form for invoices, bills and receipts %>
 
 <%= nested_form_for(document) do |f| %>
-	<%= render 'invoice_bar/forms/errors', :model => document %>
-
-
+	<%= render 'invoice_bar/forms/errors', model: document %>
 	<% if document.instance_of? InvoiceBar::Invoice or document.instance_of? InvoiceBar::Receipt %>
 		<div id="prefill-form" class="row" style="display:none">
 			<div class="span4 fixmax4">
-				<div class="control-group">	
+				<div class="control-group">
 					<%= label_tag :template_ids, I18n.t('attributes.invoice_template.name')%>
 					<% if document.instance_of? InvoiceBar::Invoice %>
 						<%= select_tag :template_ids, options_from_collection_for_select(@invoice_templates, :id, :name), multiple: true %>
@@ -44,7 +42,6 @@
 		</div>
 	<% end %>
 	<% if document.instance_of? InvoiceBar::Invoice or document.instance_of? InvoiceBar::Receipt %>
-		
 		<% if (@invoice_templates && @invoice_templates.size != 0) || (@receipt_templates && @receipt_templates.size != 0) %>
 		<div class="span4 fixmax4">
 			<div class="btn-group">
@@ -91,7 +88,7 @@
 				  Výdaj
 				</label>
 			</div>
-		</div>	
+		</div>
 	<% end %>
 	</div>
 
@@ -124,7 +121,7 @@
   </div>
 
 	<%# Links and buttons %>
-	<div style="row">		
+	<div style="row">
 		<%= f.link_to_add I18n.t('links.new_item'), :items %>
 		<%= f.submit I18n.t('buttons.save'), class: 'btn btn-primary' %>
 	</div>

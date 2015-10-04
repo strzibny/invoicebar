@@ -1,6 +1,5 @@
-<%= form_for @user, :class => 'form-horizontal' do |f| %>
-  <%= render 'invoice_bar/forms/errors', :model => @user %>
-
+<%= form_for @user, class: 'form-horizontal' do |f| %>
+  <%= render 'invoice_bar/forms/errors', model:  @user %>
 	<div class="span3">
 		<h4>Konto</h4>
   	<div class="control-group">
@@ -27,6 +26,6 @@
 		end -%>
 	</div>
 	<div class="span10">
-	   <%= f.submit I18n.t('buttons.signup'), :class => 'btn' %>
+	   <%= f.submit I18n.t('buttons.signup'), class: 'btn' %>
 	</div>
 <% end %>
