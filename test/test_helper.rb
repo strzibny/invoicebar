@@ -15,6 +15,7 @@ ActiveRecord::Base.logger = Logger.new(STDOUT)
 require 'shoulda'
 require 'faker'
 require 'factory_girl'
+FactoryGirl.definition_file_paths = [File.expand_path("../../test/factories",  __FILE__)]
 FactoryGirl.find_definitions
 
 # Don't enforce locales for now

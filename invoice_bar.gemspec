@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 4.0.0"
+  s.add_dependency "protected_attributes"
   s.add_dependency "rails-i18n"
   s.add_dependency "nested_form"
   s.add_dependency "inherited_resources", "1.3.1"
@@ -27,21 +28,9 @@ Gem::Specification.new do |s|
   s.add_dependency "prawnto"
   s.add_dependency "sorcery"
   s.add_dependency "formatted-money"
-  s.add_dependency "libxml-ruby"
+  s.add_dependency "json"
   s.add_dependency "ruby-ares"
   s.add_dependency "kaminari"
   s.add_dependency "therubyracer"
   s.add_dependency "libv8", "~> 3.11.8"
-
-  # Assets
-  s.add_dependency "sass-rails", "~> 4.0"
-  s.add_dependency "bootstrap-sass"
-  s.add_dependency "coffee-rails", "~> 4.0"
-  s.add_dependency "uglifier"
-
-  # Devel
-  s.add_development_dependency "sqlite3"
-  s.add_development_dependency "faker"
-  s.add_development_dependency "factory_girl_rails", "~> 3.0"
-  s.add_development_dependency "shoulda"
 end
