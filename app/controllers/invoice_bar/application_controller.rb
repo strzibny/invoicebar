@@ -6,10 +6,61 @@ module InvoiceBar
     layout 'invoice_bar/layouts/signed_in'
 
     protected
+      def respond_on_index(collection)
+        respond_to do |format|
+          format.html { render :index }
+          format.json { render json: collection }
+        end
+      end
 
-      # For InheritedResources
-      def begin_of_association_chain
-        current_user
+      def respond_on_show(object)
+        respond_to do |format|
+          format.html { render :show }
+          format.json { render json: object }
+        end
+      end
+
+      def respond_on_new(object)
+        respond_to do |format|
+          format.html { render :new }
+        end
+      end
+
+      def respond_on_create(object)
+        respond_to do |format|
+          if object.save
+            format.html { redirect_to object }
+            format.json { render :show, status: :created, location: object }
+          else
+            format.html { render :new }
+            format.json { render json: object.errors, status: :unprocessable_entity }
+          end
+        end
+      end
+
+      def respond_on_edit(object)
+        respond_to do |format|
+          format.html { render :edit }
+        end
+      end
+
+      def respond_on_update(object, object_params)
+        respond_to do |format|
+          if object.update(object_params)
+            format.html { redirect_to object }
+            format.json { render :show, status: :ok, location: object }
+          else
+            format.html { render :edit }
+            format.json { render json: object.errors, status: :unprocessable_entity }
+          end
+        end
+      end
+
+      def respond_on_destroy(object, redirect_url)
+        respond_to do |format|
+          format.html { redirect_to redirect_url }
+          format.json { head :no_content }
+        end
       end
 
       def set_user_contacts

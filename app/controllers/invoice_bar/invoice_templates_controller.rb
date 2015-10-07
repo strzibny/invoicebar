@@ -9,7 +9,7 @@ module InvoiceBar
     # GET /invoice_templates.json
     def index
       @invoice_templates = current_user.invoice_templates.page(params[:page])
-
+      respond_on_index @invoice_templates
     end
 
     # GET /invoice_templates/1
@@ -17,13 +17,12 @@ module InvoiceBar
     def show
       @invoice_template = current_user.invoice_templates.find(params[:id])
       @address = @invoice_template.address
-      @account = current_user.accounts.find(@invoice_template.account_id) unless @invoice_template.account_id or current_user.accounts
 
-      respond_to do |format|
-        format.html
-        format.pdf
-        format.json { render json: @invoice_template }
+      unless @invoice_template.account_id or current_user.accounts
+        @account = current_user.accounts.find(@invoice_template.account_id)
       end
+
+      respond_on_show @invoice_template
     end
 
     # GET /invoice_templates/new
@@ -31,10 +30,7 @@ module InvoiceBar
       @invoice_template = InvoiceTemplate.new
       @invoice_template.items.build
       @invoice_template.build_address
-
-      respond_to do |format|
-        format.html
-      end
+      respond_on_new @invoice_template
     end
 
     # POST /invoice_templates/1
@@ -55,22 +51,10 @@ module InvoiceBar
       end
 
       if params[:fill_in_contact] || params[:ic]
-        respond_to do |format|
-          format.html { render action: 'new' }
-          format.json { render json: @invoice_template }
-        end
+        respond_on_new @invoice_template
       else
         current_user.invoice_templates << @invoice_template
-
-        respond_to do |format|
-          if @invoice_template.save
-            format.html { redirect_to @invoice_template, notice: 'Invoice template was successfully created.' }
-            format.json { render :show, status: :created, location: @invoice_template }
-          else
-            format.html { render :new }
-            format.json { render json: @invoice_template.errors, status: :unprocessable_entity }
-          end
-        end
+        respond_on_create @invoice_template
       end
     end
 
@@ -78,10 +62,7 @@ module InvoiceBar
     def edit
       @invoice_template = InvoiceTemplate.find(params[:id])
       @invoice_template.build_address unless @invoice_template.address
-
-      respond_to do |format|
-        format.html
-      end
+      respond_on_edit @invoice_template
     end
 
     # PATCH/PUT /invoices/1
@@ -102,20 +83,9 @@ module InvoiceBar
       end
 
       if params[:fill_in_contact] || params[:ic]
-        respond_to do |format|
-          format.html { render action: 'edit' }
-          format.json { render json: @invoice_template }
-        end
+        respond_on_edit @invoice_template
       else
-        respond_to do |format|
-          if @invoice_template.update(invoice_template_params)
-            format.html { redirect_to @invoice_template, notice: 'Invoice template was successfully updated.' }
-            format.json { render :show, status: :ok, location: @invoice_template }
-          else
-            format.html { render :edit }
-            format.json { render json: @invoice_template.errors, status: :unprocessable_entity }
-          end
-        end
+        respond_on_update @invoice_template, invoice_template_params
       end
     end
 
@@ -123,10 +93,7 @@ module InvoiceBar
     # DELETE /invoice_templates/1.json
     def destroy
       @invoice_template.destroy
-      respond_to do |format|
-        format.html { redirect_to contacts_url, notice: 'Invoice template was successfully destroyed.' }
-        format.json { head :no_content }
-      end
+      respond_on_destroy @invoice_template, invoice_templates_url
     end
 
     protected
