@@ -1,18 +1,18 @@
 module InvoiceBar
   class ReceiptTemplatesController < InvoiceBar::ApplicationController
-    inherit_resources
-    respond_to :html, :json
-
     before_action :require_login
     before_action :set_user_contacts, only: [:new, :create, :edit, :update]
     before_action :set_user_accounts, only: [:new, :create, :edit, :update]
+    before_action :set_receipt_template, only: [:show, :edit, :update, :destroy]
 
+    # GET /receipt_templates
+    # GET /receipt_templates.json
     def index
       @receipt_templates = current_user.receipt_templates.page(params[:page])
-
-      index! {}
     end
 
+    # GET /receipt_templates/1
+    # GET /receipt_templates/1.json
     def show
       @receipt_template = current_user.receipt_templates.find(params[:id])
       @address = @receipt_template.address
@@ -25,18 +25,23 @@ module InvoiceBar
       end
     end
 
+    # GET /receipt_templates/new
     def new
       @receipt_template = ReceiptTemplate.new
       @receipt_template.items.build
       @receipt_template.build_address
 
-      new!
+      respond_to do |format|
+        format.html
+      end
     end
 
+    # POST /receipt_templates/1
+    # POST /receipt_templates/1.json
     def create
       flash[:notice], flash[:alert] = nil, nil
 
-      @receipt_template = ReceiptTemplate.new(params[:receipt_template])
+      @receipt_template = ReceiptTemplate.new(receipt_template_params)
 
       fill_in_contact if params[:fill_in_contact]
 
@@ -56,15 +61,26 @@ module InvoiceBar
       else
         current_user.receipt_templates << @receipt_template
 
-        create! {}
+        respond_to do |format|
+          if @receipt_template.save
+            format.html { redirect_to @receipt_template, notice: 'Receipt template was successfully created.' }
+            format.json { render :show, status: :created, location: @receipt_template }
+          else
+            format.html { render :new }
+            format.json { render json: @receipt_template.errors, status: :unprocessable_entity }
+          end
+        end
       end
     end
 
+    # GET /invoice_receipts/1/edit
     def edit
       @receipt_template = ReceiptTemplate.find(params[:id])
       @receipt_template.build_address unless @receipt_template.address
 
-      edit!
+      respond_to do |format|
+        format.html
+      end
     end
 
     def update
@@ -88,18 +104,39 @@ module InvoiceBar
           format.json { render json: @receipt_template }
         end
       else
-        update! {}
+        respond_to do |format|
+          if @receipt_template.update(receipt_template_params)
+            format.html { redirect_to @receipt_template, notice: 'Receipt template was successfully updated.' }
+            format.json { render :show, status: :ok, location: @receipt_template }
+          else
+            format.html { render :edit }
+            format.json { render json: @receipt_template.errors, status: :unprocessable_entity }
+          end
+        end
       end
     end
 
+    # DELETE /receipt_templates/1
+    # DELETE /receipt_templates/1.json
     def destroy
-      destroy! {}
+      @receipt_template.destroy
+      respond_to do |format|
+        format.html { redirect_to contacts_url, notice: 'Receipt template was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
 
     protected
 
-      def collection
-        @receipt_templates ||= end_of_association_chain.page(params[:page])
+      def set_receipt_template
+        @receipt_template = InvoiceBar::ReceiptTemplate.find(params[:id])
+      end
+
+      def receipt_template_params
+        params.require(:receipt_template).permit(:name, :number, :sent, :paid,
+                                                 :amount, :contact_dic, :contact_ic, :contact_name, :issue_date, :issuer,
+                                                 :issuer,
+                                                 :account_id, :user_id, :address, :address_attributes, :items_attributes)
       end
 
       def fill_in_contact

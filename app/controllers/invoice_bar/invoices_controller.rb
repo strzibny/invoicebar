@@ -43,10 +43,6 @@ module InvoiceBar
       @invoice.due_date = @invoice.issue_date + 14.days
     end
 
-    # GET /invoices/1/edit
-    def edit
-    end
-
     def create_receipt_for_invoice
       @invoice = current_user.invoices.find(params[:id])
 
@@ -99,7 +95,7 @@ module InvoiceBar
     def create
       flash[:notice], flash[:alert] = nil, nil
 
-      @invoice = Invoice.new(params[:invoice])
+      @invoice = Invoice.new(invoice_params)
 
       apply_templates if params[:fill_in]
       fill_in_contact if params[:fill_in_contact]
@@ -129,6 +125,13 @@ module InvoiceBar
             format.json { render json: @invoice.errors, status: :unprocessable_entity }
           end
         end
+      end
+    end
+
+    # GET /invoices/1/edit
+    def edit
+      respond_to do |format|
+        format.html
       end
     end
 
