@@ -1,6 +1,5 @@
 module InvoiceBar
   class SearchController < InvoiceBar::ApplicationController
-
     before_action :require_login
 
     def index
