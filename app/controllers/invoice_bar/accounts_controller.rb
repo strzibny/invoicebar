@@ -24,8 +24,8 @@ module InvoiceBar
     def edit
     end
 
-    # account /accounts
-    # account /accounts.json
+    # POST /accounts
+    # POST /accounts.json
     def create
       @account = InvoiceBar::Account.new(account_params)
       current_user.accounts << @account

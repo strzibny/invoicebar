@@ -24,8 +24,8 @@ module InvoiceBar
     def edit
     end
 
-    # contact /contacts
-    # contact /contacts.json
+    # POST /contacts
+    # POST /contacts.json
     def create
       @contact = InvoiceBar::Contact.new(contact_params)
       current_user.contacts << @contact

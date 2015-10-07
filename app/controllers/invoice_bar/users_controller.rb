@@ -27,6 +27,8 @@ module InvoiceBar
     def edit
     end
 
+    # POST /users
+    # POST /users.json
     def create
       @user = InvoiceBar::User.new(user_params)
 

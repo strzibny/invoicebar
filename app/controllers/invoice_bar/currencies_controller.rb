@@ -23,8 +23,8 @@ module InvoiceBar
     def edit
     end
 
-    # currencies /currencies
-    # currencies /currencies.json
+    # POST /currencies
+    # POST /currencies.json
     def create
       @currency = InvoiceBar::Currency.new(currency_params)
 
