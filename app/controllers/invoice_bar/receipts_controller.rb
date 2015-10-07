@@ -5,27 +5,33 @@ module InvoiceBar
     respond_to :pdf, only: [:show]
 
     before_action :require_login
-    before_action :set_user_accounts, only: [:new, :create, :edit, :update,
-                                               :from_template]
-    before_action :set_user_contacts, only: [:new, :create, :edit, :update,
-                                               :from_template]
-    before_action :set_user_receipt_templates, only: [:new, :create, :edit,
-                                                        :update, :from_template]
+    before_action :set_user_accounts, only: [:new, :create, :edit, :update, :from_template]
+    before_action :set_user_contacts, only: [:new, :create, :edit, :update, :from_template]
+    before_action :set_user_receipt_templates, only: [:new, :create, :edit, :update, :from_template]
+    before_action :set_receipt, only: [:show, :edit, :update, :destroy]
 
+    # GET /receipts
+    # GET /receipts.json
     def index
       @receipts = current_user.receipts.page(params[:page])
-
-      index! {}
     end
 
+    # GET /receipts/1
+    # GET /receipts/1.json
+    # GET /receipts/1.pdf
     def show
       @receipt = current_user.receipts.find(params[:id])
       @address = @receipt.address
       @account = current_user.accounts.find(@receipt.account_id)
 
-      show!
+      respond_to do |format|
+        format.html
+        format.json
+        format.pdf
+      end
     end
 
+    # GET /receipts/new
     def new
       # Set the number of the document
       next_income_in_line = current_user.receipts.income.size + 1
@@ -38,8 +44,10 @@ module InvoiceBar
       @receipt.items.build
       @receipt.build_address
       @receipt.issue_date = Date.today
+    end
 
-      new!
+    # GET /receipts/1/edit
+    def edit
     end
 
     def from_template
@@ -134,6 +142,17 @@ module InvoiceBar
     end
 
     protected
+
+      def set_receipt
+        @receipt = InvoiceBar::Receipt.find(params[:id])
+      end
+
+      def receipt_params
+        params.require(:receipt).permit(:number, :sent, :paid,
+                                        :amount, :contact_dic, :contact_ic, :contact_name, :issue_date, :issuer,
+                                        :issuer,
+                                        :account_id, :user_id, :address, :address_attributes, :items_attributes)
+      end
 
       def filter_params(bills)
         @bills = bills.for_numbers(params[:number])

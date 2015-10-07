@@ -8,39 +8,47 @@ module InvoiceBar
     before_action :set_user_accounts, only: [:new, :create, :edit, :update, :from_template]
     before_action :set_user_contacts, only: [:new, :create, :edit, :update, :from_template]
     before_action :set_user_invoice_templates, only: [:new, :create, :edit, :update, :from_template]
+    before_action :set_invoice, only: [:show, :edit, :update, :destroy]
 
+    # GET /invoices
+    # GET /invoices.json
     def index
       @invoices = current_user.invoices.page(params[:page])
-
-      index! {}
     end
 
+    # GET /invoices/1
+    # GET /invoices/1.json
+    # GET /invoices/1.pdf
     def show
       @invoice = current_user.invoices.find(params[:id])
       @address = @invoice.address
       @account = current_user.accounts.find(@invoice.account_id)
 
-      show!
+      respond_to do |format|
+        format.html
+        format.json
+        format.pdf
+      end
     end
 
-    def mark_as_paid
-      @invoice = current_user.invoices.find(params[:id])
-      @invoice.mark_as_paid
-      @invoice.save!
+    # GET /invoices/new
+    def new
+      # Set the number of the document
+      next_issued_in_line = current_user.invoices.issued.size + 1
+      next_received_in_line = current_user.invoices.received.size + 1
+      @next_issued = ::InvoiceBar::Generators.issued_invoice_number(next_issued_in_line)
+      @next_received = ::InvoiceBar::Generators.received_invoice_number(next_received_in_line)
 
-      flash[:notice] = 'Označeno jako zaplaceno.'
-
-      redirect_to action: :show
+      @invoice = Invoice.new
+      @invoice.number = @next_issued
+      @invoice.items.build
+      @invoice.build_address
+      @invoice.issue_date = Date.today
+      @invoice.due_date = @invoice.issue_date + 14.days
     end
 
-    def mark_as_sent
-      @invoice = current_user.invoices.find(params[:id])
-      @invoice.mark_as_sent
-      @invoice.save!
-
-      flash[:notice] = 'Označena za odeslanou.'
-
-      redirect_to action: :show
+    # GET /invoices/1/edit
+    def edit
     end
 
     def create_receipt_for_invoice
@@ -78,23 +86,6 @@ module InvoiceBar
       end
 
       redirect_to action: :show
-    end
-
-    def new
-      # Set the number of the document
-      next_issued_in_line = current_user.invoices.issued.size + 1
-      next_received_in_line = current_user.invoices.received.size + 1
-      @next_issued = ::InvoiceBar::Generators.issued_invoice_number(next_issued_in_line)
-      @next_received = ::InvoiceBar::Generators.received_invoice_number(next_received_in_line)
-
-      @invoice = Invoice.new
-      @invoice.number = @next_issued
-      @invoice.items.build
-      @invoice.build_address
-      @invoice.issue_date = Date.today
-      @invoice.due_date = @invoice.issue_date + 14.days
-
-      new!
     end
 
     def from_template
@@ -165,6 +156,26 @@ module InvoiceBar
       destroy! {}
     end
 
+    def mark_as_paid
+      @invoice = current_user.invoices.find(params[:id])
+      @invoice.mark_as_paid
+      @invoice.save!
+
+      flash[:notice] = 'Označeno jako zaplaceno.'
+
+      redirect_to action: :show
+    end
+
+    def mark_as_sent
+      @invoice = current_user.invoices.find(params[:id])
+      @invoice.mark_as_sent
+      @invoice.save!
+
+      flash[:notice] = 'Označena za odeslanou.'
+
+      redirect_to action: :show
+    end
+
     def received
       @section = :received
       @invoices = current_user.invoices.received
@@ -189,6 +200,17 @@ module InvoiceBar
     end
 
     protected
+
+      def set_invoice
+        @invoice = InvoiceBar::Invoice.find(params[:id])
+      end
+
+      def invoice_params
+        params.require(:invoice).permit(:number, :sent, :paid,
+                                        :amount, :contact_dic, :contact_ic, :contact_name, :issue_date, :issuer,
+                                        :due_date, :payment_identification_number, :issuer,
+                                        :account_id, :user_id, :address, :address_attributes, :items_attributes)
+      end
 
       def filter_params(bills)
         unless params[:from_amount].blank?
