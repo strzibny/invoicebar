@@ -4,10 +4,11 @@ module InvoiceBar
 
     before_action :require_login_from_http_basic, only: [:login_from_http_basic]
 
-    # Log in
+    # Log in form
     def new
     end
 
+    # Log the user in
     def create
       user = login(params[:email], params[:password], params[:remember_me])
 
@@ -20,6 +21,7 @@ module InvoiceBar
       end
     end
 
+    # Log out
     def destroy
       logout
 
