@@ -1,9 +1,5 @@
 module InvoiceBar
   class ReceiptsController < InvoiceBar::ApplicationController
-    inherit_resources
-    respond_to :html, :json
-    respond_to :pdf, only: [:show]
-
     before_action :require_login
     before_action :set_user_accounts, only: [:new, :create, :edit, :update, :from_template]
     before_action :set_user_contacts, only: [:new, :create, :edit, :update, :from_template]
@@ -60,6 +56,8 @@ module InvoiceBar
       end
     end
 
+    # POST /receipts/1
+    # POST /receipts/1.json
     def create
       flash[:notice], flash[:alert] = nil, nil
 
@@ -84,10 +82,20 @@ module InvoiceBar
       else
         current_user.receipts << @receipt
 
-        create! {}
+        respond_to do |format|
+          if @receipt.save
+            format.html { redirect_to @receipt, notice: 'Receipt was successfully created.' }
+            format.json { render :show, status: :created, location: @receipt }
+          else
+            format.html { render :new }
+            format.json { render json: @receipt.errors, status: :unprocessable_entity }
+          end
+        end
       end
     end
 
+    # PATCH/PUT /receipts/1
+    # PATCH/PUT /receipts/1.json
     def update
       flash[:notice], flash[:alert] = nil, nil
 
@@ -110,12 +118,26 @@ module InvoiceBar
           format.json { render json: @receipt }
         end
       else
-        update! {}
+        respond_to do |format|
+          if @receipt.update(receipt_params)
+            format.html { redirect_to @receipt, notice: 'Receipt was successfully updated.' }
+            format.json { render :show, status: :ok, location: @receipt }
+          else
+            format.html { render :edit }
+            format.json { render json: @receipt.errors, status: :unprocessable_entity }
+          end
+        end
       end
     end
 
+    # DELETE /receipts/1
+    # DELETE /receipts/1.json
     def destroy
-      destroy! {}
+      @receipt.destroy
+      respond_to do |format|
+        format.html { redirect_to contacts_url, notice: 'Receipt was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
 
     def expence
@@ -163,10 +185,6 @@ module InvoiceBar
                       .page(params[:page])
 
         @bills
-      end
-
-      def collection
-        @receipts ||= end_of_association_chain.page(params[:page])
       end
 
       def apply_templates

@@ -1,9 +1,5 @@
 module InvoiceBar
   class InvoicesController < InvoiceBar::ApplicationController
-    inherit_resources
-    respond_to :html, :json
-    respond_to :pdf, only: [:show]
-
     before_action :require_login
     before_action :set_user_accounts, only: [:new, :create, :edit, :update, :from_template]
     before_action :set_user_contacts, only: [:new, :create, :edit, :update, :from_template]
@@ -98,6 +94,8 @@ module InvoiceBar
       end
     end
 
+    # POST /invoices/1
+    # POST /invoices/1.json
     def create
       flash[:notice], flash[:alert] = nil, nil
 
@@ -122,10 +120,20 @@ module InvoiceBar
       else
         current_user.invoices << @invoice
 
-        create! {}
+        respond_to do |format|
+          if @invoice.save
+            format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
+            format.json { render :show, status: :created, location: @invoice }
+          else
+            format.html { render :new }
+            format.json { render json: @invoice.errors, status: :unprocessable_entity }
+          end
+        end
       end
     end
 
+    # PATCH/PUT /invoices/1
+    # PATCH/PUT /invoices/1.json
     def update
       flash[:notice], flash[:alert] = nil, nil
 
@@ -148,12 +156,26 @@ module InvoiceBar
           format.json { render json: @invoice }
         end
       else
-        update! {}
+        respond_to do |format|
+          if @invoice.update(invoice_params)
+            format.html { redirect_to @invoice, notice: 'Invoice was successfully updated.' }
+            format.json { render :show, status: :ok, location: @invoice }
+          else
+            format.html { render :edit }
+            format.json { render json: @invoice.errors, status: :unprocessable_entity }
+          end
+        end
       end
     end
 
+    # DELETE /invoices/1
+    # DELETE /invoices/1.json
     def destroy
-      destroy! {}
+      @invoice.destroy
+      respond_to do |format|
+        format.html { redirect_to contacts_url, notice: 'Invoice was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
 
     def mark_as_paid
@@ -247,10 +269,6 @@ module InvoiceBar
                       .page(params[:page])
 
         @bills
-      end
-
-      def collection
-        @invoices ||= end_of_association_chain.page(params[:page])
       end
 
       def apply_templates
