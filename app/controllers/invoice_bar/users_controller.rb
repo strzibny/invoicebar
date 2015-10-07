@@ -2,7 +2,7 @@ module InvoiceBar
   class UsersController < InvoiceBar::ApplicationController
     before_action :require_login, only: [:update]
     before_action :require_admin_rights, only: [:index, :edit, :destroy]
-    before_action :set_user, only: [:show, :edit, :update, :destroy]
+    before_action :set_user, only: [:show, :edit, :destroy]
     layout :set_layout
 
     # GET /users
@@ -33,7 +33,7 @@ module InvoiceBar
       @user = InvoiceBar::User.new(user_params)
 
       # First user is an administrator
-      @user.administrator = true unless User.all.size > 0
+      @user.administrator = true unless InvoiceBar::User.all.size > 0
 
       respond_to do |format|
         if @user.save
@@ -46,12 +46,12 @@ module InvoiceBar
       end
     end
 
-    # PATCH/PUT /users/1
-    # PATCH/PUT /users/1.json
+    # Update current user
+    # TODO: Allow editing and updating user for administrators
     def update
       params[:controller] = 'settings'
 
-      @user = User.find(current_user.id)
+      @user = current_user
       @user.update_attributes(user_params)
 
       respond_to do |format|
