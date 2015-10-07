@@ -1,7 +1,7 @@
 module InvoiceBar
   class AccountsController < InvoiceBar::ApplicationController
     before_action :require_login
-    before_action :fetch_currencies, only: [:new, :create, :edit, :update]
+    before_action :set_currencies, only: [:new, :create, :edit, :update]
     before_action :set_account, only: [:show, :edit, :update, :destroy]
 
     # GET /accounts

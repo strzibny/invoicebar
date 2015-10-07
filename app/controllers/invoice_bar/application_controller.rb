@@ -12,24 +12,24 @@ module InvoiceBar
         current_user
       end
 
-      def fetch_user_contacts
+      def set_user_contacts
         @contacts = current_user.contacts
       end
 
-      def fetch_user_invoice_templates
+      def set_user_invoice_templates
         @invoice_templates = current_user.invoice_templates
       end
 
-      def fetch_user_receipt_templates
+      def set_user_receipt_templates
         @receipt_templates = current_user.receipt_templates
       end
 
-      def fetch_user_accounts
+      def set_user_accounts
         @accounts = current_user.accounts
         flash[:alert] = t('messages.no_accounts') if @accounts.empty?
       end
 
-      def fetch_currencies
+      def set_currencies
         @currencies = Currency.order('priority DESC')
         flash[:alert] = t('messages.no_currencies') if @currencies.empty?
       end
