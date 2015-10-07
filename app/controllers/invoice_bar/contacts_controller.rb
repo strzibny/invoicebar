@@ -1,44 +1,80 @@
 module InvoiceBar
   class ContactsController < InvoiceBar::ApplicationController
-    inherit_resources
-    respond_to :html, :json
-
     before_filter :require_login
+    before_action :set_contact, only: [:show, :edit, :update, :destroy]
 
+    # GET /contacts
+    # GET /contacts.json
     def index
       @contacts = current_user.contacts.page(params[:page])
-
-      index! {}
     end
 
+    # GET /contacts/1
+    # GET /contacts/1.json
+    def show
+    end
+
+    # GET /contacts/new
     def new
-      @contact = Contact.new
+      @contact = InvoiceBar::Contact.new
       @contact.build_address
-
-      new!
     end
 
-    def create
-      @contact = Contact.new(params[:contact])
-      current_user.contacts << @contact
+    # GET /contacts/1/edit
+    def edit
+    end
 
+    # contact /contacts
+    # contact /contacts.json
+    def create
+      @contact = InvoiceBar::Contact.new(contact_params)
+      current_user.contacts << @contact
       @contact.build_address unless @contact.address
 
-      create! {}
+      respond_to do |format|
+        if @contact.save
+          format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
+          format.json { render :show, status: :created, location: @contact }
+        else
+          format.html { render :new }
+          format.json { render json: @contact.errors, status: :unprocessable_entity }
+        end
+      end
     end
 
+    # PATCH/PUT /contacts/1
+    # PATCH/PUT /contacts/1.json
     def update
-      update! {}
+      respond_to do |format|
+        if @contact.update(contact_params)
+          format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
+          format.json { render :show, status: :ok, location: @contact }
+        else
+          format.html { render :edit }
+          format.json { render json: @contact.errors, status: :unprocessable_entity }
+        end
+      end
     end
 
+    # DELETE /contacts/1
+    # DELETE /contacts/1.json
     def destroy
-      destroy! {}
+      @contact.destroy
+      respond_to do |format|
+        format.html { redirect_to contacts_url, notice: 'Contact was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
 
-    protected
+    private
 
-      def collection
-        @contacts ||= end_of_association_chain.page(params[:page])
+      def set_contact
+        @contact = InvoiceBar::Contact.find(params[:id])
+      end
+
+      def contact_params
+        params.require(:contact).permit(:bank_account, :dic, :email, :ic, :name,
+                                        :phone, :web, :user_id, :address_attributes)
       end
   end
 end
