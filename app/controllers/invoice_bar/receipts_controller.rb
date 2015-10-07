@@ -4,12 +4,12 @@ module InvoiceBar
     respond_to :html, :json
     respond_to :pdf, only: [:show]
 
-    before_filter :require_login
-    before_filter :set_user_accounts, only: [:new, :create, :edit, :update,
+    before_action :require_login
+    before_action :set_user_accounts, only: [:new, :create, :edit, :update,
                                                :from_template]
-    before_filter :set_user_contacts, only: [:new, :create, :edit, :update,
+    before_action :set_user_contacts, only: [:new, :create, :edit, :update,
                                                :from_template]
-    before_filter :set_user_receipt_templates, only: [:new, :create, :edit,
+    before_action :set_user_receipt_templates, only: [:new, :create, :edit,
                                                         :update, :from_template]
 
     def index

@@ -1,6 +1,6 @@
 module InvoiceBar
   class CurrenciesController < InvoiceBar::ApplicationController
-    before_filter :require_admin_rights
+    before_action :require_admin_rights
     before_action :set_currency, only: [:show, :edit, :update, :destroy]
 
     # GET /currencies

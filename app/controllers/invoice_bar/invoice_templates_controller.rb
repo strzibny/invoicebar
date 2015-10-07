@@ -3,9 +3,9 @@ module InvoiceBar
     inherit_resources
     respond_to :html, :json
 
-    before_filter :require_login
-    before_filter :set_user_contacts, only: [:new, :create, :edit, :update]
-    before_filter :set_user_accounts, only: [:new, :create, :edit, :update]
+    before_action :require_login
+    before_action :set_user_contacts, only: [:new, :create, :edit, :update]
+    before_action :set_user_accounts, only: [:new, :create, :edit, :update]
 
     def index
       @invoice_templates = current_user.invoice_templates.page(params[:page])

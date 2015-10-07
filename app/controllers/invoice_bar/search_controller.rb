@@ -1,7 +1,7 @@
 module InvoiceBar
   class SearchController < InvoiceBar::ApplicationController
 
-    before_filter :require_login
+    before_action :require_login
 
     def index
       @invoices = []

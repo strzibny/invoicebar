@@ -1,6 +1,6 @@
 module InvoiceBar
   class ContactsController < InvoiceBar::ApplicationController
-    before_filter :require_login
+    before_action :require_login
     before_action :set_contact, only: [:show, :edit, :update, :destroy]
 
     # GET /contacts
