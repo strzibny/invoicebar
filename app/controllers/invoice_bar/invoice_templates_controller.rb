@@ -1,42 +1,44 @@
 module InvoiceBar
   class InvoiceTemplatesController < InvoiceBar::ApplicationController
-    inherit_resources
-    respond_to :html, :json
+    before_action :require_login
+    before_action :set_user_contacts, only: [:new, :create, :edit, :update]
+    before_action :set_user_accounts, only: [:new, :create, :edit, :update]
+    before_action :set_invoice_template, only: [:show, :edit, :update, :destroy]
 
-    before_filter :require_login
-    before_filter :fetch_user_contacts, only: [:new, :create, :edit, :update]
-    before_filter :fetch_user_accounts, only: [:new, :create, :edit, :update]
-
+    # GET /invoice_templates
+    # GET /invoice_templates.json
     def index
       @invoice_templates = current_user.invoice_templates.page(params[:page])
-
-      index! {}
+      respond_on_index @invoice_templates
     end
 
+    # GET /invoice_templates/1
+    # GET /invoice_templates/1.json
     def show
       @invoice_template = current_user.invoice_templates.find(params[:id])
       @address = @invoice_template.address
-      @account = current_user.accounts.find(@invoice_template.account_id) unless @invoice_template.account_id or current_user.accounts
 
-      respond_to do |format|
-        format.html
-        format.pdf
-        format.json { render json: @invoice_template }
+      unless @invoice_template.account_id or current_user.accounts
+        @account = current_user.accounts.find(@invoice_template.account_id)
       end
+
+      respond_on_show @invoice_template
     end
 
+    # GET /invoice_templates/new
     def new
       @invoice_template = InvoiceTemplate.new
       @invoice_template.items.build
       @invoice_template.build_address
-
-      new!
+      respond_on_new @invoice_template
     end
 
+    # POST /invoice_templates/1
+    # POST /invoice_templates/1.json
     def create
       flash[:notice], flash[:alert] = nil, nil
 
-      @invoice_template = InvoiceTemplate.new(params[:invoice_template])
+      @invoice_template = InvoiceTemplate.new(invoice_template_params)
 
       fill_in_contact if params[:fill_in_contact]
 
@@ -49,24 +51,22 @@ module InvoiceBar
       end
 
       if params[:fill_in_contact] || params[:ic]
-        respond_to do |format|
-          format.html { render action: 'new' }
-          format.json { render json: @invoice_template }
-        end
+        respond_on_new @invoice_template
       else
         current_user.invoice_templates << @invoice_template
-
-        create! {}
+        respond_on_create @invoice_template
       end
     end
 
+    # GET /invoice_templates/1/edit
     def edit
       @invoice_template = InvoiceTemplate.find(params[:id])
       @invoice_template.build_address unless @invoice_template.address
-
-      edit!
+      respond_on_edit @invoice_template
     end
 
+    # PATCH/PUT /invoices/1
+    # PATCH/PUT /invoices/1.json
     def update
       flash[:notice], flash[:alert] = nil, nil
 
@@ -83,23 +83,30 @@ module InvoiceBar
       end
 
       if params[:fill_in_contact] || params[:ic]
-        respond_to do |format|
-          format.html { render action: 'edit' }
-          format.json { render json: @invoice_template }
-        end
+        respond_on_edit @invoice_template
       else
-        update! {}
+        respond_on_update @invoice_template, invoice_template_params
       end
     end
 
+    # DELETE /invoice_templates/1
+    # DELETE /invoice_templates/1.json
     def destroy
-      destroy! {}
+      @invoice_template.destroy
+      respond_on_destroy @invoice_template, invoice_templates_url
     end
 
     protected
 
-      def collection
-        @invoice_templates ||= end_of_association_chain.page(params[:page])
+      def set_invoice_template
+        @invoice_template = InvoiceBar::InvoiceTemplate.find(params[:id])
+      end
+
+      def invoice_template_params
+        params.require(:invoice_template).permit(:name, :number, :sent, :paid,
+                                                 :amount, :contact_dic, :contact_ic, :contact_name, :issue_date, :issuer,
+                                                 :due_date, :payment_identification_number, :issuer,
+                                                 :account_id, :user_id, :address, :address_attributes, :items_attributes)
       end
 
       def fill_in_contact

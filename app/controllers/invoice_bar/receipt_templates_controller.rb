@@ -1,42 +1,44 @@
 module InvoiceBar
   class ReceiptTemplatesController < InvoiceBar::ApplicationController
-    inherit_resources
-    respond_to :html, :json
+    before_action :require_login
+    before_action :set_user_contacts, only: [:new, :create, :edit, :update]
+    before_action :set_user_accounts, only: [:new, :create, :edit, :update]
+    before_action :set_receipt_template, only: [:show, :edit, :update, :destroy]
 
-    before_filter :require_login
-    before_filter :fetch_user_contacts, only: [:new, :create, :edit, :update]
-    before_filter :fetch_user_accounts, only: [:new, :create, :edit, :update]
-
+    # GET /receipt_templates
+    # GET /receipt_templates.json
     def index
       @receipt_templates = current_user.receipt_templates.page(params[:page])
-
-      index! {}
+      respond_on_index @receipt_templates
     end
 
+    # GET /receipt_templates/1
+    # GET /receipt_templates/1.json
     def show
       @receipt_template = current_user.receipt_templates.find(params[:id])
       @address = @receipt_template.address
-      @account = current_user.accounts.find(@receipt_template.account_id) unless @receipt_template.account_id or current_user.accounts
 
-      respond_to do |format|
-        format.html
-        format.pdf
-        format.json { render json: @receipt_template }
+      unless @receipt_template.account_id or current_user.accounts
+        @account = current_user.accounts.find(@receipt_template.account_id)
       end
+
+      respond_on_show @receipt_template
     end
 
+    # GET /receipt_templates/new
     def new
       @receipt_template = ReceiptTemplate.new
       @receipt_template.items.build
       @receipt_template.build_address
-
-      new!
+      respond_on_new @receipt_template
     end
 
+    # POST /receipt_templates/1
+    # POST /receipt_templates/1.json
     def create
       flash[:notice], flash[:alert] = nil, nil
 
-      @receipt_template = ReceiptTemplate.new(params[:receipt_template])
+      @receipt_template = ReceiptTemplate.new(receipt_template_params)
 
       fill_in_contact if params[:fill_in_contact]
 
@@ -49,22 +51,18 @@ module InvoiceBar
       end
 
       if params[:fill_in_contact] || params[:ic]
-        respond_to do |format|
-          format.html { render action: 'new' }
-          format.json { render json: @receipt_template }
-        end
+        respond_on_new @receipt_template
       else
         current_user.receipt_templates << @receipt_template
-
-        create! {}
+        respond_on_create @receipt_template
       end
     end
 
+    # GET /invoice_receipts/1/edit
     def edit
       @receipt_template = ReceiptTemplate.find(params[:id])
       @receipt_template.build_address unless @receipt_template.address
-
-      edit!
+      respond_on_edit @receipt_template
     end
 
     def update
@@ -83,23 +81,30 @@ module InvoiceBar
       end
 
       if params[:fill_in_contact] || params[:ic]
-        respond_to do |format|
-          format.html { render action: 'edit' }
-          format.json { render json: @receipt_template }
-        end
+        respond_on_edit @receipt_template
       else
-        update! {}
+        respond_on_update @receipt_template, receipt_template_params
       end
     end
 
+    # DELETE /receipt_templates/1
+    # DELETE /receipt_templates/1.json
     def destroy
-      destroy! {}
+      @receipt_template.destroy
+      respond_on_destroy @receipt_template, receipt_templates_url
     end
 
     protected
 
-      def collection
-        @receipt_templates ||= end_of_association_chain.page(params[:page])
+      def set_receipt_template
+        @receipt_template = InvoiceBar::ReceiptTemplate.find(params[:id])
+      end
+
+      def receipt_template_params
+        params.require(:receipt_template).permit(:name, :number, :sent, :paid,
+                                                 :amount, :contact_dic, :contact_ic, :contact_name, :issue_date, :issuer,
+                                                 :issuer,
+                                                 :account_id, :user_id, :address, :address_attributes, :items_attributes)
       end
 
       def fill_in_contact

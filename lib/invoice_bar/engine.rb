@@ -5,7 +5,6 @@ require 'prawnto'
 require 'jquery-rails'
 require 'jquery-ui-rails'
 require 'sorcery'
-require 'inherited_resources'
 require 'nested_form'
 
 # ARES

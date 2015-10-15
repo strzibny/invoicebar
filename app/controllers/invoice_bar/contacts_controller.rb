@@ -1,44 +1,63 @@
 module InvoiceBar
   class ContactsController < InvoiceBar::ApplicationController
-    inherit_resources
-    respond_to :html, :json
+    before_action :require_login
+    before_action :set_contact, only: [:show, :edit, :update, :destroy]
 
-    before_filter :require_login
-
+    # GET /contacts
+    # GET /contacts.json
     def index
       @contacts = current_user.contacts.page(params[:page])
-
-      index! {}
+      respond_on_index @contacts
     end
 
+    # GET /contacts/1
+    # GET /contacts/1.json
+    def show
+      respond_on_show @contact
+    end
+
+    # GET /contacts/new
     def new
-      @contact = Contact.new
+      @contact = InvoiceBar::Contact.new
       @contact.build_address
-
-      new!
     end
 
+    # GET /contacts/1/edit
+    def edit
+      respond_on_edit @contact
+    end
+
+    # POST /contacts
+    # POST /contacts.json
     def create
-      @contact = Contact.new(params[:contact])
+      @contact = InvoiceBar::Contact.new(contact_params)
       current_user.contacts << @contact
-
       @contact.build_address unless @contact.address
-
-      create! {}
+      respond_on_create @contact
     end
 
+    # PATCH/PUT /contacts/1
+    # PATCH/PUT /contacts/1.json
     def update
-      update! {}
+      respond_on_update @contact, contact_params
     end
 
+    # DELETE /contacts/1
+    # DELETE /contacts/1.json
     def destroy
-      destroy! {}
+      @contact.destroy
+      respond_on_destroy @contact, contact_url
     end
 
-    protected
+    private
 
-      def collection
-        @contacts ||= end_of_association_chain.page(params[:page])
+      def set_contact
+        @contact = InvoiceBar::Contact.find(params[:id])
+      end
+
+      def contact_params
+        params.require(:contact).permit(:bank_account, :dic, :email, :ic, :name,
+                                        :phone, :web, :user_id, :address_attributes)
       end
   end
 end

@@ -2,12 +2,14 @@ module InvoiceBar
   class SessionsController < InvoiceBar::ApplicationController
     layout 'invoice_bar/layouts/signed_out'
 
-    before_filter :require_login_from_http_basic, only: [:login_from_http_basic]
+    before_action :require_login_from_http_basic, only: [:login_from_http_basic]
 
-    # Log in
+    # Log in form
     def new
+      respond_on_new @session
     end
 
+    # Log the user in
     def create
       user = login(params[:email], params[:password], params[:remember_me])
 
@@ -16,10 +18,11 @@ module InvoiceBar
       else
         flash[:error] =  t('messages.cannot_log_in')
 
-        render :new
+        respond_on_create @session
       end
     end
 
+    # Log out
     def destroy
       logout
 

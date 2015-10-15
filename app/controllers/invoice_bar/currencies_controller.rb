@@ -1,27 +1,60 @@
 module InvoiceBar
   class CurrenciesController < InvoiceBar::ApplicationController
-    inherit_resources
-    respond_to :html, :json
+    before_action :require_admin_rights
+    before_action :set_currency, only: [:show, :edit, :update, :destroy]
 
-    before_filter :require_admin_rights
+    # GET /currencies
+    # GET /currencies.json
+    def index
+      @currencies = InvoiceBar::Currency.all.page(params[:page])
+      respond_on_index @currency
+    end
 
+    # GET /currencies/1
+    # GET /currencies/1.json
+    def show
+      respond_on_show @currency
+    end
+
+    # GET /currencies/new
+    def new
+      @currency = InvoiceBar::Currency.new
+      respond_on_new @currency
+    end
+
+    # GET /currencies/1/edit
+    def edit
+    end
+
+    # POST /currencies
+    # POST /currencies.json
     def create
-      create! {}
+      @currency = InvoiceBar::Currency.new(currency_params)
+
+      respond_on_create @currency
     end
 
+    # PATCH/PUT /currencies/1
+    # PATCH/PUT /currencies/1.json
     def update
-      update! {}
+      respond_on_update @currency, currency_params
     end
 
+    # DELETE /currencies/1
+    # DELETE /currencies/1.json
     def destroy
-      destroy! {}
+      @currency.destroy
+      respond_on_destroy @currency, currency_url
     end
 
-    protected
+    private
 
-      def begin_of_association_chain
-        # For InheritedResources
-        # Currencies are general and not user specific
+      def set_currency
+        @currency = InvoiceBar::Currency.find(params[:id])
+      end
+
+      def currency_params
+        params.require(:currency).permit(:name, :symbol, :priority)
       end
   end
 end

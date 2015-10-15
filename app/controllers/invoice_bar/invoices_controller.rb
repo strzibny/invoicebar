@@ -1,46 +1,44 @@
 module InvoiceBar
   class InvoicesController < InvoiceBar::ApplicationController
-    inherit_resources
-    respond_to :html, :json
-    respond_to :pdf, only: [:show]
+    before_action :require_login
+    before_action :set_user_accounts, only: [:new, :create, :edit, :update, :from_template]
+    before_action :set_user_contacts, only: [:new, :create, :edit, :update, :from_template]
+    before_action :set_user_invoice_templates, only: [:new, :create, :edit, :update, :from_template]
+    before_action :set_invoice, only: [:show, :edit, :update, :destroy]
 
-    before_filter :require_login
-    before_filter :fetch_user_accounts, only: [:new, :create, :edit, :update, :from_template]
-    before_filter :fetch_user_contacts, only: [:new, :create, :edit, :update, :from_template]
-    before_filter :fetch_user_invoice_templates, only: [:new, :create, :edit, :update, :from_template]
-
+    # GET /invoices
+    # GET /invoices.json
     def index
       @invoices = current_user.invoices.page(params[:page])
-
-      index! {}
+      respond_on_index @invoices
     end
 
+    # GET /invoices/1
+    # GET /invoices/1.json
+    # GET /invoices/1.pdf
     def show
       @invoice = current_user.invoices.find(params[:id])
       @address = @invoice.address
       @account = current_user.accounts.find(@invoice.account_id)
-
-      show!
+      respond_on_show @invoice
     end
 
-    def mark_as_paid
-      @invoice = current_user.invoices.find(params[:id])
-      @invoice.mark_as_paid
-      @invoice.save!
+    # GET /invoices/new
+    def new
+      # Set the number of the document
+      next_issued_in_line = current_user.invoices.issued.size + 1
+      next_received_in_line = current_user.invoices.received.size + 1
+      @next_issued = ::InvoiceBar::Generators.issued_invoice_number(next_issued_in_line)
+      @next_received = ::InvoiceBar::Generators.received_invoice_number(next_received_in_line)
 
-      flash[:notice] = 'Označeno jako zaplaceno.'
+      @invoice = Invoice.new
+      @invoice.number = @next_issued
+      @invoice.items.build
+      @invoice.build_address
+      @invoice.issue_date = Date.today
+      @invoice.due_date = @invoice.issue_date + 14.days
 
-      redirect_to action: :show
-    end
-
-    def mark_as_sent
-      @invoice = current_user.invoices.find(params[:id])
-      @invoice.mark_as_sent
-      @invoice.save!
-
-      flash[:notice] = 'Označena za odeslanou.'
-
-      redirect_to action: :show
+      respond_on_new @invoice
     end
 
     def create_receipt_for_invoice
@@ -80,37 +78,18 @@ module InvoiceBar
       redirect_to action: :show
     end
 
-    def new
-      # Set the number of the document
-      next_issued_in_line = current_user.invoices.issued.size + 1
-      next_received_in_line = current_user.invoices.received.size + 1
-      @next_issued = ::InvoiceBar::Generators.issued_invoice_number(next_issued_in_line)
-      @next_received = ::InvoiceBar::Generators.received_invoice_number(next_received_in_line)
-
-      @invoice = Invoice.new
-      @invoice.number = @next_issued
-      @invoice.items.build
-      @invoice.build_address
-      @invoice.issue_date = Date.today
-      @invoice.due_date = @invoice.issue_date + 14.days
-
-      new!
-    end
-
     def from_template
       @template = current_user.invoice_templates.find(params[:id])
       @invoice = Invoice.from_template(@template)
-
-      respond_to do |format|
-        format.html { render action: 'new' }
-        format.json { render json: @invoice }
-      end
+      respond_on_new @invoice
     end
 
+    # POST /invoices/1
+    # POST /invoices/1.json
     def create
       flash[:notice], flash[:alert] = nil, nil
 
-      @invoice = Invoice.new(params[:invoice])
+      @invoice = Invoice.new(invoice_params)
 
       apply_templates if params[:fill_in]
       fill_in_contact if params[:fill_in_contact]
@@ -124,17 +103,20 @@ module InvoiceBar
       end
 
       if params[:fill_in] || params[:fill_in_contact] || params[:ic]
-        respond_to do |format|
-          format.html { render action: 'new' }
-          format.json { render json: @invoice }
-        end
+        respond_on_new @invoice
       else
         current_user.invoices << @invoice
-
-        create! {}
+        respond_on_create @invoice
       end
     end
 
+    # GET /invoices/1/edit
+    def edit
+      respond_on_edit @invoice
+    end
+
+    # PATCH/PUT /invoices/1
+    # PATCH/PUT /invoices/1.json
     def update
       flash[:notice], flash[:alert] = nil, nil
 
@@ -152,17 +134,37 @@ module InvoiceBar
       end
 
       if params[:fill_in] || params[:fill_in_contact] || params[:ic]
-        respond_to do |format|
-          format.html { render action: 'edit' }
-          format.json { render json: @invoice }
-        end
+        respond_on_edit @invoice
       else
-        update! {}
+        respond_on_update @invoice, invoice_params
       end
     end
 
+    # DELETE /invoices/1
+    # DELETE /invoices/1.json
     def destroy
-      destroy! {}
+      @invoice.destroy
+      respond_on_destroy @invoice, invoice_url
+    end
+
+    def mark_as_paid
+      @invoice = current_user.invoices.find(params[:id])
+      @invoice.mark_as_paid
+      @invoice.save!
+
+      flash[:notice] = 'Označeno jako zaplaceno.'
+
+      redirect_to action: :show
+    end
+
+    def mark_as_sent
+      @invoice = current_user.invoices.find(params[:id])
+      @invoice.mark_as_sent
+      @invoice.save!
+
+      flash[:notice] = 'Označena za odeslanou.'
+
+      redirect_to action: :show
     end
 
     def received
@@ -189,6 +191,17 @@ module InvoiceBar
     end
 
     protected
+
+      def set_invoice
+        @invoice = InvoiceBar::Invoice.find(params[:id])
+      end
+
+      def invoice_params
+        params.require(:invoice).permit(:number, :sent, :paid,
+                                        :amount, :contact_dic, :contact_ic, :contact_name, :issue_date, :issuer,
+                                        :due_date, :payment_identification_number, :issuer,
+                                        :account_id, :user_id, :address, :address_attributes, :items_attributes)
+      end
 
       def filter_params(bills)
         unless params[:from_amount].blank?
@@ -225,10 +238,6 @@ module InvoiceBar
                       .page(params[:page])
 
         @bills
-      end
-
-      def collection
-        @invoices ||= end_of_association_chain.page(params[:page])
       end
 
       def apply_templates
