@@ -9,11 +9,13 @@ module InvoiceBar
     # GET /users.json
     def index
       @users = InvoiceBar::User.all.page(params[:page])
+      respond_on_index @user
     end
 
     # GET /users/1
     # GET /users/1.json
     def show
+      respond_on_show @user
     end
 
     # This is sign up process.
@@ -21,10 +23,12 @@ module InvoiceBar
     def new
       @user = InvoiceBar::User.new
       @user.build_address
+      respond_on_new @user
     end
 
     # GET /users/1/edit
     def edit
+      respond_on_edit @user
     end
 
     # POST /users
@@ -69,10 +73,7 @@ module InvoiceBar
     # DELETE /users/1.json
     def destroy
       @user.destroy
-      respond_to do |format|
-        format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-        format.json { head :no_content }
-      end
+      respond_on_destroy @user, user_url
     end
 
     private

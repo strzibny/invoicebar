@@ -6,6 +6,7 @@ module InvoiceBar
 
     # Log in form
     def new
+      respond_on_new @session
     end
 
     # Log the user in
@@ -17,7 +18,7 @@ module InvoiceBar
       else
         flash[:error] =  t('messages.cannot_log_in')
 
-        render :new
+        respond_on_create @session
       end
     end
 

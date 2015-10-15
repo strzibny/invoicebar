@@ -7,16 +7,19 @@ module InvoiceBar
     # GET /currencies.json
     def index
       @currencies = InvoiceBar::Currency.all.page(params[:page])
+      respond_on_index @currency
     end
 
     # GET /currencies/1
     # GET /currencies/1.json
     def show
+      respond_on_show @currency
     end
 
     # GET /currencies/new
     def new
       @currency = InvoiceBar::Currency.new
+      respond_on_new @currency
     end
 
     # GET /currencies/1/edit
@@ -28,39 +31,20 @@ module InvoiceBar
     def create
       @currency = InvoiceBar::Currency.new(currency_params)
 
-      respond_to do |format|
-        if @currency.save
-          format.html { redirect_to @currency, notice: 'Currency was successfully created.' }
-          format.json { render :show, status: :created, location: @currency }
-        else
-          format.html { render :new }
-          format.json { render json: @currency.errors, status: :unprocessable_entity }
-        end
-      end
+      respond_on_create @currency
     end
 
     # PATCH/PUT /currencies/1
     # PATCH/PUT /currencies/1.json
     def update
-      respond_to do |format|
-        if @currency.update(currency_params)
-          format.html { redirect_to @currency, notice: 'Currency was successfully updated.' }
-          format.json { render :show, status: :ok, location: @currency }
-        else
-          format.html { render :edit }
-          format.json { render json: @currency.errors, status: :unprocessable_entity }
-        end
-      end
+      respond_on_update @currency, currency_params
     end
 
     # DELETE /currencies/1
     # DELETE /currencies/1.json
     def destroy
       @currency.destroy
-      respond_to do |format|
-        format.html { redirect_to currencies_url, notice: 'Currency was successfully destroyed.' }
-        format.json { head :no_content }
-      end
+      respond_on_destroy @currency, currency_url
     end
 
     private

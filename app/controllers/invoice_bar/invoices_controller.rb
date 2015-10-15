@@ -10,6 +10,7 @@ module InvoiceBar
     # GET /invoices.json
     def index
       @invoices = current_user.invoices.page(params[:page])
+      respond_on_index @invoices
     end
 
     # GET /invoices/1
@@ -19,12 +20,7 @@ module InvoiceBar
       @invoice = current_user.invoices.find(params[:id])
       @address = @invoice.address
       @account = current_user.accounts.find(@invoice.account_id)
-
-      respond_to do |format|
-        format.html
-        format.json
-        format.pdf
-      end
+      respond_on_show @invoice
     end
 
     # GET /invoices/new
@@ -41,6 +37,8 @@ module InvoiceBar
       @invoice.build_address
       @invoice.issue_date = Date.today
       @invoice.due_date = @invoice.issue_date + 14.days
+
+      respond_on_new @invoice
     end
 
     def create_receipt_for_invoice
@@ -83,11 +81,7 @@ module InvoiceBar
     def from_template
       @template = current_user.invoice_templates.find(params[:id])
       @invoice = Invoice.from_template(@template)
-
-      respond_to do |format|
-        format.html { render action: 'new' }
-        format.json { render json: @invoice }
-      end
+      respond_on_new @invoice
     end
 
     # POST /invoices/1
@@ -109,30 +103,16 @@ module InvoiceBar
       end
 
       if params[:fill_in] || params[:fill_in_contact] || params[:ic]
-        respond_to do |format|
-          format.html { render action: 'new' }
-          format.json { render json: @invoice }
-        end
+        respond_on_new @invoice
       else
         current_user.invoices << @invoice
-
-        respond_to do |format|
-          if @invoice.save
-            format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
-            format.json { render :show, status: :created, location: @invoice }
-          else
-            format.html { render :new }
-            format.json { render json: @invoice.errors, status: :unprocessable_entity }
-          end
-        end
+        respond_on_create @invoice
       end
     end
 
     # GET /invoices/1/edit
     def edit
-      respond_to do |format|
-        format.html
-      end
+      respond_on_edit @invoice
     end
 
     # PATCH/PUT /invoices/1
@@ -154,20 +134,9 @@ module InvoiceBar
       end
 
       if params[:fill_in] || params[:fill_in_contact] || params[:ic]
-        respond_to do |format|
-          format.html { render action: 'edit' }
-          format.json { render json: @invoice }
-        end
+        respond_on_edit @invoice
       else
-        respond_to do |format|
-          if @invoice.update(invoice_params)
-            format.html { redirect_to @invoice, notice: 'Invoice was successfully updated.' }
-            format.json { render :show, status: :ok, location: @invoice }
-          else
-            format.html { render :edit }
-            format.json { render json: @invoice.errors, status: :unprocessable_entity }
-          end
-        end
+        respond_on_update @invoice, invoice_params
       end
     end
 
@@ -175,10 +144,7 @@ module InvoiceBar
     # DELETE /invoices/1.json
     def destroy
       @invoice.destroy
-      respond_to do |format|
-        format.html { redirect_to contacts_url, notice: 'Invoice was successfully destroyed.' }
-        format.json { head :no_content }
-      end
+      respond_on_destroy @invoice, invoice_url
     end
 
     def mark_as_paid

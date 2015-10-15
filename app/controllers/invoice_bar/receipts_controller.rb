@@ -10,6 +10,7 @@ module InvoiceBar
     # GET /receipts.json
     def index
       @receipts = current_user.receipts.page(params[:page])
+      respond_on_index @receipts
     end
 
     # GET /receipts/1
@@ -19,12 +20,7 @@ module InvoiceBar
       @receipt = current_user.receipts.find(params[:id])
       @address = @receipt.address
       @account = current_user.accounts.find(@receipt.account_id)
-
-      respond_to do |format|
-        format.html
-        format.json
-        format.pdf
-      end
+      respond_on_show @receipt
     end
 
     # GET /receipts/new
@@ -40,16 +36,15 @@ module InvoiceBar
       @receipt.items.build
       @receipt.build_address
       @receipt.issue_date = Date.today
+
+      respond_on_new @receipt
     end
 
     def from_template
       @template = current_user.receipt_templates.find(params[:id])
       @receipt = Receipt.from_template(@template)
 
-      respond_to do |format|
-        format.html { render action: 'new' }
-        format.json { render json: @receipt }
-      end
+      respond_on_new @receipt
     end
 
     # POST /receipts/1
@@ -71,30 +66,16 @@ module InvoiceBar
       end
 
       if params[:fill_in] || params[:fill_in_contact] || params[:ic]
-        respond_to do |format|
-          format.html { render action: 'new' }
-          format.json { render json: @receipt }
-        end
+        respond_on_new @receipt
       else
         current_user.receipts << @receipt
-
-        respond_to do |format|
-          if @receipt.save
-            format.html { redirect_to @receipt, notice: 'Receipt was successfully created.' }
-            format.json { render :show, status: :created, location: @receipt }
-          else
-            format.html { render :new }
-            format.json { render json: @receipt.errors, status: :unprocessable_entity }
-          end
-        end
+        respond_on_create @receipt
       end
     end
 
     # GET /receipts/1/edit
     def edit
-      respond_to do |format|
-        format.html
-      end
+      respond_on_edit @receipt
     end
 
     # PATCH/PUT /receipts/1
@@ -116,20 +97,9 @@ module InvoiceBar
       end
 
       if params[:fill_in] || params[:fill_in_contact] || params[:ic]
-        respond_to do |format|
-          format.html { render action: 'edit' }
-          format.json { render json: @receipt }
-        end
+        respond_on_edit @receipt
       else
-        respond_to do |format|
-          if @receipt.update(receipt_params)
-            format.html { redirect_to @receipt, notice: 'Receipt was successfully updated.' }
-            format.json { render :show, status: :ok, location: @receipt }
-          else
-            format.html { render :edit }
-            format.json { render json: @receipt.errors, status: :unprocessable_entity }
-          end
-        end
+        respond_on_update @receipt, receipt_params
       end
     end
 
@@ -137,10 +107,7 @@ module InvoiceBar
     # DELETE /receipts/1.json
     def destroy
       @receipt.destroy
-      respond_to do |format|
-        format.html { redirect_to contacts_url, notice: 'Receipt was successfully destroyed.' }
-        format.json { head :no_content }
-      end
+      respond_on_destroy @receipt, receipt_url
     end
 
     def expence
