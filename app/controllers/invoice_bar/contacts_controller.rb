@@ -7,11 +7,13 @@ module InvoiceBar
     # GET /contacts.json
     def index
       @contacts = current_user.contacts.page(params[:page])
+      respond_on_index @contacts
     end
 
     # GET /contacts/1
     # GET /contacts/1.json
     def show
+      respond_on_show @contact
     end
 
     # GET /contacts/new
@@ -22,6 +24,7 @@ module InvoiceBar
 
     # GET /contacts/1/edit
     def edit
+      respond_on_edit @contact
     end
 
     # POST /contacts
@@ -30,40 +33,20 @@ module InvoiceBar
       @contact = InvoiceBar::Contact.new(contact_params)
       current_user.contacts << @contact
       @contact.build_address unless @contact.address
-
-      respond_to do |format|
-        if @contact.save
-          format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
-          format.json { render :show, status: :created, location: @contact }
-        else
-          format.html { render :new }
-          format.json { render json: @contact.errors, status: :unprocessable_entity }
-        end
-      end
+      respond_on_create @contact
     end
 
     # PATCH/PUT /contacts/1
     # PATCH/PUT /contacts/1.json
     def update
-      respond_to do |format|
-        if @contact.update(contact_params)
-          format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
-          format.json { render :show, status: :ok, location: @contact }
-        else
-          format.html { render :edit }
-          format.json { render json: @contact.errors, status: :unprocessable_entity }
-        end
-      end
+      respond_on_update @contact, contact_params
     end
 
     # DELETE /contacts/1
     # DELETE /contacts/1.json
     def destroy
       @contact.destroy
-      respond_to do |format|
-        format.html { redirect_to contacts_url, notice: 'Contact was successfully destroyed.' }
-        format.json { head :no_content }
-      end
+      respond_on_destroy @contact, contact_url
     end
 
     private

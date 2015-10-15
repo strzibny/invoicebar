@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20121205185353) do
 
-  create_table "invoice_bar_accounts", force: true do |t|
+  create_table "invoice_bar_accounts", force: :cascade do |t|
     t.string   "name",                            null: false
     t.integer  "user_id",                         null: false
     t.string   "bank_account_number"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20121205185353) do
 
   add_index "invoice_bar_accounts", ["name"], name: "index_invoice_bar_accounts_on_name"
 
-  create_table "invoice_bar_addresses", force: true do |t|
+  create_table "invoice_bar_addresses", force: :cascade do |t|
     t.string   "street",             null: false
     t.string   "street_number",      null: false
     t.string   "city",               null: false
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20121205185353) do
     t.datetime "updated_at"
   end
 
-  create_table "invoice_bar_contacts", force: true do |t|
+  create_table "invoice_bar_contacts", force: :cascade do |t|
     t.string   "name",         null: false
     t.string   "email"
     t.string   "phone"
@@ -56,13 +56,13 @@ ActiveRecord::Schema.define(version: 20121205185353) do
   add_index "invoice_bar_contacts", ["ic"], name: "index_invoice_bar_contacts_on_ic"
   add_index "invoice_bar_contacts", ["name"], name: "index_invoice_bar_contacts_on_name"
 
-  create_table "invoice_bar_currencies", force: true do |t|
+  create_table "invoice_bar_currencies", force: :cascade do |t|
     t.string  "name",                 null: false
     t.string  "symbol",               null: false
     t.integer "priority", default: 1, null: false
   end
 
-  create_table "invoice_bar_invoice_templates", force: true do |t|
+  create_table "invoice_bar_invoice_templates", force: :cascade do |t|
     t.string   "name",                          null: false
     t.date     "issue_date"
     t.date     "due_date"
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20121205185353) do
 
   add_index "invoice_bar_invoice_templates", ["name"], name: "index_invoice_bar_invoice_templates_on_name"
 
-  create_table "invoice_bar_invoices", force: true do |t|
+  create_table "invoice_bar_invoices", force: :cascade do |t|
     t.string   "number",                                        null: false
     t.date     "issue_date",                                    null: false
     t.date     "due_date",                                      null: false
@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(version: 20121205185353) do
   add_index "invoice_bar_invoices", ["number"], name: "index_invoice_bar_invoices_on_number"
   add_index "invoice_bar_invoices", ["payment_identification_number"], name: "index_invoice_bar_invoices_on_payment_identification_number"
 
-  create_table "invoice_bar_items", force: true do |t|
+  create_table "invoice_bar_items", force: :cascade do |t|
     t.string   "name",          null: false
     t.integer  "price",         null: false
     t.string   "unit"
@@ -117,7 +117,7 @@ ActiveRecord::Schema.define(version: 20121205185353) do
 
   add_index "invoice_bar_items", ["name"], name: "index_invoice_bar_items_on_name"
 
-  create_table "invoice_bar_receipt_templates", force: true do |t|
+  create_table "invoice_bar_receipt_templates", force: :cascade do |t|
     t.string   "name",         null: false
     t.date     "issue_date"
     t.string   "contact_name"
@@ -132,7 +132,7 @@ ActiveRecord::Schema.define(version: 20121205185353) do
 
   add_index "invoice_bar_receipt_templates", ["name"], name: "index_invoice_bar_receipt_templates_on_name"
 
-  create_table "invoice_bar_receipts", force: true do |t|
+  create_table "invoice_bar_receipts", force: :cascade do |t|
     t.string   "number",                      null: false
     t.date     "issue_date",                  null: false
     t.string   "contact_name",                null: false
@@ -150,7 +150,7 @@ ActiveRecord::Schema.define(version: 20121205185353) do
   add_index "invoice_bar_receipts", ["contact_name"], name: "index_invoice_bar_receipts_on_contact_name"
   add_index "invoice_bar_receipts", ["number"], name: "index_invoice_bar_receipts_on_number"
 
-  create_table "invoice_bar_users", force: true do |t|
+  create_table "invoice_bar_users", force: :cascade do |t|
     t.string   "email",                           null: false
     t.string   "crypted_password"
     t.string   "salt"
