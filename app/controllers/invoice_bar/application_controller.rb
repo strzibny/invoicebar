@@ -30,7 +30,7 @@ module InvoiceBar
         respond_to do |format|
           if object.save
             format.html { redirect_to object }
-            format.json { render :show, status: :created, location: object }
+            format.json { render json: object, status: :created, location: object }
           else
             format.html { render :new }
             format.json { render json: object.errors, status: :unprocessable_entity }
@@ -48,7 +48,7 @@ module InvoiceBar
         respond_to do |format|
           if object.update(object_params)
             format.html { redirect_to object }
-            format.json { render :show, status: :ok, location: object }
+            format.json { render json: object, status: 200, location: object }
           else
             format.html { render :edit }
             format.json { render json: object.errors, status: :unprocessable_entity }
@@ -59,7 +59,7 @@ module InvoiceBar
       def respond_on_destroy(object, redirect_url)
         respond_to do |format|
           format.html { redirect_to redirect_url }
-          format.json { head :no_content }
+          format.json { head :ok }
         end
       end
 

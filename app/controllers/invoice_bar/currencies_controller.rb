@@ -7,7 +7,7 @@ module InvoiceBar
     # GET /currencies.json
     def index
       @currencies = InvoiceBar::Currency.all.page(params[:page])
-      respond_on_index @currency
+      respond_on_index @currencies
     end
 
     # GET /currencies/1
@@ -30,7 +30,6 @@ module InvoiceBar
     # POST /currencies.json
     def create
       @currency = InvoiceBar::Currency.new(currency_params)
-
       respond_on_create @currency
     end
 

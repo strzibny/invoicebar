@@ -4,7 +4,7 @@ module InvoiceBar
 
     validates :name, presence: true
 
-    validates :ic,  length: { in: 2..8 },   allow_blank: true#, numericality: true
+    validates :ic,  length: { in: 2..8 },   allow_blank: true
     validates :dic, length: { in: 4..14 },  allow_blank: true
 
     # Associations
