@@ -32,7 +32,6 @@ module InvoiceBar
     def create
       @contact = InvoiceBar::Contact.new(contact_params)
       current_user.contacts << @contact
-      @contact.build_address unless @contact.address
       respond_on_create @contact
     end
 

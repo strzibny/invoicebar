@@ -9,7 +9,7 @@ module InvoiceBar
     # GET /users.json
     def index
       @users = InvoiceBar::User.all.page(params[:page])
-      respond_on_index @user
+      respond_on_index @users
     end
 
     # GET /users/1
@@ -61,7 +61,7 @@ module InvoiceBar
       respond_to do |format|
         if @user.save
           format.html { redirect_to profile_path, notice: t('flash.actions.update.notice') }
-          format.json { render json: @user, status: :updated, location: @user }
+          format.json { render json: @user, status: 200, location: @user }
         else
           format.html { render template: 'invoice_bar/settings/index' }
           format.json { render json: @user.errors, status: :unprocessable_entity }
