@@ -16,6 +16,7 @@ module InvoiceBar
       def respond_on_show(object)
         respond_to do |format|
           format.html { render :show }
+          format.pdf { render pdf: object }
           format.json { render json: object }
         end
       end
