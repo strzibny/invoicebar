@@ -33,3 +33,11 @@ account = FactoryGirl.create(
   user: user,
   currency: currency
 )
+
+25.times do
+  FactoryGirl.create(
+    :invoice_bar_invoice,
+    user: user,
+    account: account
+  )
+end
