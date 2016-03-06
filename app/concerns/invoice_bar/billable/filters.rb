@@ -5,8 +5,8 @@ module InvoiceBar
       extend ActiveSupport::Concern
 
       included do
-        # Looks for bills that match +number+
-        # and returns a collection of matching bills
+        # Looks for bills that match +number+ and returns a collection of
+        # matching bills
         def self.for_numbers(number)
           records = limit(nil)
           records = where('number LIKE ?', "%#{number}%") if number.present?
@@ -30,6 +30,35 @@ module InvoiceBar
           records = limit(nil)
           records = records.where('amount >= ?', from_amount) if from_amount.present?
           records = records.where('amount <= ?', to_amount) if to_amount.present?
+
+          records
+        end
+
+        # Looks for the contacts of bills and returns a collection of
+        # matching bills
+        def self.including_contacts(contact)
+          records = limit(nil)
+          records = where('contact_name LIKE ?', "%#{contact}%") if contact.present?
+
+          records
+        end
+
+        def self.paid(is_paid)
+          records = case is_paid
+                    when true then where('paid = ?', true)
+                    when false then where('paid = ?', false)
+                    else limit(nil)
+          end
+
+          records
+        end
+
+        def self.sent(is_sent)
+          records = case is_sent
+                    when true then where('sent = ?', true)
+                    when false then where('sent = ?', false)
+                    else limit(nil)
+          end
 
           records
         end

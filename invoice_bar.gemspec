@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = "Rails Engine for single-entry invoicing."
   s.license     = "GPLv2"
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 4.2"
