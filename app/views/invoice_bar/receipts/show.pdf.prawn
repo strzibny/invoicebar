@@ -1,6 +1,6 @@
 pdf.font_families.update("DejaVuSans" => {
-	:normal => { :file => "#{Prawn::BASEDIR}/data/fonts/DejaVuSans.ttf"},
-	:bold => { :file => "#{Prawn::BASEDIR}/data/fonts/DejaVuSans.ttf"}
+  :normal => { :file => "#{Prawn::BASEDIR}/data/fonts/DejaVuSans.ttf"},
+  :bold => { :file => "#{Prawn::BASEDIR}/data/fonts/DejaVuSans.ttf"}
 })
 
 pdf.font("DejaVuSans")

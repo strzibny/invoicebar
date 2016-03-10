@@ -1,17 +1,17 @@
 <%# Partial for form errors on model %>
 
 <% if model.errors.any? %>
-	<div class="alert alert-error error_explanation">
-		<button type="button" class="close" data-dismiss="alert">×</button>
-   	<h2>
-			<%= t('errors.template.header', model: model.class.model_name.human, count: model.errors.count) %>
-		</h2>
-		<!-- 
+  <div class="alert alert-error error_explanation">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+     <h2>
+      <%= t('errors.template.header', model: model.class.model_name.human, count: model.errors.count) %>
+    </h2>
+    <!--
     <ol>
-    	<% model.errors.full_messages.each do |message| %>
-	      <li><%= message %></li>
-	    <% end %>
+      <% model.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
     </ol>
-		-->
+    -->
   </div>
 <% end %>

@@ -1,114 +1,112 @@
 <div style="margin-bottom: 15px">
-	<% if document.instance_of? InvoiceBar::Invoice %>
-		<%= link_to "Vytvořit doklad o zaplacení", create_receipt_for_invoice_path(document), class: 'btn' if @invoice.receipt_id.blank? %>
-		<%= link_to 'Označit za odeslanou', mark_invoice_as_sent_path(document), class: 'btn' unless document.sent %>
+  <% if document.instance_of? InvoiceBar::Invoice %>
+    <%= link_to "Vytvořit doklad o zaplacení", create_receipt_for_invoice_path(document), class: 'btn' if @invoice.receipt_id.blank? %>
+    <%= link_to 'Označit za odeslanou', mark_invoice_as_sent_path(document), class: 'btn' unless document.sent %>
 
-		<%= link_to t('buttons.edit'), edit_invoice_path(document), class: 'btn' %>
-		<%= link_to t('buttons.destroy'), invoice_path(document), method: :delete, confirm: t('buttons.destroy_confirm'), class: 'btn' %>
-		<%= link_to "Zobrazit v PDF", invoice_path(document, format: 'pdf'), class: 'btn' %>
+    <%= link_to t('buttons.edit'), edit_invoice_path(document), class: 'btn' %>
+    <%= link_to t('buttons.destroy'), invoice_path(document), method: :delete, confirm: t('buttons.destroy_confirm'), class: 'btn' %>
+    <%= link_to "Zobrazit v PDF", invoice_path(document, format: 'pdf'), class: 'btn' %>
 
-		<% if document.receipt_id %>
-			<%= link_to "Doklad", receipt_path(document.receipt_id)%>
-		<% end %>
-<% end %>
+    <% if document.receipt_id %>
+      <%= link_to "Doklad", receipt_path(document.receipt_id)%>
+    <% end %>
+  <% end %>
 
-<% if document.instance_of? InvoiceBar::Receipt %>
-	<%= link_to t('buttons.edit'), edit_receipt_path(document), class: 'btn' %>
-	<%= link_to t('buttons.destroy'), receipt_path(document), method: :delete, confirm: t('buttons.destroy_confirm'), class: 'btn' %>
-	<%= link_to "Zobrazit v PDF", receipt_path(document, format: 'pdf'), class: 'btn' %>
-<% end %>
+  <% if document.instance_of? InvoiceBar::Receipt %>
+    <%= link_to t('buttons.edit'), edit_receipt_path(document), class: 'btn' %>
+    <%= link_to t('buttons.destroy'), receipt_path(document), method: :delete, confirm: t('buttons.destroy_confirm'), class: 'btn' %>
+    <%= link_to "Zobrazit v PDF", receipt_path(document, format: 'pdf'), class: 'btn' %>
+  <% end %>
 
-<% if document.instance_of? InvoiceBar::InvoiceTemplate %>
-	<%= link_to t('buttons.edit'), edit_invoice_template_path(document), class: 'btn' %>
-	<%= link_to t('buttons.destroy'), invoice_template_path(document), method: :delete, confirm: t('buttons.destroy_confirm'), class: 'btn' %>
-<% end %>
+  <% if document.instance_of? InvoiceBar::InvoiceTemplate %>
+    <%= link_to t('buttons.edit'), edit_invoice_template_path(document), class: 'btn' %>
+    <%= link_to t('buttons.destroy'), invoice_template_path(document), method: :delete, confirm: t('buttons.destroy_confirm'), class: 'btn' %>
+  <% end %>
 
-<% if document.instance_of? InvoiceBar::ReceiptTemplate %>
-	<%= link_to t('buttons.edit'), edit_receipt_template_path(document), class: 'btn' %>
-	<%= link_to t('buttons.destroy'), receipt_template_path(document), method: :delete, confirm: t('buttons.destroy_confirm'), class: 'btn' %>
-<% end %>
-
+  <% if document.instance_of? InvoiceBar::ReceiptTemplate %>
+    <%= link_to t('buttons.edit'), edit_receipt_template_path(document), class: 'btn' %>
+    <%= link_to t('buttons.destroy'), receipt_template_path(document), method: :delete, confirm: t('buttons.destroy_confirm'), class: 'btn' %>
+  <% end %>
 </div>
 
 <div class="row">
-	<div class="span4 fixmax4">
-		<fieldset class="user">
-			<div class="top">
-				<%= t('attributes.invoice.provider') %>
-			</div>
-			<div class="name">
-				<strong><%= document.user_name %></strong>
-			</div>
+  <div class="span4 fixmax4">
+    <fieldset class="user">
+      <div class="top">
+        <%= t('attributes.invoice.provider') %>
+      </div>
+      <div class="name">
+        <strong><%= document.user_name %></strong>
+      </div>
 
-			<%= render 'invoice_bar/forms/address', address: document.user_address %>
+      <%= render 'invoice_bar/forms/address', address: document.user_address %>
 
-			<% unless document.user_ic.blank? %>
-				<div class='ic-dic'>
-					<div class="ic">
-						<span><%= t('attributes.user.ic') %>:</span> <%= document.user_ic %>
-					</div>
-				</div>
-			<% end %>
-		</fieldset>
-	</div>
+      <% unless document.user_ic.blank? %>
+        <div class='ic-dic'>
+          <div class="ic">
+            <span><%= t('attributes.user.ic') %>:</span> <%= document.user_ic %>
+          </div>
+        </div>
+      <% end %>
+    </fieldset>
+  </div>
 
-	<div class="span4 fixmax4">
-		<fieldset class="customer">
-			<div class="top">
-				<%= t('attributes.invoice.purchaser') %>
-			</div>
-			<div class="name">
-				<strong><%= document.contact_name %></strong>
-			</div>
+  <div class="span4 fixmax4">
+    <fieldset class="customer">
+      <div class="top">
+        <%= t('attributes.invoice.purchaser') %>
+      </div>
+      <div class="name">
+        <strong><%= document.contact_name %></strong>
+      </div>
 
-			<%= render 'invoice_bar/forms/address', address: document.address if document.address %>
+      <%= render 'invoice_bar/forms/address', address: document.address if document.address %>
 
-			<% unless document.contact_ic.blank? %>
-				<div class='ic-dic'>
+      <% unless document.contact_ic.blank? %>
+        <div class='ic-dic'>
 
-					<div class="ic">
-						<span><%= t('attributes.contact.ic') %>:</span> <%= document.contact_ic %>
-					</div>
-					<% unless document.contact_dic.blank? %>
-						<div class="dic">
-							<span><%= t('attributes.contact.dic') %>:</span> <%= document.contact_dic %>
-						</div>
-					<% end %>
-				</div>
-			<% end %>
-		</fieldset>
-	</div>
+          <div class="ic">
+            <span><%= t('attributes.contact.ic') %>:</span> <%= document.contact_ic %>
+          </div>
+          <% unless document.contact_dic.blank? %>
+            <div class="dic">
+              <span><%= t('attributes.contact.dic') %>:</span> <%= document.contact_dic %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </fieldset>
+  </div>
 
-	<div class="span5 fixmax5">
-		<fieldset class="account">
-			<div class="top">
-				<%= t('attributes.invoice.payment') %>
-			</div>
-			<span><%= t('attributes.user.account') %>: </span><strong><%= document.account_bank_account_number %></strong>
-			<% unless document.account_swift.blank? %>
-				<br>
-				<span><%= t('attributes.account.swift') %>:</span> <%= document.account_swift %>
-				<% end %>
-			<% unless document.account_iban.blank? %>
-				<br>
-				<span><%= t('attributes.account.iban') %>:</span> <%= document.account_iban %>
-			<% end %>
-			<br>
-			<span>Forma uhrady:</span> <% if document.account_bank_account_number.blank? %>Hotově<% else %>převodem na účet<% end %>
-			<br>
-			<span><%= t('attributes.invoice.issue_date') %>:</span> <%= l(document.issue_date, format: :invoice) unless document.issue_date.blank? %><br>
-			<% if document.instance_of? InvoiceBar::Invoice or document.instance_of? InvoiceBar::InvoiceTemplate %>
-			<span><%= t('attributes.invoice.due_date') %>:</span> <strong><%= l(document.due_date, format: :invoice) unless document.due_date.blank? %></strong>
-			<% end %>
-		</fieldset>
-	</div>
+  <div class="span5 fixmax5">
+    <fieldset class="account">
+      <div class="top">
+        <%= t('attributes.invoice.payment') %>
+      </div>
+      <span><%= t('attributes.user.account') %>: </span><strong><%= document.account_bank_account_number %></strong>
+      <% unless document.account_swift.blank? %>
+        <br>
+        <span><%= t('attributes.account.swift') %>:</span> <%= document.account_swift %>
+        <% end %>
+      <% unless document.account_iban.blank? %>
+        <br>
+        <span><%= t('attributes.account.iban') %>:</span> <%= document.account_iban %>
+      <% end %>
+      <br>
+      <span>Forma uhrady:</span> <% if document.account_bank_account_number.blank? %>Hotově<% else %>převodem na účet<% end %>
+      <br>
+      <span><%= t('attributes.invoice.issue_date') %>:</span> <%= l(document.issue_date, format: :invoice) unless document.issue_date.blank? %><br>
+      <% if document.instance_of? InvoiceBar::Invoice or document.instance_of? InvoiceBar::InvoiceTemplate %>
+      <span><%= t('attributes.invoice.due_date') %>:</span> <strong><%= l(document.due_date, format: :invoice) unless document.due_date.blank? %></strong>
+      <% end %>
+    </fieldset>
+  </div>
 </div>
 
-
 <div id="bill-items">
-	<%= render 'invoice_bar/forms/items', items: document.items %>
+  <%= render 'invoice_bar/forms/items', items: document.items %>
 </div>
 
 <div id="total">
-	Celkem <%= formatted_amount(document.amount, document.account.currency_symbol) %>
+  Celkem <%= formatted_amount(document.amount, document.account.currency_symbol) %>
 </div>

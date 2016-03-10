@@ -1,23 +1,23 @@
 <div class="container">
-	<div class="row">
-		<div class="span5">
-		<%= form_tag sessions_path, :class => 'form-horizontal' do |f| %>
-			<div class="control-group">
-		    <%= label_tag :email, I18n.t('attributes.user.email'), class: 'control-label' %>
-				<div class="controls">
-		    	<%= text_field_tag :email, params[:email], placeholder: I18n.t('attributes.user.email') %>
-				</div>
-		  </div>
-		  <div class="control-group">
-		    <%= label_tag :password, I18n.t('attributes.user.password'), class: 'control-label' %>
-				<div class="controls">
-		    	<%= password_field_tag :password, nil, placeholder: I18n.t('attributes.user.password') %>
-		  	</div>
-			</div>
-			<div class="control-group">
-				<%= submit_tag I18n.t('buttons.login'), class: 'btn' %>
-		  </div>
-		<% end %>
-		</div>
-	</div>
+  <div class="row">
+    <div class="span5">
+    <%= form_tag sessions_path, :class => 'form-horizontal' do |f| %>
+      <div class="control-group">
+        <%= label_tag :email, I18n.t('attributes.user.email'), class: 'control-label' %>
+        <div class="controls">
+          <%= text_field_tag :email, params[:email], placeholder: I18n.t('attributes.user.email') %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= label_tag :password, I18n.t('attributes.user.password'), class: 'control-label' %>
+        <div class="controls">
+          <%= password_field_tag :password, nil, placeholder: I18n.t('attributes.user.password') %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= submit_tag I18n.t('buttons.login'), class: 'btn' %>
+      </div>
+    <% end %>
+    </div>
+  </div>
 </div>

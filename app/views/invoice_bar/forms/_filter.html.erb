@@ -1,33 +1,33 @@
 <div class="navbar">
-		<div class="navbar-inner" style="background:lightgrey">
-			<ul class="nav">	
-				<li>
-					<% if @invoices %>
-						<% url = filter_invoices_url %>
-					<% else %>
-						<% url = filter_receipts_url %>
-					<% end %>
-					
-					<%= form_tag url, method: 'get', class: "navbar-form pull-left" do %>
-						<%= text_field_tag :number, params[:number], placeholder: t('form.bill_number'), class: 'span2' %>
-						<%= text_field_tag :contact, params[:contact], placeholder: t('form.contact'), class: 'span2' %>
-						<%= text_field_tag :from_date, params[:from_date], placeholder: t('form.from_date'), class: 'smaller' %>
-						<%= text_field_tag :to_date, params[:to_date], placeholder: t('form.to_date'), class: 'smaller' %>
-						<%
-							unless params[:from_amount].blank? 
-								params[:from_amount] = formatted_money(params[:from_amount])
-							end
-						%>
-						<%= text_field_tag :from_amount, params[:from_amount], placeholder: t('form.from_amount'), class: 'span2' %>
-						<%
-							unless params[:to_amount].blank? 
-								params[:to_amount] = formatted_money(params[:to_amount])
-							end
-						%>
-						<%= text_field_tag :to_amount, params[:to_amount], placeholder: t('form.to_amount'), class: 'span2' %>
-						<%= submit_tag t('buttons.filter'), class: 'btn' %>
-					<% end %>
-				</li>
-			</ul>
-	</div>
+    <div class="navbar-inner" style="background:lightgrey">
+      <ul class="nav">
+        <li>
+          <% if @invoices %>
+            <% url = filter_invoices_url %>
+          <% else %>
+            <% url = filter_receipts_url %>
+          <% end %>
+
+          <%= form_tag url, method: 'get', class: "navbar-form pull-left" do %>
+            <%= text_field_tag :number, params[:number], placeholder: t('form.bill_number'), class: 'span2' %>
+            <%= text_field_tag :contact, params[:contact], placeholder: t('form.contact'), class: 'span2' %>
+            <%= text_field_tag :from_date, params[:from_date], placeholder: t('form.from_date'), class: 'smaller' %>
+            <%= text_field_tag :to_date, params[:to_date], placeholder: t('form.to_date'), class: 'smaller' %>
+            <%
+              unless params[:from_amount].blank?
+                params[:from_amount] = formatted_money(params[:from_amount])
+              end
+            %>
+            <%= text_field_tag :from_amount, params[:from_amount], placeholder: t('form.from_amount'), class: 'span2' %>
+            <%
+              unless params[:to_amount].blank?
+                params[:to_amount] = formatted_money(params[:to_amount])
+              end
+            %>
+            <%= text_field_tag :to_amount, params[:to_amount], placeholder: t('form.to_amount'), class: 'span2' %>
+            <%= submit_tag t('buttons.filter'), class: 'btn' %>
+          <% end %>
+        </li>
+      </ul>
+  </div>
 </div>

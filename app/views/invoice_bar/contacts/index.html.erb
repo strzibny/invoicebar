@@ -1,42 +1,42 @@
 <%= content_for :sub_navigation do %>
-	<ul class="nav nav-pills">
-			<div class="btn-group">
-			  <a class="btn btn-success" href="<%= new_contact_path %>"><i class="icon-plus icon-white"></i> <%= t('titles.contacts.new') %></a>
-			</div>
-	</ul>
+  <ul class="nav nav-pills">
+    <div class="btn-group">
+      <a class="btn btn-success" href="<%= new_contact_path %>"><i class="icon-plus icon-white"></i> <%= t('titles.contacts.new') %></a>
+    </div>
+  </ul>
 <% end %>
 
 <h1><%= t('titles.contacts.list') %></h1>
 
 <table class="table table-striped table-bordered table-hover">
-	<thead>
-	    <tr>
-	      <th class="name"><%= t('attributes.contact.name') %></th>
-				<th><%= t('attributes.contact.ic') %></th>
-				<th class="hidden-phone"><%= t('attributes.contact.email') %></th>
-			</tr>
-	  </thead>
-	<tbody>
-		<% @contacts.each do |contact| %>
-			<tr>
-				<td class="name">
-					<span><%= link_to contact do %><%= contact.name %><% end %></span>
-				</td>
-				<td>
-					<span><%= contact.ic %></span>
-				</td>
-				<td class="hidden-phone">
-					<span><%= contact.email %></span>
-				</td>
-			</tr>
-		<% end %>
-	</tbody>
+  <thead>
+    <tr>
+      <th class="name"><%= t('attributes.contact.name') %></th>
+      <th><%= t('attributes.contact.ic') %></th>
+      <th class="hidden-phone"><%= t('attributes.contact.email') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @contacts.each do |contact| %>
+      <tr>
+        <td class="name">
+          <span><%= link_to contact do %><%= contact.name %><% end %></span>
+        </td>
+        <td>
+          <span><%= contact.ic %></span>
+        </td>
+        <td class="hidden-phone">
+          <span><%= contact.email %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 <% if @contacts.size == 0 %>
-	<div class="no-data">
-		<%= t('invoice_bar.no_data') %>
-	</div>
+  <div class="no-data">
+    <%= t('invoice_bar.no_data') %>
+  </div>
 <% end %>
 
 <%= paginate @contacts %>

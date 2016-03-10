@@ -1,44 +1,44 @@
 <%= content_for :sub_navigation do %>
-	<ul class="nav nav-pills">
-			<div class="btn-group">
-			  <a class="btn btn-success" href="<%= new_account_path %>"><i class="icon-plus icon-white"></i> <%= t('titles.accounts.new') %></a>
-			</div>
-	</ul>
+  <ul class="nav nav-pills">
+    <div class="btn-group">
+      <a class="btn btn-success" href="<%= new_account_path %>"><i class="icon-plus icon-white"></i> <%= t('titles.accounts.new') %></a>
+    </div>
+  </ul>
 <% end %>
 
 <h1><%= t('titles.accounts.list') %></h1>
 
 <table class="table table-striped table-bordered table-hover">
-	<thead>
-	    <tr>
-	      <th><%= t('attributes.account.name') %></th>
-				<th><%= t('attributes.account.bank_account_number') %></th>
-				<th class="hidden-phone"><%= t('attributes.account.iban') %></th>
-				<th class="hidden-phone"><%= t('attributes.account.swift') %></th>
-	    </tr>
-	  </thead>
-	<tbody>
-		<% @accounts.each do |account| %>
-			<tr>
-				<td>
-					<span><%= link_to account do %><%= account.name %><% end %></span>
-				</td>
-				<td>
-					<span><%= account.bank_account_number %></span>
-				</td>
-				<td class="hidden-phone">
-					<span><%= account.iban %></span>
-				</td>
-				<td class="hidden-phone">
-					<span><%= account.swift %></span>
-				</td>
-			</tr>
-		<% end %>
-	</tbody>
+  <thead>
+    <tr>
+      <th><%= t('attributes.account.name') %></th>
+      <th><%= t('attributes.account.bank_account_number') %></th>
+      <th class="hidden-phone"><%= t('attributes.account.iban') %></th>
+      <th class="hidden-phone"><%= t('attributes.account.swift') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @accounts.each do |account| %>
+      <tr>
+        <td>
+          <span><%= link_to account do %><%= account.name %><% end %></span>
+        </td>
+        <td>
+          <span><%= account.bank_account_number %></span>
+        </td>
+        <td class="hidden-phone">
+          <span><%= account.iban %></span>
+        </td>
+        <td class="hidden-phone">
+          <span><%= account.swift %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 <% if @accounts.size == 0 %>
-	<div class="no-data">
-		<%= t('invoice_bar.no_data') %>
-	</div>
+  <div class="no-data">
+    <%= t('invoice_bar.no_data') %>
+  </div>
 <% end %>
