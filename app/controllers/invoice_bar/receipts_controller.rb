@@ -20,7 +20,15 @@ module InvoiceBar
       @receipt = current_user.receipts.find(params[:id])
       @address = @receipt.address
       @account = current_user.accounts.find(@receipt.account_id)
-      respond_on_show @receipt
+
+      respond_to do |format|
+        format.html { render :show }
+        format.json { render json: @receipt }
+        format.pdf {
+          @pdf = ReceiptPDF.new(@receipt).render
+          send_data @pdf, type: 'application/pdf', disposition: 'inline'
+        }
+      end
     end
 
     # GET /receipts/new
