@@ -32,4 +32,5 @@ Gem::Specification.new do |s|
   s.add_dependency "kaminari"
   s.add_dependency "therubyracer"
   s.add_dependency "libv8", "~> 3.11.8"
+  s.add_dependency "invoice_printer"
 end
