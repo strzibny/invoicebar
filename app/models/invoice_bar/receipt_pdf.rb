@@ -33,7 +33,6 @@ module InvoiceBar
         purchaser_city_part: @receipt.address_city_part,
         purchaser_extra_address_line: @receipt.address_extra_address_line,
         issue_date: @receipt.issue_date.to_s,
-        due_date: @receipt.due_date.to_s,
         total: @receipt.amount.to_s,
         bank_account_number: @receipt.account_bank_account_number,
         account_iban: @receipt.account_iban,
