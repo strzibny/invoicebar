@@ -208,7 +208,9 @@ module InvoiceBar
         params.require(:invoice).permit(:number, :sent, :paid,
                                         :amount, :contact_dic, :contact_ic, :contact_name, :issue_date, :issuer,
                                         :due_date, :payment_identification_number, :issuer,
-                                        :account_id, :user_id, :address, :address_attributes, :items_attributes)
+                                        :account_id, :user_id,
+                                        address_attributes: [:street, :street_number, :city, :city_part, :postcode, :extra_address_line],
+                                        items_attributes: [:id, :name, :number, :price, :unit, :_destroy])
       end
 
       def filter_params(bills)
