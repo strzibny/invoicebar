@@ -23,7 +23,7 @@ module InvoiceBar
 
       respond_to do |format|
         format.html { render :show }
-        format.json { render json: object }
+        format.json { render json: @invoice }
         format.pdf {
           @pdf = InvoicePDF.new(@invoice).render
           send_data @pdf, type: 'application/pdf', disposition: 'inline'
