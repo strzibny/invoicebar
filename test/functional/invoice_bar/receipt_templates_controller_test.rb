@@ -7,7 +7,7 @@ class InvoiceBar::ReceiptTemplatesControllerTest < ActionController::TestCase
     @account = FactoryGirl.create(:invoice_bar_account, user: @user)
     @receipt_template = FactoryGirl.create(:invoice_bar_receipt_template, user: @user, account: @account)
 
-    login_user
+    login_user @user
   end
 
   test "should get index" do

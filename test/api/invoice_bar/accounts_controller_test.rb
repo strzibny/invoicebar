@@ -6,7 +6,7 @@ class InvoiceBar::API::AccountsControllerTest < ActionController::TestCase
     @user = FactoryGirl.create(:invoice_bar_user)
     @account = FactoryGirl.create(:invoice_bar_account, user: @user)
 
-    login_user
+    login_user @user
   end
 
   test "should get index" do

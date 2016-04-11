@@ -7,7 +7,7 @@ class InvoiceBar::InvoicesControllerTest < ActionController::TestCase
     @account = FactoryGirl.create(:invoice_bar_account, user: @user)
     @invoice = FactoryGirl.create(:invoice_bar_invoice, user: @user, account: @account)
 
-    login_user
+    login_user @user
   end
 
   test "should get index" do
