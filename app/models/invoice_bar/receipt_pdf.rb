@@ -14,29 +14,29 @@ module InvoiceBar
 
     def printable_receipt
       InvoicePrinter::Document.new(
-        number: @receipt.number,
-        provider_name: @receipt.user_name,
-        provider_ic: @receipt.user_ic,
-        provider_street: @receipt.user_street,
-        provider_street_number: @receipt.user_street_number,
-        provider_postcode: @receipt.user_postcode,
-        provider_city: @receipt.user_city,
-        provider_city_part: @receipt.user_city_part,
-        provider_extra_address_line: @receipt.user_extra_address_line,
-        purchaser_name: @receipt.contact_name,
-        purchaser_ic: @receipt.contact_ic,
-        purchaser_dic: @receipt.contact_dic,
-        purchaser_street: @receipt.address_street,
-        purchaser_street_number: @receipt.address_street_number,
-        purchaser_postcode: @receipt.address_postcode,
-        purchaser_city: @receipt.address_city,
-        purchaser_city_part: @receipt.address_city_part,
-        purchaser_extra_address_line: @receipt.address_extra_address_line,
+        number: @receipt.number.to_s,
+        provider_name: @receipt.user_name.to_s,
+        provider_ic: @receipt.user_ic.to_s,
+        provider_street: @receipt.user_street.to_s,
+        provider_street_number: @receipt.user_street_number.to_s,
+        provider_postcode: @receipt.user_postcode.to_s,
+        provider_city: @receipt.user_city.to_s,
+        provider_city_part: @receipt.user_city_part.to_s,
+        provider_extra_address_line: @receipt.user_extra_address_line.to_s,
+        purchaser_name: @receipt.contact_name.to_s,
+        purchaser_ic: @receipt.contact_ic.to_s,
+        purchaser_dic: @receipt.contact_dic.to_s,
+        purchaser_street: @receipt.address_street.to_s,
+        purchaser_street_number: @receipt.address_street_number.to_s,
+        purchaser_postcode: @receipt.address_postcode.to_s,
+        purchaser_city: @receipt.address_city.to_s,
+        purchaser_city_part: @receipt.address_city_part.to_s,
+        purchaser_extra_address_line: @receipt.address_extra_address_line.to_s,
         issue_date: @receipt.issue_date.to_s,
         total: @receipt.amount.to_s,
-        bank_account_number: @receipt.account_bank_account_number,
-        account_iban: @receipt.account_iban,
-        account_swift: @receipt.account_swift,
+        bank_account_number: @receipt.account_bank_account_number.to_s,
+        account_iban: @receipt.account_iban.to_s,
+        account_swift: @receipt.account_swift.to_s,
         items: printable_items
       )
     end
@@ -45,11 +45,11 @@ module InvoiceBar
       printable_items = []
       @receipt.items.each do |item|
         printable_items << InvoicePrinter::Document::Item.new(
-          name: item.name,
-          quantity: item.number,
-          unit: item.unit,
-          price: item.price,
-          amount: item.amount
+          name: item.name.to_s,
+          quantity: item.number.to_s,
+          unit: item.unit.to_s,
+          price: item.price.to_s,
+          amount: item.amount.to_s
         )
       end
       printable_items
