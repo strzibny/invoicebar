@@ -90,7 +90,7 @@ GEM
       activesupport (>= 4.1.0)
     hike (1.2.3)
     i18n (0.7.0)
-    invoice_printer (0.0.1)
+    invoice_printer (0.0.2)
       prawn
       prawn-table
     jquery-rails (4.1.0)
