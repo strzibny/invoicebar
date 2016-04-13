@@ -24,8 +24,8 @@
         </div>
       </div>
       <div class="span3">
-      <h4>Adresa</h4>
-        <%= f.fields_for :address { |f| render 'invoice_bar/forms/address_fields', f: f } -%>
+        <h4>Adresa</h4>
+        <%= render 'invoice_bar/forms/address_fields', f: f -%>
       </div>
       <div class="span10">
          <%= f.submit I18n.t('buttons.save'), :class => 'btn' %>
