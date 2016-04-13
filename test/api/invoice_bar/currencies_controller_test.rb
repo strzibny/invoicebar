@@ -6,7 +6,7 @@ class InvoiceBar::API::CurrenciesControllerTest < ActionController::TestCase
     @user = FactoryGirl.create(:invoice_bar_user, administrator: true)
     @contact = FactoryGirl.create(:invoice_bar_contact, user: @user)
 
-    login_user
+    login_user @user
 
     @currency = FactoryGirl.create(:invoice_bar_currency)
   end

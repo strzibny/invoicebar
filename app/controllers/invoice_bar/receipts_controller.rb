@@ -20,7 +20,15 @@ module InvoiceBar
       @receipt = current_user.receipts.find(params[:id])
       @address = @receipt.address
       @account = current_user.accounts.find(@receipt.account_id)
-      respond_on_show @receipt
+
+      respond_to do |format|
+        format.html { render :show }
+        format.json { render json: @receipt }
+        format.pdf {
+          @pdf = ReceiptPDF.new(@receipt).render
+          send_data @pdf, type: 'application/pdf', disposition: 'inline'
+        }
+      end
     end
 
     # GET /receipts/new
@@ -143,7 +151,9 @@ module InvoiceBar
         params.require(:receipt).permit(:number, :sent, :paid,
                                         :amount, :contact_dic, :contact_ic, :contact_name, :issue_date, :issuer,
                                         :issuer,
-                                        :account_id, :user_id, :address, :address_attributes, :items_attributes)
+                                        :account_id, :user_id,
+                                        address_attributes: [:street, :street_number, :city, :city_part, :postcode, :extra_address_line],
+                                        items_attributes: [:id, :name, :number, :price, :unit, :_destroy])
       end
 
       def filter_params(bills)

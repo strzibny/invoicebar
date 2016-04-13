@@ -6,7 +6,7 @@ class InvoiceBar::API::ContactsControllerTest < ActionController::TestCase
     @user = FactoryGirl.create(:invoice_bar_user)
     @contact = FactoryGirl.create(:invoice_bar_contact, user: @user)
 
-    login_user
+    login_user @user
   end
 
   test "should get index" do

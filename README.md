@@ -23,10 +23,24 @@ First created user is an administrator, who should create list of currencies. Th
 
 ## Features
 
-* Invoicing -- issued and received invoices 
+* Invoicing -- issued and received invoices
 * Tracking of sent/not sent/paid/unpaid invoices
 * Accounting -- income and expence receipts (created from invoices by a single click)
 * Contacts -- address book with autofilling when creating bills
 * Invoice and receipt templates
 * Loading contact information by IČ from ARES database when creating bills
 * Search
+
+## Tests
+
+To run API test:
+
+```
+$ bundle exec ruby -Ilib:test -e 'Dir.glob("./test/api/**/*.rb").each {|f| require f }'
+```
+
+To run functional tests:
+
+```
+$ bundle exec ruby -Ilib:test -e 'Dir.glob("./test/functional/**/*.rb").each {|f| require f }'
+```

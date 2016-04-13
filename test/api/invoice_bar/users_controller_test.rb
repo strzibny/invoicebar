@@ -5,7 +5,7 @@ class InvoiceBar::API::UsersControllerTest < ActionController::TestCase
     @routes = InvoiceBar::Engine.routes
     @user = FactoryGirl.create(:invoice_bar_user, administrator: true)
 
-    login_user
+    login_user @user
   end
 
   test "should get index" do

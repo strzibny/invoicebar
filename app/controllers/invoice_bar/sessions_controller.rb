@@ -18,7 +18,7 @@ module InvoiceBar
       else
         flash[:error] =  t('messages.cannot_log_in')
 
-        respond_on_create @session
+        redirect_back_or_to root_url
       end
     end
 
