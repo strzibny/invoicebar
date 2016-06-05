@@ -10,8 +10,11 @@ module InvoiceBar
                           :items_attributes
 
           delegate :city, :city_part, :extra_address_line, :postcode, :street, :street_number,
-                   :address, :name, :ic,
+                   :name, :ic,
                    to:  :user, prefix: true
+
+          delegate :city, :city_part, :extra_address_line, :postcode, :street, :street_number,
+                   to: :user_address, prefix: true
 
           delegate :city, :city_part, :extra_address_line, :postcode, :street, :street_number,
                    to: :address, prefix: true

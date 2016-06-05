@@ -12,11 +12,28 @@ module InvoiceBar
     include InvoiceBar::Billable::Receipting
 
     include InvoiceBar::Billable::Associations::Base
-    include InvoiceBar::Billable::Associations::StrictValidations
 
     has_one :invoice
 
     include InvoiceBar::Billable::Filters
+
+    # This one is contact's address
+    has_one :address,
+      -> { where(addressable_type: "InvoiceBar::Receipt#contact_address") },
+      class_name: InvoiceBar::Address,
+      foreign_key: :addressable_id,
+      foreign_type: :addressable_type,
+      dependent: :destroy
+    has_many :items, as: :itemable, dependent: :destroy
+    accepts_nested_attributes_for :address, allow_destroy: true, reject_if: false
+
+    has_one :user_address,
+      -> { where(addressable_type: "InvoiceBar::Receipt#user_address") },
+      class_name: InvoiceBar::Address,
+      foreign_key: :addressable_id,
+      foreign_type: :addressable_type,
+      dependent: :destroy
+    accepts_nested_attributes_for :user_address, allow_destroy: true, reject_if: false
 
     # Search
     include InvoiceBar::Searchable
@@ -33,7 +50,12 @@ module InvoiceBar
       receipt.account_id = invoice.account_id
       receipt.issue_date = Date.today
 
-      receipt.address = invoice.address.copy
+      receipt.user_address = user.address.copy(
+        addressable_type: "InvoiceBar::Receipt#user_address"
+      )
+      receipt.address = invoice.address.copy(
+        addressable_type: "InvoiceBar::Receipt#contact_address"
+      )
 
       invoice.items.each do |item|
         receipt.items << item.copy

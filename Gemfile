@@ -6,7 +6,7 @@ gem 'sqlite3'
 gem 'faker'
 gem 'factory_girl', '4.5.0'
 gem 'factory_girl_rails', '4.5.0'
-gem 'puma'
+#gem 'puma'
 
 group :assets do
   gem 'sass-rails',   '~> 4.0'

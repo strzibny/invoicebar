@@ -17,7 +17,7 @@ module InvoiceBar
     # GET /invoices/1.json
     # GET /invoices/1.pdf
     def show
-      @invoice = current_user.invoices.find(params[:id])
+      @invoice = current_user.invoices.where(id: params[:id]).first
       @address = @invoice.address
       @account = current_user.accounts.find(@invoice.account_id)
 
@@ -50,7 +50,7 @@ module InvoiceBar
     end
 
     def create_receipt_for_invoice
-      @invoice = current_user.invoices.find(params[:id])
+      @invoice = current_user.invoices.where(id: params[:id]).first
 
       unless @invoice.receipt_id.blank?
         @receipt = current_user.receipts.find(@invoice.receipt_id)
@@ -71,6 +71,7 @@ module InvoiceBar
 
         @receipt.number = @next_number
         @receipt.invoice = @invoice
+        @receipt.user_address = @invoice.user_address
         current_user.receipts << @receipt
 
         if @receipt.save
@@ -89,6 +90,9 @@ module InvoiceBar
     def from_template
       @template = current_user.invoice_templates.find(params[:id])
       @invoice = Invoice.from_template(@template)
+      @invoice.user_address = current_user.address.copy(
+        addressable_type: "InvoiceBar::Invoice#user_address"
+      )
       respond_on_new @invoice
     end
 
@@ -113,6 +117,9 @@ module InvoiceBar
       if params[:fill_in] || params[:fill_in_contact] || params[:ic]
         respond_on_new @invoice
       else
+        @invoice.user_address = current_user.address.copy(
+          addressable_type: "InvoiceBar::Invoice#user_address"
+        )
         current_user.invoices << @invoice
         respond_on_create @invoice
       end
@@ -128,7 +135,7 @@ module InvoiceBar
     def update
       flash[:notice], flash[:alert] = nil, nil
 
-      @invoice = current_user.invoices.find(params[:id])
+      @invoice = current_user.invoices.where(id: params[:id]).first
 
       apply_templates if params[:fill_in]
       fill_in_contact if params[:fill_in_contact]
@@ -156,7 +163,7 @@ module InvoiceBar
     end
 
     def mark_as_paid
-      @invoice = current_user.invoices.find(params[:id])
+      @invoice = current_user.invoices.where(id: params[:id]).first
       @invoice.mark_as_paid
       @invoice.save!
 
@@ -166,7 +173,7 @@ module InvoiceBar
     end
 
     def mark_as_sent
-      @invoice = current_user.invoices.find(params[:id])
+      @invoice = current_user.invoices.where(id: params[:id]).first
       @invoice.mark_as_sent
       @invoice.save!
 
@@ -201,7 +208,7 @@ module InvoiceBar
     protected
 
       def set_invoice
-        @invoice = InvoiceBar::Invoice.find(params[:id])
+        @invoice = current_user.invoices.where(id: params[:id]).first
       end
 
       def invoice_params

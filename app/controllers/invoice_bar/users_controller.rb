@@ -57,6 +57,12 @@ module InvoiceBar
 
       @user = current_user
       @user.update_attributes(user_params)
+      @user.address.street = params[:user][:street]
+      @user.address.street_number = params[:user][:street_number]
+      @user.address.postcode = params[:user][:postcode]
+      @user.address.city = params[:user][:city]
+      @user.address.city_part = params[:user][:city_part]
+      @user.address.extra_address_line = params[:user][:extra_address_line]
 
       respond_to do |format|
         if @user.save

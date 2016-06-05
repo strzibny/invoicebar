@@ -33,7 +33,7 @@ InvoiceBar::Engine.routes.draw do
   get 'invoices/issued', to: 'invoices#issued', as: 'issued_invoices', method: :get
   get 'invoices/received', to: 'invoices#received', as: 'received_invoices', method: :get
 
-  resources :invoices
+  resources :invoices, param: :id
   resources :invoice_templates
 
   # Receipts
@@ -42,7 +42,7 @@ InvoiceBar::Engine.routes.draw do
   get 'receipts/income', to: 'receipts#income', as: 'income_receipts', method: :get
   get 'receipts/expence', to: 'receipts#expence', as: 'expence_receipts', method: :get
 
-  resources :receipts
+  resources :receipts, param: :id
   resources :receipt_templates
 
   # Root default

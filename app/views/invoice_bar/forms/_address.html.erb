@@ -10,13 +10,13 @@
     <div class="city">
       <%= formatted_postcode(address.postcode) %>
       <%= address.city %>
-      <% unless address.city_part.empty? %>
+      <% if address.city_part && !address.city_part.empty? %>
         <br>
         <%= address.city_part %>
       <% end %>
     </div>
   </div>
   <div class="extra-address-line">
-    <%= address.extra_address_line unless address.extra_address_line.empty? %>
+    <%= address.extra_address_line if address.extra_address_line && !address.extra_address_line.empty? %>
   </div>
 </div>

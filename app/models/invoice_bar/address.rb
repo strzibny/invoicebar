@@ -11,7 +11,7 @@ module InvoiceBar
     ADDRESS_COMPONENTS = %w( street street_number city city_part postcode
                              extra_address_line )
 
-    # Assosiations
+    # Associations
     attr_accessible :addressable_id, :addressable_type
 
     belongs_to :addressable, polymorphic: true
@@ -30,14 +30,15 @@ module InvoiceBar
     end
 
     # Copies the address and returns a new instance.
-    def copy
-      Address.new(
+    def copy(addressable_type: nil)
+      InvoiceBar::Address.new(
         street: street,
         street_number: street_number,
         city: city,
         city_part: city_part,
         postcode: postcode,
-        extra_address_line: extra_address_line
+        extra_address_line: extra_address_line,
+        addressable_type: addressable_type
       )
     end
   end
