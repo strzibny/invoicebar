@@ -23,7 +23,8 @@ module InvoiceBar
       class_name: InvoiceBar::Address,
       foreign_key: :addressable_id,
       foreign_type: :addressable_type,
-      dependent: :destroy
+      dependent: :destroy,
+      required: true
     has_many :items, as: :itemable, dependent: :destroy
     accepts_nested_attributes_for :address, allow_destroy: true, reject_if: false
 
@@ -32,7 +33,8 @@ module InvoiceBar
       class_name: InvoiceBar::Address,
       foreign_key: :addressable_id,
       foreign_type: :addressable_type,
-      dependent: :destroy
+      dependent: :destroy,
+      required: true
     accepts_nested_attributes_for :user_address, allow_destroy: true, reject_if: false
 
     # Search
@@ -50,7 +52,7 @@ module InvoiceBar
       receipt.account_id = invoice.account_id
       receipt.issue_date = Date.today
 
-      receipt.user_address = user.address.copy(
+      receipt.user_address = invoice.user_address.copy(
         addressable_type: "InvoiceBar::Receipt#user_address"
       )
       receipt.address = invoice.address.copy(

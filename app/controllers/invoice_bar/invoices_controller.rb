@@ -71,7 +71,6 @@ module InvoiceBar
 
         @receipt.number = @next_number
         @receipt.invoice = @invoice
-        @receipt.user_address = @invoice.user_address
         current_user.receipts << @receipt
 
         if @receipt.save
@@ -90,6 +89,9 @@ module InvoiceBar
     def from_template
       @template = current_user.invoice_templates.find(params[:id])
       @invoice = Invoice.from_template(@template)
+      @invoice.user_name = current_user.name
+      @invoice.user_ic = current_user.ic
+      @invoice.user_dic = current_user.dic
       @invoice.user_address = current_user.address.copy(
         addressable_type: "InvoiceBar::Invoice#user_address"
       )
@@ -117,6 +119,9 @@ module InvoiceBar
       if params[:fill_in] || params[:fill_in_contact] || params[:ic]
         respond_on_new @invoice
       else
+        @invoice.user_name = current_user.name
+        @invoice.user_ic = current_user.ic
+        @invoice.user_dic = current_user.dic
         @invoice.user_address = current_user.address.copy(
           addressable_type: "InvoiceBar::Invoice#user_address"
         )

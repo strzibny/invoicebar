@@ -27,7 +27,7 @@ module InvoiceBar
     has_many :receipts,           dependent: :destroy
     has_many :receipt_templates,  dependent: :destroy
 
-    has_one :address, as: :addressable, dependent: :destroy
+    has_one :address, as: :addressable, dependent: :destroy, required: true
 
     accepts_nested_attributes_for :address, allow_destroy: true
 
@@ -36,6 +36,10 @@ module InvoiceBar
 
     def self.searchable_fields
       %w( name ic email phone )
+    end
+
+    def dic
+      ic
     end
   end
 end

@@ -51,6 +51,9 @@ module InvoiceBar
     def from_template
       @template = current_user.receipt_templates.find(params[:id])
       @receipt = Receipt.from_template(@template)
+      @receipt.user_name = current_user.name
+      @receipt.user_ic = current_user.ic
+      @receipt.user_dic = current_user.dic
       @receipt.user_address = current_user.address.copy(
         addressable_type: "InvoiceBar::Receipt#user_address"
       )
@@ -79,6 +82,9 @@ module InvoiceBar
       if params[:fill_in] || params[:fill_in_contact] || params[:ic]
         respond_on_new @receipt
       else
+        @receipt.user_name = current_user.name
+        @receipt.user_ic = current_user.ic
+        @receipt.user_dic = current_user.dic
         @receipt.user_address = current_user.address.copy(
           addressable_type: "InvoiceBar::Receipt#user_address"
         )
