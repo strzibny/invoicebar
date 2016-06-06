@@ -43,7 +43,7 @@ cs:
       list: Uživatelé
       new: Registrace
       edit: Profil
-    contacts: 
+    contacts:
       list: Kontakty
       new: Přidat kontakt
       edit: Změnit kontakt
@@ -51,7 +51,7 @@ cs:
       list: Účty
       new: Přidat účet
       edit: Změnit účet
-    currencies: 
+    currencies:
       list: Měny
       new: Přidat měnu
       edit: Změnit měnu
@@ -67,7 +67,7 @@ cs:
     new_item: Nová položka
     new_account: Nový účet
     delete_item: Smazat
-    prefill: Použít   
+    prefill: Použít
   buttons:
     all: Všechny
     paid: Zaplaceno
@@ -119,6 +119,8 @@ cs:
       symbol: Symbol
       priority: Priorita pořadí
     address:
+      one: Adresa
+      other: Adresy
       city: Město
       city_part: Městská část
       extra_address_line: Volitelný řádek adresy
@@ -214,7 +216,7 @@ cs:
       name: Název šablony
       payment_identification_number: Variabilní symbol
       user_address_id: Adresa uživatele
-      user_id: Uživatel  
+      user_id: Uživatel
     item:
       amount: Celková částka
       invoice_id: Faktura
@@ -240,7 +242,7 @@ cs:
     - Pá
     - So
     abbr_month_names:
-    - 
+    -
     - Led
     - Úno
     - Bře
@@ -267,7 +269,7 @@ cs:
       short: ! '%d %b'
       invoice: ! '%d. %m. %Y'
     month_names:
-    - 
+    -
     - Leden
     - Únor
     - Březen
