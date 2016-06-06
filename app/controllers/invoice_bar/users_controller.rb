@@ -35,6 +35,9 @@ module InvoiceBar
     # POST /users.json
     def create
       @user = InvoiceBar::User.new(user_params)
+      @user.build_address unless @user.address
+      #@user.address.update_attributes(params[:user][:address_attributes])
+
 
       # First user is an administrator
       @user.administrator = true unless InvoiceBar::User.all.size > 0
@@ -93,7 +96,15 @@ module InvoiceBar
                                      :administrator, :password, :crypted_password,
                                      :salt, :remember_me_token, :remember_me_token_expires_at,
                                      :reset_password_email_sent_at, :reset_password_token,
-                                     :reset_password_token_expires_at, :address_attributes)
+                                     :reset_password_token_expires_at,
+                                     :address_attributes => [
+                                       :street,
+                                       :street_number,
+                                       :postcode,
+                                       :city,
+                                       :city_part,
+                                       :extra_address_line
+                                     ])
       end
 
       def set_layout

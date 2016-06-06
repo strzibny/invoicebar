@@ -37,12 +37,12 @@ class InvoiceBar::UsersControllerTest < ActionController::TestCase
         salt: @new_user.salt,
         web: @new_user.web,
         address_attributes: {
-          street: @new_user.street,
-          street_number: @new_user.street_number,
-          postcode: @new_user.postcode,
-          city: @new_user.city,
-          city_part: @new_user.city_part,
-          extra_address_line: @new_user.extra_address_line }}
+          street: @new_user.address.street,
+          street_number: @new_user.address.street_number,
+          postcode: @new_user.address.postcode,
+          city: @new_user.address.city,
+          city_part: @new_user.address.city_part,
+          extra_address_line: @new_user.address.extra_address_line }}
     end
   end
 

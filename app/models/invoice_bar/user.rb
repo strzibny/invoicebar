@@ -4,7 +4,7 @@ module InvoiceBar
 
     validates :name,  presence: true
     validates :email, presence: true, uniqueness: true
-    validates :ic,    presence: true, numericality: true, length: { in: 2..8 }
+    validates :ic,    presence: true, numericality: true#, length: { in: 2..8 }
 
     # Sorcery auth
     authenticates_with_sorcery!

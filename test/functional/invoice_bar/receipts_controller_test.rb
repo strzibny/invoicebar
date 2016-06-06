@@ -33,7 +33,14 @@ class InvoiceBar::ReceiptsControllerTest < ActionController::TestCase
         contact_dic: @new_receipt.contact_dic,
         issue_date: @new_receipt.issue_date,
         account_id: @new_receipt.account_id,
-        user_id: @new_receipt.user_id }
+        user_id: @new_receipt.user_id,
+        address_attributes: {
+          street: @new_receipt.address.street,
+          street_number: @new_receipt.address.street_number,
+          postcode: @new_receipt.address.postcode,
+          city: @new_receipt.address.city,
+          city_part: @new_receipt.address.city_part,
+          extra_address_line: @new_receipt.address.extra_address_line }}
     end
   end
 
