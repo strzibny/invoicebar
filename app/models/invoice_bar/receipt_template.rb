@@ -11,6 +11,7 @@ module InvoiceBar
     include InvoiceBar::Billable::Receipting
 
     include InvoiceBar::Billable::Associations::Base
+    delegate :name, :ic, :address, to: :user, prefix: true
 
     # Search
     include InvoiceBar::Searchable
