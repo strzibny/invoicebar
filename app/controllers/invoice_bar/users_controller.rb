@@ -36,8 +36,6 @@ module InvoiceBar
     def create
       @user = InvoiceBar::User.new(user_params)
       @user.build_address unless @user.address
-      #@user.address.update_attributes(params[:user][:address_attributes])
-
 
       # First user is an administrator
       @user.administrator = true unless InvoiceBar::User.all.size > 0

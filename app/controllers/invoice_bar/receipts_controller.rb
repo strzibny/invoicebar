@@ -17,7 +17,6 @@ module InvoiceBar
     # GET /receipts/1.json
     # GET /receipts/1.pdf
     def show
-      @receipt = current_user.receipts.find(params[:id])
       @address = @receipt.address
       @account = current_user.accounts.find(@receipt.account_id)
 
@@ -103,8 +102,6 @@ module InvoiceBar
     def update
       flash[:notice], flash[:alert] = nil, nil
 
-      @receipt = current_user.receipts.find(params[:id])
-
       apply_templates if params[:fill_in]
       fill_in_contact if params[:fill_in_contact]
 
@@ -156,7 +153,7 @@ module InvoiceBar
     protected
 
       def set_receipt
-        @receipt = InvoiceBar::Receipt.find(params[:id])
+        @receipt = current_user.receipts.where(number: params[:number]).first
       end
 
       def receipt_params

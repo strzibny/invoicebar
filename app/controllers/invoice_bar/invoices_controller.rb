@@ -17,7 +17,6 @@ module InvoiceBar
     # GET /invoices/1.json
     # GET /invoices/1.pdf
     def show
-      @invoice = current_user.invoices.where(id: params[:id]).first
       @address = @invoice.address
       @account = current_user.accounts.find(@invoice.account_id)
 
@@ -50,7 +49,7 @@ module InvoiceBar
     end
 
     def create_receipt_for_invoice
-      @invoice = current_user.invoices.where(id: params[:id]).first
+      @invoice = current_user.invoices.where(number: params[:number]).first
 
       unless @invoice.receipt_id.blank?
         @receipt = current_user.receipts.find(@invoice.receipt_id)
@@ -140,8 +139,6 @@ module InvoiceBar
     def update
       flash[:notice], flash[:alert] = nil, nil
 
-      @invoice = current_user.invoices.where(id: params[:id]).first
-
       apply_templates if params[:fill_in]
       fill_in_contact if params[:fill_in_contact]
 
@@ -168,7 +165,7 @@ module InvoiceBar
     end
 
     def mark_as_paid
-      @invoice = current_user.invoices.where(id: params[:id]).first
+      @invoice = current_user.invoices.where(number: params[:number]).first
       @invoice.mark_as_paid
       @invoice.save!
 
@@ -178,7 +175,7 @@ module InvoiceBar
     end
 
     def mark_as_sent
-      @invoice = current_user.invoices.where(id: params[:id]).first
+      @invoice = current_user.invoices.where(number: params[:number]).first
       @invoice.mark_as_sent
       @invoice.save!
 
@@ -213,7 +210,7 @@ module InvoiceBar
     protected
 
       def set_invoice
-        @invoice = current_user.invoices.where(id: params[:id]).first
+        @invoice = current_user.invoices.where(number: params[:number]).first
       end
 
       def invoice_params

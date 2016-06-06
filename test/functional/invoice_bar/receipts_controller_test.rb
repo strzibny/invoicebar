@@ -45,17 +45,17 @@ class InvoiceBar::ReceiptsControllerTest < ActionController::TestCase
   end
 
   test "should show receipt" do
-    get :show, id: @receipt
+    get :show, number: @receipt.number
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @receipt
+    get :edit, number: @receipt.number
     assert_response :success
   end
 
   test "should update receipt" do
-    put :update, id: @receipt, receipt: {
+    put :update, number: @receipt.number, receipt: {
       number: @receipt.number,
       amount: @receipt.amount,
       contact_name: @receipt.contact_name,
@@ -68,7 +68,7 @@ class InvoiceBar::ReceiptsControllerTest < ActionController::TestCase
 
   test "should destroy receipt" do
     assert_difference('InvoiceBar::Receipt.count', -1) do
-      delete :destroy, id: @receipt
+      delete :destroy, number: @receipt.number
     end
   end
 end

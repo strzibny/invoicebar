@@ -15,7 +15,6 @@ module InvoiceBar
     # GET /receipt_templates/1
     # GET /receipt_templates/1.json
     def show
-      @receipt_template = current_user.receipt_templates.find(params[:id])
       @address = @receipt_template.address
 
       unless @receipt_template.account_id or current_user.accounts
@@ -60,15 +59,12 @@ module InvoiceBar
 
     # GET /invoice_receipts/1/edit
     def edit
-      @receipt_template = ReceiptTemplate.find(params[:id])
       @receipt_template.build_address unless @receipt_template.address
       respond_on_edit @receipt_template
     end
 
     def update
       flash[:notice], flash[:alert] = nil, nil
-
-      @receipt_template = current_user.receipt_templates.find(params[:id])
 
       fill_in_contact if params[:fill_in_contact]
 
@@ -97,7 +93,7 @@ module InvoiceBar
     protected
 
       def set_receipt_template
-        @receipt_template = InvoiceBar::ReceiptTemplate.find(params[:id])
+        @receipt_template = current_user.receipt_templates.find(params[:id])
       end
 
       def receipt_template_params

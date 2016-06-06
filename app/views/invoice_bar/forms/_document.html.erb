@@ -1,5 +1,4 @@
 <%# Form for invoices, bills and receipts %>
-
 <%= nested_form_for(document) do |f| %>
   <%= render 'invoice_bar/forms/errors', model: document %>
   <% if document.instance_of? InvoiceBar::Invoice or document.instance_of? InvoiceBar::Receipt %>
