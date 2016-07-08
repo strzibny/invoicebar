@@ -85,7 +85,7 @@
     <% @invoices.each do |invoice| %>
       <tr>
         <td class="number hidden-phone">
-          <span><%= link_to invoice do %><%= invoice.number %><% end %></span>
+          <span><%= link_to invoice_path(number: invoice.number) do %><%= invoice.number %><% end %></span>
         </td>
         <td class="contact_name">
           <span><%= invoice.contact_name %></span>

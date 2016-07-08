@@ -29,7 +29,7 @@
     <% @receipt_templates.each do |receipt| %>
       <tr>
         <td class="name">
-          <span><%= link_to receipt do %><%= receipt.name %><% end %></span>
+          <span><%= link_to receipt_path(number: @invoice.number) do %><%= receipt.name %><% end %></span>
         </td>
         <td class="contact_name">
           <span><%= receipt.contact_name %></span>

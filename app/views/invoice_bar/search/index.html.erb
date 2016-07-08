@@ -35,7 +35,7 @@
       <% @invoices.each do |invoice| %>
         <tr>
           <td class="number hidden-phone">
-            <span><%= link_to invoice do %><%= invoice.number %><% end %></span>
+            <span><%= link_to invoice_path(number: @invoice.number) do %><%= invoice.number %><% end %></span>
           </td>
           <td class="contact_name">
             <span><%= invoice.contact_name %></span>
@@ -93,7 +93,7 @@
       <% @receipts.each do |receipt| %>
         <tr>
           <td class="number hidden-phone">
-            <span><%= link_to receipt do %><%= receipt.number %><% end %></span>
+            <span><%= link_to receipt_path(number: @invoice.number) do %><%= receipt.number %><% end %></span>
           </td>
           <td class="contact_name">
             <span><%= receipt.contact_name %></span>
@@ -126,7 +126,7 @@
       <% @invoice_templates.each do |invoice| %>
         <tr>
           <td class="name">
-            <span><%= link_to invoice do %><%= invoice.name %><% end %></span>
+            <span><%= link_to invoice_path(number: @invoice.number) do %><%= invoice.name %><% end %></span>
           </td>
           <td class="contact_name">
             <span><%= invoice.contact_name %></span>
@@ -156,7 +156,7 @@
       <% @receipt_templates.each do |receipt| %>
         <tr>
           <td class="name">
-            <span><%= link_to receipt do %><%= receipt.name %><% end %></span>
+            <span><%= link_to receipt_path(number: @invoice.number) do %><%= receipt.name %><% end %></span>
           </td>
           <td class="contact_name">
             <span><%= receipt.contact_name %></span>

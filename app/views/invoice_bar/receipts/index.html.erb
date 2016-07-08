@@ -57,7 +57,7 @@
     <% @receipts.each do |receipt| %>
       <tr>
         <td class="number hidden-phone">
-          <span><%= link_to receipt do %><%= receipt.number %><% end %></span>
+          <span><%= link_to receipt_path(number: @invoice.number) do %><%= receipt.number %><% end %></span>
         </td>
         <td class="contact_name">
           <span><%= receipt.contact_name %></span>
