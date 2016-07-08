@@ -30,8 +30,8 @@ module InvoiceBar
       def respond_on_create(object)
         respond_to do |format|
           if object.save
-            format.html { redirect_to object }
-            format.json { render json: object, status: :created, location: object }
+            format.html { redirect_to find_redirect_path(object) }
+            format.json { render json: object, status: :created, location: find_redirect_path(object) }
           else
             format.html { render :new }
             format.json { render json: object.errors, status: :unprocessable_entity }
@@ -48,8 +48,8 @@ module InvoiceBar
       def respond_on_update(object, object_params)
         respond_to do |format|
           if object.update(object_params)
-            format.html { redirect_to object }
-            format.json { render json: object, status: 200, location: object }
+            format.html { redirect_to find_redirect_path(object) }
+            format.json { render json: object, status: 200, location: find_redirect_path(object) }
           else
             format.html { render :edit }
             format.json { render json: object.errors, status: :unprocessable_entity }
@@ -96,6 +96,19 @@ module InvoiceBar
 
       def not_authenticated
         redirect_to login_url, alert: t('messages.not_authenticated')
+      end
+
+    private
+
+      def find_redirect_path(object)
+        case object.class.to_s
+        when 'InvoiceBar::Invoice'
+          invoice_path(number: object.number)
+        when 'InvoiceBar::Receipt'
+          receipt_path(number: object.number)
+        else
+          object
+        end
       end
   end
 end

@@ -1,21 +1,21 @@
 <div style="margin-bottom: 15px">
   <% if document.instance_of? InvoiceBar::Invoice %>
-    <%= link_to "Vytvořit doklad o zaplacení", create_receipt_for_invoice_path(document), class: 'btn' if @invoice.receipt_id.blank? %>
-    <%= link_to 'Označit za odeslanou', mark_invoice_as_sent_path(document), class: 'btn' unless document.sent %>
+    <%= link_to "Vytvořit doklad o zaplacení", create_receipt_for_invoice_path(number: document.number), class: 'btn' if @invoice.receipt_id.blank? %>
+    <%= link_to 'Označit za odeslanou', mark_invoice_as_sent_path(number: document.number), class: 'btn' unless document.sent %>
 
-    <%= link_to t('buttons.edit'), edit_invoice_path(document), class: 'btn' %>
-    <%= link_to t('buttons.destroy'), invoice_path(document), method: :delete, confirm: t('buttons.destroy_confirm'), class: 'btn' %>
-    <%= link_to "Zobrazit v PDF", invoice_path(document, format: 'pdf'), class: 'btn' %>
+    <%= link_to t('buttons.edit'), edit_invoice_path(number: document.number), class: 'btn' %>
+    <%= link_to t('buttons.destroy'), invoice_path(number: document.number), method: :delete, confirm: t('buttons.destroy_confirm'), class: 'btn' %>
+    <%= link_to "Zobrazit v PDF", invoice_path(number: document.number, format: 'pdf'), class: 'btn' %>
 
     <% if document.receipt_id %>
-      <%= link_to "Doklad", receipt_path(document.receipt_id)%>
+      <%= link_to "Doklad", receipt_path(number: document.number)%>
     <% end %>
   <% end %>
 
   <% if document.instance_of? InvoiceBar::Receipt %>
-    <%= link_to t('buttons.edit'), edit_receipt_path(document), class: 'btn' %>
-    <%= link_to t('buttons.destroy'), receipt_path(document), method: :delete, confirm: t('buttons.destroy_confirm'), class: 'btn' %>
-    <%= link_to "Zobrazit v PDF", receipt_path(document, format: 'pdf'), class: 'btn' %>
+    <%= link_to t('buttons.edit'), edit_receipt_path(number: document.number), class: 'btn' %>
+    <%= link_to t('buttons.destroy'), receipt_path(number: document.number), method: :delete, confirm: t('buttons.destroy_confirm'), class: 'btn' %>
+    <%= link_to "Zobrazit v PDF", receipt_path(number: document.number, format: 'pdf'), class: 'btn' %>
   <% end %>
 
   <% if document.instance_of? InvoiceBar::InvoiceTemplate %>
