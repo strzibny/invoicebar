@@ -51,8 +51,8 @@ module InvoiceBar
       @template = current_user.receipt_templates.find(params[:id])
       @receipt = Receipt.from_template(@template)
       @receipt.user_name = current_user.name
-      @receipt.user_ic = current_user.ic
-      @receipt.user_dic = current_user.dic
+      @receipt.user_tax_id = current_user.tax_id
+      @receipt.user_tax_id2 = current_user.tax_id2
       @receipt.user_address = current_user.address.copy(
         addressable_type: "InvoiceBar::Receipt#user_address"
       )
@@ -70,20 +70,20 @@ module InvoiceBar
       apply_templates if params[:fill_in]
       fill_in_contact if params[:fill_in_contact]
 
-      if params[:ic]
-        if (@receipt.load_contact_from_ic(@receipt.contact_ic))
-          flash[:notice] = I18n.t('messages.ic_loaded')
+      if params[:tax_id]
+        if (@receipt.load_contact_from_tax_id(@receipt.contact_tax_id))
+          flash[:notice] = I18n.t('messages.tax_id_loaded')
         else
-          flash[:alert] = I18n.t('messages.cannot_load_ic')
+          flash[:alert] = I18n.t('messages.cannot_load_tax_id')
         end
       end
 
-      if params[:fill_in] || params[:fill_in_contact] || params[:ic]
+      if params[:fill_in] || params[:fill_in_contact] || params[:tax_id]
         respond_on_new @receipt
       else
         @receipt.user_name = current_user.name
-        @receipt.user_ic = current_user.ic
-        @receipt.user_dic = current_user.dic
+        @receipt.user_tax_id = current_user.tax_id
+        @receipt.user_tax_id2 = current_user.tax_id2
         @receipt.user_address = current_user.address.copy(
           addressable_type: "InvoiceBar::Receipt#user_address"
         )
@@ -105,15 +105,15 @@ module InvoiceBar
       apply_templates if params[:fill_in]
       fill_in_contact if params[:fill_in_contact]
 
-      if params[:ic]
-        if (@receipt.load_contact_from_ic(@receipt.contact_ic))
-          flash[:notice] = I18n.t('messages.ic_loaded')
+      if params[:tax_id]
+        if (@receipt.load_contact_from_tax_id(@receipt.contact_tax_id))
+          flash[:notice] = I18n.t('messages.tax_id_loaded')
         else
-          flash[:alert] = I18n.t('messages.cannot_load_ic')
+          flash[:alert] = I18n.t('messages.cannot_load_tax_id')
         end
       end
 
-      if params[:fill_in] || params[:fill_in_contact] || params[:ic]
+      if params[:fill_in] || params[:fill_in_contact] || params[:tax_id]
         respond_on_edit @receipt
       else
         respond_on_update @receipt, receipt_params
@@ -158,7 +158,7 @@ module InvoiceBar
 
       def receipt_params
         params.require(:receipt).permit(:number, :sent, :paid,
-                                        :amount, :contact_dic, :contact_ic, :contact_name, :issue_date, :issuer,
+                                        :amount, :contact_tax_id2, :contact_tax_id, :contact_name, :issue_date, :issuer,
                                         :issuer,
                                         :account_id, :user_id,
                                         address_attributes: [:street, :street_number, :city, :city_part, :postcode, :extra_address_line],

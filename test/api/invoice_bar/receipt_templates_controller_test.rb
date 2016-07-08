@@ -22,8 +22,8 @@ class InvoiceBar::API::ReceiptTemplatesControllerTest < ActionController::TestCa
     assert_difference('InvoiceBar::ReceiptTemplate.count') do
       post :create, format: :json, receipt_template: {
         account_id: @new_receipt_template.account_id,
-        contact_dic: @new_receipt_template.contact_dic,
-        contact_ic: @new_receipt_template.contact_ic,
+        contact_tax_id2: @new_receipt_template.contact_tax_id2,
+        contact_tax_id: @new_receipt_template.contact_tax_id,
         contact_name: @new_receipt_template.contact_name,
         issue_date: @new_receipt_template.issue_date,
         name: @new_receipt_template.name }
@@ -41,8 +41,8 @@ class InvoiceBar::API::ReceiptTemplatesControllerTest < ActionController::TestCa
   test "should update receipt_template" do
     put :update, format: :json, id: @receipt_template, receipt_template: {
       account_id: @receipt_template.account_id,
-      contact_dic: @receipt_template.contact_dic,
-      contact_ic: @receipt_template.contact_ic,
+      contact_tax_id2: @receipt_template.contact_tax_id2,
+      contact_tax_id: @receipt_template.contact_tax_id,
       contact_name: 'Updated contact name',
       issue_date: @receipt_template.issue_date,
       name: 'Updated name',

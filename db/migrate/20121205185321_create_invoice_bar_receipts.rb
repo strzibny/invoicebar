@@ -4,8 +4,8 @@ class CreateInvoiceBarReceipts < ActiveRecord::Migration
       t.string :number, null: false
       t.date :issue_date, null: false
       t.string :contact_name, null: false
-      t.integer :contact_ic, default: nil
-      t.string :contact_dic, default: nil
+      t.integer :contact_tax_id, default: nil
+      t.string :contact_tax_id2, default: nil
       t.integer :user_id, null: false
       t.integer :account_id, null: false
       t.integer :amount, null: false
@@ -16,6 +16,6 @@ class CreateInvoiceBarReceipts < ActiveRecord::Migration
 
     add_index :invoice_bar_receipts, :number
     add_index :invoice_bar_receipts, :contact_name
-    add_index :invoice_bar_receipts, :contact_ic
+    add_index :invoice_bar_receipts, :contact_tax_id
   end
 end

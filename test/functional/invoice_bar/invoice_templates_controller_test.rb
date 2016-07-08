@@ -28,8 +28,8 @@ class InvoiceBar::InvoiceTemplatesControllerTest < ActionController::TestCase
       post :create, invoice_template: {
         account_id: @new_invoice_template.account_id,
         amount: @new_invoice_template.amount,
-        contact_dic: @new_invoice_template.contact_dic,
-        contact_ic: @new_invoice_template.contact_ic,
+        contact_tax_id2: @new_invoice_template.contact_tax_id2,
+        contact_tax_id: @new_invoice_template.contact_tax_id,
         contact_name: @new_invoice_template.contact_name,
         due_date: @new_invoice_template.due_date,
         issue_date: @new_invoice_template.issue_date,
@@ -52,8 +52,8 @@ class InvoiceBar::InvoiceTemplatesControllerTest < ActionController::TestCase
     put :update, id: @invoice_template, invoice_template: {
       account_id: @invoice_template.account_id,
       amount: @invoice_template.amount,
-      contact_dic: @invoice_template.contact_dic,
-      contact_ic: @invoice_template.contact_ic,
+      contact_tax_id2: @invoice_template.contact_tax_id2,
+      contact_tax_id: @invoice_template.contact_tax_id,
       contact_name: @invoice_template.contact_name,
       due_date: @invoice_template.due_date,
       issue_date: @invoice_template.issue_date,

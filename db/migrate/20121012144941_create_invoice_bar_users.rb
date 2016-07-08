@@ -12,7 +12,7 @@ class CreateInvoiceBarUsers < ActiveRecord::Migration
       t.string :name, null: false
       t.string :phone, default: nil
       t.string :web, default: nil
-      t.integer :ic, null: false, unique: true
+      t.integer :tax_id, null: false, unique: true
       t.boolean :administrator
 
       t.timestamps

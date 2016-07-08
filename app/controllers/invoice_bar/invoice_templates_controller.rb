@@ -41,15 +41,15 @@ module InvoiceBar
 
       fill_in_contact if params[:fill_in_contact]
 
-      if params[:ic]
-        if (@invoice_template.load_contact_from_ic(@invoice_template.contact_ic))
-          flash[:notice] = I18n.t('messages.ic_loaded')
+      if params[:tax_id]
+        if (@invoice_template.load_contact_from_tax_id(@invoice_template.contact_tax_id))
+          flash[:notice] = I18n.t('messages.tax_id_loaded')
         else
-          flash[:alert] = I18n.t('messages.cannot_load_ic')
+          flash[:alert] = I18n.t('messages.cannot_load_tax_id')
         end
       end
 
-      if params[:fill_in_contact] || params[:ic]
+      if params[:fill_in_contact] || params[:tax_id]
         respond_on_new @invoice_template
       else
         current_user.invoice_templates << @invoice_template
@@ -70,15 +70,15 @@ module InvoiceBar
 
       fill_in_contact if params[:fill_in_contact]
 
-      if params[:ic]
-        if (@invoice_template.load_contact_from_ic(@invoice_template.contact_ic))
-          flash[:notice] = I18n.t('messages.ic_loaded')
+      if params[:tax_id]
+        if (@invoice_template.load_contact_from_tax_id(@invoice_template.contact_tax_id))
+          flash[:notice] = I18n.t('messages.tax_id_loaded')
         else
-          flash[:alert] = I18n.t('messages.cannot_load_ic')
+          flash[:alert] = I18n.t('messages.cannot_load_tax_id')
         end
       end
 
-      if params[:fill_in_contact] || params[:ic]
+      if params[:fill_in_contact] || params[:tax_id]
         respond_on_edit @invoice_template
       else
         respond_on_update @invoice_template, invoice_template_params
@@ -100,7 +100,7 @@ module InvoiceBar
 
       def invoice_template_params
         params.require(:invoice_template).permit(:name, :number, :sent, :paid,
-                                                 :amount, :contact_dic, :contact_ic, :contact_name, :issue_date, :issuer,
+                                                 :amount, :contact_tax_id2, :contact_tax_id, :contact_name, :issue_date, :issuer,
                                                  :due_date, :payment_identification_number, :issuer,
                                                  :account_id, :user_id,
                                                  address_attributes: [:street, :street_number, :city, :city_part, :postcode, :extra_address_line],

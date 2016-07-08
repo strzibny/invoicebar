@@ -1,10 +1,10 @@
 module InvoiceBar
   class User < ActiveRecord::Base
-    attr_accessible :name, :email, :ic, :phone, :web, :administrator
+    attr_accessible :name, :email, :tax_id, :phone, :web, :administrator
 
     validates :name,  presence: true
     validates :email, presence: true, uniqueness: true
-    validates :ic,    presence: true, numericality: true#, length: { in: 2..8 }
+    validates :tax_id,    presence: true, numericality: true#, length: { in: 2..8 }
 
     # Sorcery auth
     authenticates_with_sorcery!
@@ -35,11 +35,11 @@ module InvoiceBar
     include InvoiceBar::Searchable
 
     def self.searchable_fields
-      %w( name ic email phone )
+      %w( name tax_id email phone )
     end
 
-    def dic
-      ic
+    def tax_id2
+      tax_id
     end
   end
 end

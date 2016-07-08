@@ -21,7 +21,7 @@ class InvoiceBar::API::UsersControllerTest < ActionController::TestCase
       post :create, format: :json, user: {
         name: @new_user.name,
         email: @new_user.email,
-        ic: @new_user.ic,
+        tax_id: @new_user.tax_id,
         crypted_password: @new_user.crypted_password,
         phone: @new_user.phone,
         remember_me_token: @new_user.remember_me_token,
@@ -53,7 +53,7 @@ class InvoiceBar::API::UsersControllerTest < ActionController::TestCase
     put :update, format: :json, id: @user, user: {
       name: 'Updated user name',
       email: 'new@mail.io',
-      ic: @user.ic,
+      tax_id: @user.tax_id,
       crypted_password: @user.crypted_password,
       phone: @user.phone,
       remember_me_token: @user.remember_me_token,

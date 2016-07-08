@@ -2,8 +2,8 @@ require 'test_helper'
 
 class InvoiceBar::InvoiceTest < ActiveSupport::TestCase
   should allow_mass_assignment_of :contact_name
-  should allow_mass_assignment_of :contact_ic
-  should allow_mass_assignment_of :contact_dic
+  should allow_mass_assignment_of :contact_tax_id
+  should allow_mass_assignment_of :contact_tax_id2
   should allow_mass_assignment_of :number
   should allow_mass_assignment_of :payment_identification_number
   should allow_mass_assignment_of :amount
@@ -54,9 +54,9 @@ class InvoiceBar::InvoiceTest < ActiveSupport::TestCase
     invoice.apply_template(invoice_template)
 
     assert_equal orig_invoice.contact_name, invoice.contact_name
-    assert_equal orig_invoice.contact_ic, invoice.contact_ic
+    assert_equal orig_invoice.contact_tax_id, invoice.contact_tax_id
     assert_equal Date.yesterday, invoice.issue_date
-    assert_not_equal invoice_template.contact_dic, invoice.contact_dic
+    assert_not_equal invoice_template.contact_tax_id2, invoice.contact_tax_id2
     assert_not_equal orig_invoice.issue_date, invoice.issue_date
     assert_not_equal orig_invoice.due_date, invoice.due_date
     assert_equal orig_invoice.address_city, invoice.address_city

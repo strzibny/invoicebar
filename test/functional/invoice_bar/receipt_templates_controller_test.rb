@@ -28,8 +28,8 @@ class InvoiceBar::ReceiptTemplatesControllerTest < ActionController::TestCase
       post :create, receipt_template: {
         account_id: @new_receipt_template.account_id,
         amount: @new_receipt_template.amount,
-        contact_dic: @new_receipt_template.contact_dic,
-        contact_ic: @new_receipt_template.contact_ic,
+        contact_tax_id2: @new_receipt_template.contact_tax_id2,
+        contact_tax_id: @new_receipt_template.contact_tax_id,
         contact_name: @new_receipt_template.contact_name,
         issue_date: @new_receipt_template.issue_date,
         name: @new_receipt_template.name }
@@ -50,8 +50,8 @@ class InvoiceBar::ReceiptTemplatesControllerTest < ActionController::TestCase
     put :update, id: @receipt_template, receipt_template: {
       account_id: @receipt_template.account_id,
       amount: @receipt_template.amount,
-      contact_dic: @receipt_template.contact_dic,
-      contact_ic: @receipt_template.contact_ic,
+      contact_tax_id2: @receipt_template.contact_tax_id2,
+      contact_tax_id: @receipt_template.contact_tax_id,
       contact_name: @receipt_template.contact_name,
       issue_date: @receipt_template.issue_date,
       name: @receipt_template.name,

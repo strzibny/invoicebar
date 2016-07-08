@@ -11,8 +11,8 @@ FactoryGirl.define do
     issue_date { Date.yesterday }
     due_date { issue_date + 28.days }
     contact_name 'Company'
-    contact_ic 1029392
-    contact_dic 'CZ898989'
+    contact_tax_id 1029392
+    contact_tax_id2 'CZ898989'
     address { FactoryGirl.build(:invoice_bar_address) }
     amount 1000000
 

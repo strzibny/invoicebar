@@ -2,8 +2,8 @@ require 'test_helper'
 
 class InvoiceBar::ReceiptTest < ActiveSupport::TestCase
   should allow_mass_assignment_of :contact_name
-  should allow_mass_assignment_of :contact_ic
-  should allow_mass_assignment_of :contact_dic
+  should allow_mass_assignment_of :contact_tax_id
+  should allow_mass_assignment_of :contact_tax_id2
   should allow_mass_assignment_of :number
   should allow_mass_assignment_of :amount
   should allow_mass_assignment_of :issue_date
@@ -36,9 +36,9 @@ class InvoiceBar::ReceiptTest < ActiveSupport::TestCase
     receipt.apply_template(receipt_template)
 
     assert_equal orig_receipt.contact_name, receipt.contact_name
-    assert_equal orig_receipt.contact_ic, receipt.contact_ic
+    assert_equal orig_receipt.contact_tax_id, receipt.contact_tax_id
     assert_equal Date.yesterday, receipt.issue_date
-    assert_not_equal receipt_template.contact_dic, receipt.contact_dic
+    assert_not_equal receipt_template.contact_tax_id2, receipt.contact_tax_id2
     assert_not_equal orig_receipt.issue_date, receipt.issue_date
     assert_equal orig_receipt.address_city, receipt.address_city
     assert_equal orig_receipt.address_street, receipt.address_street

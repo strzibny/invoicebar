@@ -41,15 +41,15 @@ module InvoiceBar
 
       fill_in_contact if params[:fill_in_contact]
 
-      if params[:ic]
-        if (@receipt_template.load_contact_from_ic(@receipt_template.contact_ic))
-          flash[:notice] = I18n.t('messages.ic_loaded')
+      if params[:tax_id]
+        if (@receipt_template.load_contact_from_tax_id(@receipt_template.contact_tax_id))
+          flash[:notice] = I18n.t('messages.tax_id_loaded')
         else
-          flash[:alert] = I18n.t('messages.cannot_load_ic')
+          flash[:alert] = I18n.t('messages.cannot_load_tax_id')
         end
       end
 
-      if params[:fill_in_contact] || params[:ic]
+      if params[:fill_in_contact] || params[:tax_id]
         respond_on_new @receipt_template
       else
         current_user.receipt_templates << @receipt_template
@@ -68,15 +68,15 @@ module InvoiceBar
 
       fill_in_contact if params[:fill_in_contact]
 
-      if params[:ic]
-        if (@receipt_template.load_contact_from_ic(@receipt_template.contact_ic))
-          flash[:notice] = I18n.t('messages.ic_loaded')
+      if params[:tax_id]
+        if (@receipt_template.load_contact_from_tax_id(@receipt_template.contact_tax_id))
+          flash[:notice] = I18n.t('messages.tax_id_loaded')
         else
-          flash[:alert] = I18n.t('messages.cannot_load_ic')
+          flash[:alert] = I18n.t('messages.cannot_load_tax_id')
         end
       end
 
-      if params[:fill_in_contact] || params[:ic]
+      if params[:fill_in_contact] || params[:tax_id]
         respond_on_edit @receipt_template
       else
         respond_on_update @receipt_template, receipt_template_params
@@ -98,7 +98,7 @@ module InvoiceBar
 
       def receipt_template_params
         params.require(:receipt_template).permit(:name, :number, :sent, :paid,
-                                                 :amount, :contact_dic, :contact_ic, :contact_name, :issue_date, :issuer,
+                                                 :amount, :contact_tax_id2, :contact_tax_id, :contact_name, :issue_date, :issuer,
                                                  :issuer,
                                                  :account_id, :user_id,
                                                  address_attributes: [:street, :street_number, :city, :city_part, :postcode, :extra_address_line],

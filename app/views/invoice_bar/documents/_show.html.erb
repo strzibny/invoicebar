@@ -41,10 +41,10 @@
 
       <%= render 'invoice_bar/forms/address', address: document.user_address %>
 
-      <% unless document.user_ic.blank? %>
+      <% unless document.user_tax_id.blank? %>
         <div class='ic-dic'>
           <div class="ic">
-            <span><%= t('attributes.user.ic') %>:</span> <%= document.user_ic %>
+            <span><%= t('attributes.user.tax_id') %>:</span> <%= document.user_tax_id %>
           </div>
         </div>
       <% end %>
@@ -62,15 +62,15 @@
 
       <%= render 'invoice_bar/forms/address', address: document.address if document.address %>
 
-      <% unless document.contact_ic.blank? %>
+      <% unless document.contact_tax_id.blank? %>
         <div class='ic-dic'>
 
           <div class="ic">
-            <span><%= t('attributes.contact.ic') %>:</span> <%= document.contact_ic %>
+            <span><%= t('attributes.contact.tax_id') %>:</span> <%= document.contact_tax_id %>
           </div>
-          <% unless document.contact_dic.blank? %>
+          <% unless document.contact_tax_id2.blank? %>
             <div class="dic">
-              <span><%= t('attributes.contact.dic') %>:</span> <%= document.contact_dic %>
+              <span><%= t('attributes.contact.tax_id2') %>:</span> <%= document.contact_tax_id2 %>
             </div>
           <% end %>
         </div>

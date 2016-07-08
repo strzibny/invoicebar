@@ -21,8 +21,8 @@ class InvoiceBar::API::ContactsControllerTest < ActionController::TestCase
     assert_difference('InvoiceBar::Contact.count') do
       post :create, format: :json, contact: {
         name:         @new_contact.name,
-        ic:           @new_contact.ic,
-        dic:          @new_contact.dic,
+        tax_id:       @new_contact.tax_id,
+        tax_id2:      @new_contact.tax_id2,
         email:        @new_contact.email,
         phone:        @new_contact.phone,
         web:          @new_contact.web,
@@ -42,8 +42,8 @@ class InvoiceBar::API::ContactsControllerTest < ActionController::TestCase
   test "should update contact" do
     put :update, format: :json, id: @contact, contact: {
       name:         'Updated contact',
-      ic:           999_112_58,
-      dic:          @contact.dic,
+      tax_id:       999_112_58,
+      tax_id2:      @contact.tax_id2,
       email:        @contact.email,
       phone:        @contact.phone,
       web:          @contact.web,
@@ -54,7 +54,7 @@ class InvoiceBar::API::ContactsControllerTest < ActionController::TestCase
 
     @contact = InvoiceBar::Contact.find(@contact.id)
     assert_equal 'Updated contact', @contact.name
-    assert_equal 999_112_58, @contact.ic
+    assert_equal 999_112_58, @contact.tax_id
   end
 
   test "should destroy contact" do

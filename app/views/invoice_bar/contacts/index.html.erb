@@ -12,7 +12,7 @@
   <thead>
     <tr>
       <th class="name"><%= t('attributes.contact.name') %></th>
-      <th><%= t('attributes.contact.ic') %></th>
+      <th><%= t('attributes.contact.tax_id') %></th>
       <th class="hidden-phone"><%= t('attributes.contact.email') %></th>
     </tr>
   </thead>
@@ -23,7 +23,7 @@
           <span><%= link_to contact do %><%= contact.name %><% end %></span>
         </td>
         <td>
-          <span><%= contact.ic %></span>
+          <span><%= contact.tax_id %></span>
         </td>
         <td class="hidden-phone">
           <span><%= contact.email %></span>

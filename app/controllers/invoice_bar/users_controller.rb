@@ -90,7 +90,7 @@ module InvoiceBar
       end
 
       def user_params
-        params.require(:user).permit(:name, :email, :ic, :phone, :web,
+        params.require(:user).permit(:name, :email, :tax_id, :phone, :web,
                                      :administrator, :password, :crypted_password,
                                      :salt, :remember_me_token, :remember_me_token_expires_at,
                                      :reset_password_email_sent_at, :reset_password_token,

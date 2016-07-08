@@ -26,7 +26,7 @@ class InvoiceBar::UsersControllerTest < ActionController::TestCase
       post :create, user: {
         name: @new_user.name,
         email: @new_user.email,
-        ic: @new_user.ic,
+        tax_id: @new_user.tax_id,
         crypted_password: @new_user.crypted_password,
         phone: @new_user.phone,
         remember_me_token: @new_user.remember_me_token,
@@ -55,7 +55,7 @@ class InvoiceBar::UsersControllerTest < ActionController::TestCase
     put :update, id: @user, user: {
       name: @user.name,
       email: @user.email,
-      ic: @user.ic,
+      tax_id: @user.tax_id,
       crypted_password: @user.crypted_password,
       phone: @user.phone,
       remember_me_token: @user.remember_me_token,

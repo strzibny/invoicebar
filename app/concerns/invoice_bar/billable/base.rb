@@ -6,10 +6,10 @@ module InvoiceBar
       extend ActiveSupport::Concern
 
       included do
-        attr_accessible :amount, :contact_dic, :contact_ic, :contact_name, :issue_date, :issuer
+        attr_accessible :amount, :contact_tax_id2, :contact_tax_id, :contact_name, :issue_date, :issuer
 
-        validates :contact_ic,  length: { in:  2..8 },  numericality: true, allow_blank: true
-        validates :contact_dic, length: { in:  4..14 }, allow_blank: true
+        validates :contact_tax_id,  length: { in:  2..8 },  numericality: true, allow_blank: true
+        validates :contact_tax_id2, length: { in:  4..14 }, allow_blank: true
 
         # Generates a new bill from a given +template+.
         def self.from_template(template)
@@ -28,7 +28,7 @@ module InvoiceBar
 
         # Applies values from the given +template+ to the bill.
         def apply_template(template)
-          attributes = ['contact_name', 'contact_ic', 'contact_dic', 'issue_date']
+          attributes = ['contact_name', 'contact_tax_id', 'contact_tax_id2', 'issue_date']
 
           if self.respond_to? :due_date
             attributes << 'due_date'
@@ -43,8 +43,8 @@ module InvoiceBar
           end
 
           self.contact_name ||= template.contact_name unless template.contact_name.blank?
-          self.contact_ic ||= template.contact_ic unless template.contact_ic.blank?
-          self.contact_dic ||= template.contact_dic unless template.contact_dic.blank?
+          self.contact_tax_id ||= template.contact_tax_id unless template.contact_tax_id.blank?
+          self.contact_tax_id2 ||= template.contact_tax_id2 unless template.contact_tax_id2.blank?
 
           if self.respond_to? :due_date
             self.due_date ||= template.due_date unless template.due_date.blank?
@@ -80,8 +80,8 @@ module InvoiceBar
         # Import and overwrites values from the given +contact+
         def use_contact(contact)
           self.contact_name = contact.name
-          self.contact_ic = contact.ic
-          self.contact_dic = contact.dic
+          self.contact_tax_id = contact.tax_id
+          self.contact_tax_id2 = contact.tax_id2
           self.address = Address.new unless self.address
           self.address.postcode = contact.postcode
           self.address.city = contact.city
@@ -93,7 +93,7 @@ module InvoiceBar
 
         # Import and overwrites values from the ARES subject.
         # Returns true on success and false on failure.
-        def load_contact_from_ic(ic)
+        def load_contact_from_tax_id(ic)
           begin
             contact = RubyARES::Subject.get(ic)
           rescue
@@ -101,8 +101,8 @@ module InvoiceBar
           end
 
           self.contact_name = contact.name
-          self.contact_ic = contact.ic
-          self.contact_dic = contact.dic
+          self.contact_tax_id = contact.tax_id
+          self.contact_tax_id2 = contact.tax_id2
           self.address = Address.new unless self.address
           self.address.city = contact.address.city
           self.address.city_part = contact.address.city_part unless contact.address.city == contact.address.city_part

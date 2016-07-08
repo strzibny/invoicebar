@@ -2,8 +2,8 @@ require 'test_helper'
 
 class InvoiceBar::InvoiceTemplateTest < ActiveSupport::TestCase
   should allow_mass_assignment_of :contact_name
-  should allow_mass_assignment_of :contact_ic
-  should allow_mass_assignment_of :contact_dic
+  should allow_mass_assignment_of :contact_tax_id
+  should allow_mass_assignment_of :contact_tax_id2
   should allow_mass_assignment_of :name
   should allow_mass_assignment_of :payment_identification_number
   should allow_mass_assignment_of :amount

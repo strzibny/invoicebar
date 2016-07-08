@@ -103,7 +103,7 @@ cs:
       address_id: Adresa
       bill_number_format: Formát čísla vydaných dokladů
       email: E-mail
-      ic: IČ
+      tax_id: IČ
       invoice_number_format: Formát čísla faktur
       name: Jméno
       next_bill_number: Číslo dalšího vydaného dokladu
@@ -141,9 +141,9 @@ cs:
     contact:
       address_id: Adresa
       bank_account: Číslo bankovního účtu
-      dic: DIČ
+      tax_id2: DIČ
       email: E-mail
-      ic: IČ
+      tax_id: IČ
       name: Jméno osoby/Název firmy
       phone: Telefon
       web: Web
@@ -156,8 +156,8 @@ cs:
       account_id: Účet
       amount: Celková částka
       contact_address_id: Adresa
-      contact_dic: DIČ
-      contact_ic: IČ
+      contact_tax_id2: DIČ
+      contact_tax_id: IČ
       contact_name: Firma
       currency_id: Měna
       due_date: Datum splatnosti
@@ -173,8 +173,8 @@ cs:
       account_id: Účet
       amount: Celková částka
       contact_address_id: Adresa
-      contact_dic: DIČ
-      contact_ic: IČ
+      contact_tax_id2: DIČ
+      contact_tax_id: IČ
       contact_name: Firma
       currency_id: Měna
       due_date: Datum splatnosti
@@ -190,8 +190,8 @@ cs:
       account_id: Účet
       amount: Celková částka
       contact_address_id: Adresa
-      contact_dic: DIČ
-      contact_ic: IČ
+      contact_tax_id2: DIČ
+      contact_tax_id: IČ
       contact_name: Firma
       currency_id: Měna
       due_date: Datum splatnosti
@@ -207,8 +207,8 @@ cs:
       account_id: Účet
       amount: Celková částka
       contact_address_id: Adresa
-      contact_dic: DIČ
-      contact_ic: IČ
+      contact_tax_id2: DIČ
+      contact_tax_id: IČ
       contact_name: Firma
       currency_id: Měna
       due_date: Datum splatnosti
@@ -420,7 +420,7 @@ cs:
     not_administrator: Pro daný úkon nemáte potřebná práva.
     cannot_log_in: Přihlášení se nepodařilo. Prosím zkontrolujte své přihlašovací údaje.
     ic_loaded: Informace o subjektu načteny.
-    cannot_load_ic: Nepodařilo se načíst údaje z databáze ARES.
+    cannot_load_tax_id: Nepodařilo se načíst údaje z databáze ARES.
     signed_up: Byli jste v pořádku zaregistrování. Prosím, přihlašte se.
     logged_out: Byli jste v pořádku odhlášení.
     no_currencies: Nejdříve vytvořte měnu.

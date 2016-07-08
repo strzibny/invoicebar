@@ -23,8 +23,8 @@ class InvoiceBar::API::InvoicesControllerTest < ActionController::TestCase
       post :create, format: :json, invoice: {
         number: @new_invoice.number,
         contact_name: @new_invoice.contact_name,
-        contact_ic: @new_invoice.contact_ic,
-        contact_dic: @new_invoice.contact_dic,
+        contact_tax_id: @new_invoice.contact_tax_id,
+        contact_tax_id2: @new_invoice.contact_tax_id2,
         due_date: @new_invoice.due_date,
         issue_date: @new_invoice.issue_date,
         payment_identification_number: @new_invoice.payment_identification_number,
@@ -38,17 +38,17 @@ class InvoiceBar::API::InvoicesControllerTest < ActionController::TestCase
   end
 
   test "should show invoice" do
-    get :show, format: :json, id: @invoice
+    get :show, format: :json, number: @invoice.number
     assert_equal 200, response.status
     assert_equal @invoice.to_json, response.body
   end
 
   test "should update invoice" do
-    put :update, format: :json, id: @invoice, invoice: {
+    put :update, format: :json, number: @invoice.number, invoice: {
       number: '12345',
       contact_name: @invoice.contact_name,
-      contact_ic: @invoice.contact_ic,
-      contact_dic: @invoice.contact_dic,
+      contact_tax_id: @invoice.contact_tax_id,
+      contact_tax_id2: @invoice.contact_tax_id2,
       due_date: @invoice.due_date,
       issue_date: @invoice.issue_date,
       payment_identification_number: @invoice.payment_identification_number,
@@ -65,7 +65,7 @@ class InvoiceBar::API::InvoicesControllerTest < ActionController::TestCase
 
   test "should destroy invoice" do
     assert_difference('InvoiceBar::Invoice.count', -1) do
-      delete :destroy, format: :json, id: @invoice
+      delete :destroy, format: :json, number: @invoice.number
     end
 
     assert_equal 200, response.status

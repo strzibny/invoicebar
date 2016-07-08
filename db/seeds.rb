@@ -21,7 +21,7 @@ currencies = InvoiceBar::Currency.create([
 administrator = InvoiceBar::User.create!(
   name: 'admin',
   email: 'admin@admin.cz',
-  ic: 123456,
+  tax_id: 123456,
   administrator: true,
   #address: address
 )

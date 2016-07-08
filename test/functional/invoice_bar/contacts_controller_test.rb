@@ -26,8 +26,8 @@ class InvoiceBar::ContactsControllerTest < ActionController::TestCase
     assert_difference('InvoiceBar::Contact.count') do
       post :create, contact: {
         name:         @new_contact.name,
-        ic:           @new_contact.ic,
-        dic:          @new_contact.dic,
+        tax_id:       @new_contact.tax_id,
+        tax_id2:      @new_contact.tax_id2,
         email:        @new_contact.email,
         phone:        @new_contact.phone,
         web:          @new_contact.web,
@@ -49,8 +49,8 @@ class InvoiceBar::ContactsControllerTest < ActionController::TestCase
   test "should update contact" do
     put :update, id: @contact, contact: {
       name:         @contact.name,
-      ic:           @contact.ic,
-      dic:          @contact.dic,
+      tax_id:           @contact.tax_id,
+      tax_id2:          @contact.tax_id2,
       email:        @contact.email,
       phone:        @contact.phone,
       web:          @contact.web,

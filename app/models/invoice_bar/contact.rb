@@ -1,11 +1,11 @@
 module InvoiceBar
   class Contact < ActiveRecord::Base
-    attr_accessible :bank_account, :dic, :email, :ic, :name, :phone, :web
+    attr_accessible :bank_account, :tax_id2, :email, :tax_id, :name, :phone, :web
 
     validates :name, presence: true
 
-    validates :ic,  length: { in: 2..8 },   allow_blank: true
-    validates :dic, length: { in: 4..14 },  allow_blank: true
+    validates :tax_id,  length: { in: 2..8 },   allow_blank: true
+    validates :tax_id2, length: { in: 4..14 },  allow_blank: true
 
     # Associations
     attr_accessible :user_id, :address_attributes

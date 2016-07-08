@@ -55,7 +55,7 @@ module InvoiceBar
       end
 
       def contact_params
-        params.require(:contact).permit(:bank_account, :dic, :email, :ic, :name,
+        params.require(:contact).permit(:bank_account, :tax_id2, :email, :tax_id, :name,
                                         :phone, :web, :user_id, :address_attributes)
       end
   end

@@ -43,7 +43,7 @@ module InvoiceBar
     include InvoiceBar::Searchable
 
     def self.searchable_fields
-      %w( number contact_name contact_ic )
+      %w( number contact_name contact_tax_id )
     end
 
     def mark_as_paid

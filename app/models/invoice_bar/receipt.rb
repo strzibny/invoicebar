@@ -41,14 +41,14 @@ module InvoiceBar
     include InvoiceBar::Searchable
 
     def self.searchable_fields
-      %w( number contact_name contact_ic )
+      %w( number contact_name contact_tax_id )
     end
 
     def self.for_invoice(invoice)
       receipt = Receipt.new
       receipt.contact_name = invoice.contact_name
-      receipt.contact_ic = invoice.contact_ic
-      receipt.contact_dic = invoice.contact_dic
+      receipt.contact_tax_id = invoice.contact_tax_id
+      receipt.contact_tax_id2 = invoice.contact_tax_id2
       receipt.account_id = invoice.account_id
       receipt.issue_date = Date.today
 

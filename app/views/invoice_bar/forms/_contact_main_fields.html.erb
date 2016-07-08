@@ -11,13 +11,13 @@
   <% end %>
 </div>
 <div class="control-group">
-  <%= f.label :contact_ic, I18n.t('attributes.invoice.contact_ic') %>
+  <%= f.label :contact_tax_id, I18n.t('attributes.invoice.contact_tax_id') %>
   <div class="input-append">
-    <%= f.text_field :contact_ic, placeholder: I18n.t('attributes.invoice.contact_ic'), class: 'suggested contact_ic' %>
+    <%= f.text_field :contact_tax_id, placeholder: I18n.t('attributes.invoice.contact_tax_id'), class: 'suggested contact_tax_id' %>
     <%= f.submit 'Načíst', name: 'ic', class: 'btn btn-medium load-ic-button' %>
   </div>
 </div>
 <div class="control-group">
-  <%= f.label :contact_dic, I18n.t('attributes.invoice.contact_dic') %>
-  <%= f.text_field :contact_dic, placeholder: I18n.t('attributes.invoice.contact_dic'), class: 'optional contact_dic' %>
+  <%= f.label :contact_tax_id2, I18n.t('attributes.invoice.contact_tax_id2') %>
+  <%= f.text_field :contact_tax_id2, placeholder: I18n.t('attributes.invoice.contact_tax_id2'), class: 'optional contact_tax_id2' %>
 </div>
