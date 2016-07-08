@@ -8,7 +8,7 @@
     <%= link_to "Zobrazit v PDF", invoice_path(number: document.number, format: 'pdf'), class: 'btn' %>
 
     <% if document.receipt_id %>
-      <%= link_to "Doklad", receipt_path(number: document.number)%>
+      <%= link_to "Doklad", receipt_path(number: InvoiceBar::Receipt.find(document.receipt_id).number)%>
     <% end %>
   <% end %>
 

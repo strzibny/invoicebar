@@ -29,7 +29,7 @@
     <% @invoice_templates.each do |invoice| %>
       <tr>
         <td class="name">
-          <span><%= link_to invoice_path(number: @invoice.number) do %><%= invoice.name %><% end %></span>
+          <span><%= link_to invoice do %><%= invoice.name %><% end %></span>
         </td>
         <td class="contact_name">
           <span><%= invoice.contact_name %></span>
