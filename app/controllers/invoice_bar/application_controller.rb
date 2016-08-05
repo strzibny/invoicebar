@@ -101,7 +101,7 @@ module InvoiceBar
     private
 
       def find_redirect_path(object)
-        case object.class.to_s
+        path = case object.class.to_s
         when 'InvoiceBar::Invoice'
           invoice_path(number: object.number)
         when 'InvoiceBar::Receipt'

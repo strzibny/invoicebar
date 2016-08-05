@@ -169,6 +169,7 @@ cs:
       sent: Posláno?
       user_address_id: Adresa uživatele
       user_id: Uživatel
+      note: Poznámka
     invoice_template:
       account_id: Účet
       amount: Celková částka

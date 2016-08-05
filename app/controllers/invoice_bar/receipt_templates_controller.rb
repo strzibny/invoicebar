@@ -100,7 +100,7 @@ module InvoiceBar
         params.require(:receipt_template).permit(:name, :number, :sent, :paid,
                                                  :amount, :contact_tax_id2, :contact_tax_id, :contact_name, :issue_date, :issuer,
                                                  :issuer,
-                                                 :account_id, :user_id,
+                                                 :account_id, :user_id, :note,
                                                  address_attributes: [:street, :street_number, :city, :city_part, :postcode, :extra_address_line],
                                                  items_attributes: [:id, :name, :number, :price, :unit, :_destroy])
       end

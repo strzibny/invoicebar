@@ -110,3 +110,7 @@
 <div id="total">
   Celkem <%= formatted_amount(document.amount, document.account.currency_symbol) %>
 </div>
+
+<div id="items">
+  <%= "Poznámka: #{document.note}" if document.note %>
+</div>
