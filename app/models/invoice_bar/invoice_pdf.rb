@@ -3,6 +3,7 @@ require 'invoice_printer'
 module InvoiceBar
   class InvoicePDF
     include ActionView::Helpers::TranslationHelper
+    include InvoiceBar::InvoiceBarHelper
 
     def initialize(invoice)
       @invoice = invoice
@@ -39,7 +40,7 @@ module InvoiceBar
         purchaser_extra_address_line: @invoice.address_extra_address_line.to_s,
         issue_date: l(@invoice.issue_date, format: :invoice).to_s,
         due_date: l(@invoice.due_date, format: :invoice).to_s,
-        total: @invoice.amount.to_s,
+        total: formatted_amount(@invoice.amount, @invoice.try(:account).try(:currency_symbol)),
         bank_account_number: @invoice.account_bank_account_number.to_s,
         account_iban: @invoice.account_iban.to_s,
         account_swift: @invoice.account_swift.to_s,
@@ -55,8 +56,8 @@ module InvoiceBar
           name: item.name.to_s,
           quantity: item.number.to_s,
           unit: item.unit.to_s,
-          price: item.price.to_s,
-          amount: item.amount.to_s
+          price: formatted_amount(item.price),
+          amount: formatted_amount(item.amount)
         )
       end
       printable_items
