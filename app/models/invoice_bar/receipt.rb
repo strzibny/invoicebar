@@ -63,6 +63,8 @@ module InvoiceBar
         receipt.items << item.copy
       end
 
+      receipt.note = invoice.note
+
       receipt
     end
 

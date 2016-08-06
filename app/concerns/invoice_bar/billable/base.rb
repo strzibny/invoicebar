@@ -65,6 +65,8 @@ module InvoiceBar
           template.items.each do |item|
             items << item.copy
           end
+
+          self.note = template.note unless template.note.nil?
         end
 
         # Updates +amount+ from the associated items.
