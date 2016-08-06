@@ -1,6 +1,6 @@
-system('RAILS_ENV=development rake db:drop')
-system('RAILS_ENV=development rake db:create')
-system('RAILS_ENV=development rake db:migrate')
+#system('RAILS_ENV=development rake db:drop')
+#system('RAILS_ENV=development rake db:create')
+#system('RAILS_ENV=development rake db:migrate')
 
 require File.expand_path("../../test/dummy/config/environment.rb",  __FILE__)
 
@@ -18,22 +18,25 @@ currencies = InvoiceBar::Currency.create([
 ])
 
 # Create administrator
-administrator = InvoiceBar::User.create!(
+administrator = InvoiceBar::User.new(
   name: 'admin',
   email: 'admin@admin.cz',
+  password: 'password',
   tax_id: 123456,
   administrator: true,
-  #address: address
 )
 
-address = InvoiceBar::Address.create(
+address = InvoiceBar::Address.new(
   street: 'Ulice',
   street_number: '1',
   city: 'Mesto',
-  postcode: '74727',
-  addressable_id: administrator.id,
-  addressable_type: 'User'
+  postcode: '74727'#,
+  #addressable_id: administrator.id,
+  #addressable_type: 'User'
 )
+
+administrator.address = address
+administrator.save!
 
 accounts = []
 10.times {

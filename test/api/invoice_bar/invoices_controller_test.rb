@@ -31,7 +31,14 @@ class InvoiceBar::API::InvoicesControllerTest < ActionController::TestCase
         sent: @new_invoice.sent,
         paid: @new_invoice.paid,
         account_id: @new_invoice.account_id,
-        user_id: @new_invoice.user_id }
+        user_id: @new_invoice.user_id,
+        address_attributes: {
+          street: @new_invoice.address.street,
+          street_number: @new_invoice.address.street_number,
+          postcode: @new_invoice.address.postcode,
+          city: @new_invoice.address.city,
+          city_part: @new_invoice.address.city_part,
+          extra_address_line: @new_invoice.address.extra_address_line }}
     end
 
     assert_equal 201, response.status

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160605163231) do
+ActiveRecord::Schema.define(version: 20160805214217) do
 
   create_table "invoice_bar_accounts", force: :cascade do |t|
     t.string   "name",                            null: false
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20160605163231) do
     t.integer  "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "note"
   end
 
   add_index "invoice_bar_invoice_templates", ["name"], name: "index_invoice_bar_invoice_templates_on_name"
@@ -99,6 +100,7 @@ ActiveRecord::Schema.define(version: 20160605163231) do
     t.string   "user_name"
     t.integer  "user_tax_id"
     t.string   "user_tax_id2"
+    t.text     "note"
   end
 
   add_index "invoice_bar_invoices", ["contact_name"], name: "index_invoice_bar_invoices_on_contact_name"
@@ -131,6 +133,7 @@ ActiveRecord::Schema.define(version: 20160605163231) do
     t.integer  "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "note"
   end
 
   add_index "invoice_bar_receipt_templates", ["name"], name: "index_invoice_bar_receipt_templates_on_name"
@@ -150,6 +153,7 @@ ActiveRecord::Schema.define(version: 20160605163231) do
     t.string   "user_name"
     t.integer  "user_tax_id"
     t.string   "user_tax_id2"
+    t.text     "note"
   end
 
   add_index "invoice_bar_receipts", ["contact_name"], name: "index_invoice_bar_receipts_on_contact_name"
