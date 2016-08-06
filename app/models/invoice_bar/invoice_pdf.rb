@@ -9,7 +9,10 @@ module InvoiceBar
     end
 
     def render
-      InvoicePrinter.render(document: printable_invoice)
+      InvoicePrinter.render(
+        document: printable_invoice,
+        font: File.expand_path('app/assets/fonts/invoice_bar/Overpass_Regular.ttf', InvoiceBar::Engine.root)
+      )
     end
 
     private
