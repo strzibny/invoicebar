@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    invoice_bar (0.0.7)
+    invoice_bar (0.0.8)
       formatted-money
       invoice_printer
       jquery-rails
