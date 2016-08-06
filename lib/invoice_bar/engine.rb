@@ -60,8 +60,7 @@ module InvoiceBar
     end
 
     def self.default_number(n)
-      t = Time.now
-      number = "#{t.year}#{t.month}#{self.with_zeros(n)}"
+      number = "#{Time.now.strftime("%Y%m")}#{self.with_zeros(n)}"
       number
     end
 
