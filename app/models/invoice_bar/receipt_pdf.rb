@@ -2,6 +2,8 @@ require 'invoice_printer'
 
 module InvoiceBar
   class ReceiptPDF
+    include ActionView::Helpers::TranslationHelper
+
     def initialize(receipt)
       @receipt = receipt
     end
@@ -32,12 +34,13 @@ module InvoiceBar
         purchaser_city: @receipt.address_city.to_s,
         purchaser_city_part: @receipt.address_city_part.to_s,
         purchaser_extra_address_line: @receipt.address_extra_address_line.to_s,
-        issue_date: @receipt.issue_date.to_s,
+        issue_date: l(@receipt.issue_date, format: :invoice).to_s,
         total: @receipt.amount.to_s,
         bank_account_number: @receipt.account_bank_account_number.to_s,
         account_iban: @receipt.account_iban.to_s,
         account_swift: @receipt.account_swift.to_s,
-        items: printable_items
+        items: printable_items,
+        note: @receipt.note
       )
     end
 

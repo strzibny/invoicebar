@@ -132,13 +132,19 @@
     end -%>
   </div>
 
-  <div class="items">
-    <%= f.text_field :note, placeholder: I18n.t('attributes.invoice.note') %>
+  <%# Links and buttons %>
+  <div style="row">
+    <%= f.link_to_add I18n.t('links.new_item'), :items %>
+  </div>
+
+  <div class="row">
+    <div class="span4 fixmax4"  style="margin-top:25px;">
+      <%= f.text_field :note, placeholder: I18n.t('attributes.invoice.note') %>
+    </div>
   </div>
 
   <%# Links and buttons %>
   <div style="row">
-    <%= f.link_to_add I18n.t('links.new_item'), :items %>
     <%= f.submit I18n.t('buttons.save'), class: 'btn btn-primary' %>
   </div>
 <% end %>
