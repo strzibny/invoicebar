@@ -6,6 +6,7 @@ module InvoiceBar
 
     validates :number, presence: true
     validate :number_is_unique
+    validate :has_items
 
     validates :due_date, presence: true
 
@@ -63,6 +64,12 @@ module InvoiceBar
         if invoices.any? && !invoices.include?(self)
           errors.add(:number, :uniqueness)
         end
+      end
+
+      # Validates the presence of at least one item
+      def has_items
+        valid = items.length > 0
+        errors.add(:items, 'needs a valid item') unless valid
       end
   end
 end
