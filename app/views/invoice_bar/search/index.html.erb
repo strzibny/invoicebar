@@ -51,15 +51,15 @@
           </td>
           <td class="state">
             <% if invoice.paid %>
-              <%= link_to 'Zaplaceno', invoice_path(invoice), class: 'btn-small btn-success btn-no-link' %>
+              <%= link_to 'Zaplaceno', invoice_path(number: invoice.number), class: 'btn-small btn-success btn-no-link' %>
             <% elsif invoice.due_date >= Date.today and invoice.issued? %>
               <% if invoice.sent? %>
-                <%= link_to 'Posláno', invoice_path(invoice), class: 'btn-small btn-info btn-no-link' %>
+                <%= link_to 'Posláno', invoice_path(number: invoice.number), class: 'btn-small btn-info btn-no-link' %>
               <% else %>
-                <%= link_to 'Neposláno', invoice_path(invoice), class: 'btn-small btn-warning btn-no-link' %>
+                <%= link_to 'Neposláno', invoice_path(number: invoice.number), class: 'btn-small btn-warning btn-no-link' %>
               <% end %>
             <% else %>
-              <%= link_to 'Nezaplaceno', invoice_path(invoice), class: 'btn-small btn-danger btn-no-link' %>
+              <%= link_to 'Nezaplaceno', invoice_path(number: invoice.number), class: 'btn-small btn-danger btn-no-link' %>
             <% end %>
           </td>
         </tr>

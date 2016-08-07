@@ -101,15 +101,15 @@
         </td>
         <td class="state">
           <% if invoice.paid %>
-            <%= link_to t('buttons.paid'), invoice_path(invoice), class: 'btn-small btn-success btn-no-link' %>
+            <%= link_to t('buttons.paid'), invoice_path(number: invoice.number), class: 'btn-small btn-success btn-no-link' %>
           <% elsif invoice.due_date >= Date.today and invoice.issued? %>
             <% if invoice.sent? %>
-              <%= link_to t('buttons.sent'), invoice_path(invoice), class: 'btn-small btn-info btn-no-link' %>
+              <%= link_to t('buttons.sent'), invoice_path(number: invoice.number), class: 'btn-small btn-info btn-no-link' %>
             <% else %>
-              <%= link_to t('buttons.not_sent'), invoice_path(invoice), class: 'btn-small btn-warning btn-no-link' %>
+              <%= link_to t('buttons.not_sent'), invoice_path(number: invoice.number), class: 'btn-small btn-warning btn-no-link' %>
             <% end %>
           <% else %>
-            <%= link_to t('buttons.not_paid'), invoice_path(invoice), class: 'btn-small btn-danger btn-no-link' %>
+            <%= link_to t('buttons.not_paid'), invoice_path(number: invoice.number), class: 'btn-small btn-danger btn-no-link' %>
           <% end %>
         </td>
       </tr>
