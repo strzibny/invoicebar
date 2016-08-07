@@ -1,16 +1,17 @@
 <%# Form for invoices, bills and receipts %>
 <%
+  action = 'edit' if params[:number]
   @url = case document.class.to_s
          when 'InvoiceBar::Invoice'
-           action_name != 'edit' ? invoices_path : invoice_path(number: document.number)
+           action != 'edit' ? invoices_path : invoice_path(number: document.number)
          when 'InvoiceBar::Receipt'
-           action_name != 'edit' ? receipts_path : receipt_path(number: document.number)
+           action != 'edit' ? receipts_path : receipt_path(number: document.number)
          when 'InvoiceBar::InvoiceTemplate'
-           action_name != 'edit' ? invoice_templates_path : invoice_template_path(document)
+           action != 'edit' ? invoice_templates_path : invoice_template_path(document)
          when 'InvoiceBar::ReceiptTemplate'
-           action_name != 'edit' ? receipt_templates_path : receipt_template_path(document)
+           action != 'edit' ? receipt_templates_path : receipt_template_path(document)
          end
-  @method = (action_name == 'edit') ? :patch : :post
+  @method = (action == 'edit') ? :patch : :post
 -%>
 <%= nested_form_for(document, url: @url, method: @method) do |f| %>
   <%= render 'invoice_bar/forms/errors', model: document %>
