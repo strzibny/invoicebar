@@ -161,7 +161,7 @@ module InvoiceBar
     # DELETE /invoices/1.json
     def destroy
       @invoice.destroy
-      respond_on_destroy @invoice, invoice_url
+      respond_on_destroy @invoice, invoices_url
     end
 
     def mark_as_paid

@@ -124,7 +124,7 @@ module InvoiceBar
     # DELETE /receipts/1.json
     def destroy
       @receipt.destroy
-      respond_on_destroy @receipt, receipt_url
+      respond_on_destroy @receipt, receipts_url
     end
 
     def expence
