@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency "prawn-layout"
   s.add_dependency "prawnto"
   s.add_dependency "sorcery"
-  s.add_dependency "formatted-money"
+  s.add_dependency "formatted-money", "0.0.2"
   s.add_dependency "json"
   s.add_dependency "ruby-ares"
   s.add_dependency "kaminari"
