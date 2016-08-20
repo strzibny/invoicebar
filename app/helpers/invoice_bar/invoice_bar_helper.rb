@@ -8,7 +8,7 @@ module InvoiceBar
 
     # Format Czech (and a like) 5-digit-long postcode.
     def formatted_postcode(postcode)
-      postcode unless postcode.to_s.length == 5
+      return postcode unless postcode.to_s.length == 5
       postcode.to_s.gsub(/^(\d\d\d)(\d\d)$/, '\\1 \\2')
     end
 

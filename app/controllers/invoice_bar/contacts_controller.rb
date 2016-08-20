@@ -24,6 +24,7 @@ module InvoiceBar
 
     # GET /contacts/1/edit
     def edit
+      @contact.build_address unless @contact.address
       respond_on_edit @contact
     end
 
@@ -56,7 +57,14 @@ module InvoiceBar
 
       def contact_params
         params.require(:contact).permit(:bank_account, :tax_id2, :email, :tax_id, :name,
-                                        :phone, :web, :user_id, :address_attributes)
+                                        :phone, :web, :user_id, :address_attributes => [
+                                          :street,
+                                          :street_number,
+                                          :postcode,
+                                          :city,
+                                          :city_part,
+                                          :extra_address_line
+                                          ])
       end
   end
 end
