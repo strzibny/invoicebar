@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :invoice_bar_user, class: InvoiceBar::User do
+  factory :invoice_bar_user, class: User do
     name { generate :invoice_bar_name }
     email { Faker::Internet.email }
     tax_id { generate :invoice_bar_tax_id }

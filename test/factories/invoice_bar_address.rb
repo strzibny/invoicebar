@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :invoice_bar_address, class: InvoiceBar::Address do
+  factory :invoice_bar_address, class: Address do
     city 'City'
     city_part 'Part'
     postcode '45695'

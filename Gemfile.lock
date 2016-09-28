@@ -1,25 +1,3 @@
-PATH
-  remote: .
-  specs:
-    invoice_bar (0.0.10)
-      formatted-money (= 0.0.2)
-      invoice_printer
-      jquery-rails
-      jquery-ui-rails
-      json
-      kaminari
-      libv8 (~> 3.11.8)
-      nested_form
-      prawn
-      prawn-layout
-      prawnto
-      protected_attributes
-      rails (~> 4.2)
-      rails-i18n
-      ruby-ares
-      sorcery
-      therubyracer
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -245,13 +223,27 @@ DEPENDENCIES
   factory_girl (= 4.5.0)
   factory_girl_rails (= 4.5.0)
   faker
-  invoice_bar!
+  formatted-money (= 0.0.2)
+  invoice_printer
+  jquery-rails
+  jquery-ui-rails
+  json
+  kaminari
+  libv8 (~> 3.11.8)
+  nested_form
+  prawn
+  prawnto
   protected_attributes
+  rails (~> 4.2)
+  rails-i18n
   rdoc
   rspec-rails
+  ruby-ares
   sass-rails (~> 4.0)
   shoulda
   skeleton-rails
+  sorcery
   sqlite3
+  therubyracer
   uglifier (>= 1.0.3)
   web-console (~> 2.0)

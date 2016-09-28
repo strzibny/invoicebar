@@ -14,7 +14,7 @@ gem 'invoice_bar'
 And load the Engine at a specific path:
 ```ruby
 # config/routes.rb
-mount InvoiceBar::Engine => "/"
+mount InvoiceBar::Application => "/"
 ```
 
 ## Usage

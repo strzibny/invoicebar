@@ -1,4 +1,4 @@
-InvoiceBar::Engine.routes.draw do
+InvoiceBar::Application.routes.draw do
   # Sessions
   get 'logout', to: 'sessions#destroy', as: 'logout'
   get 'login', to: 'sessions#new', as: 'login'

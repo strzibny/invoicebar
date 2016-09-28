@@ -1,6 +1,21 @@
 source "https://rubygems.org"
 
-gemspec
+gem  "rails", "~> 4.2"
+gem  "protected_attributes"
+gem  "rails-i18n"
+gem  "nested_form"
+gem  "jquery-rails"
+gem  "jquery-ui-rails"
+gem  "prawn"
+gem  "prawnto"
+gem  "sorcery"
+gem  "formatted-money", "0.0.2"
+gem  "json"
+gem  "ruby-ares"
+gem  "kaminari"
+gem  "therubyracer"
+gem  "libv8", "~> 3.11.8"
+gem 'invoice_printer'
 
 gem 'sqlite3'
 gem 'faker'
@@ -25,6 +40,3 @@ group :test do
   gem 'rspec-rails'
   gem 'shoulda'
 end
-
-# We need explicit mention of these gems here even if its in .gemspec
-gem 'protected_attributes'

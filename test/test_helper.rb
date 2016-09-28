@@ -1,13 +1,13 @@
 # Configure Rails Environment
-ENV["RAILS_ENV"] = 'test'
+ENV["RAILS_ENV"] = "test"
+require File.expand_path('../../config/environment', __FILE__)
 
-require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require 'rails/test_help'
 
 Rails.backtrace_cleaner.remove_silencers!
 
 # Load support files
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
+#Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 # Show queries
 ActiveRecord::Base.logger = Logger.new(STDOUT)
@@ -16,8 +16,8 @@ require 'shoulda'
 require 'faker'
 require 'factory_girl'
 
-FactoryGirl.definition_file_paths = [File.expand_path("../../test/factories",  __FILE__)]
-FactoryGirl.find_definitions
+#FactoryGirl.definition_file_paths = [File.expand_path("../../test/factories",  __FILE__)]
+#FactoryGirl.find_definitions
 
 # Don't enforce locales for now
 I18n.enforce_available_locales = false
@@ -38,5 +38,5 @@ class ActiveSupport::TestCase
 end
 
 # Namespace for API tests
-class InvoiceBar::API
+module API
 end

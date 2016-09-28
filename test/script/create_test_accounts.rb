@@ -3,16 +3,11 @@
 # during development.
 ENV['RAILS_ENV'] ||= 'development'
 
-require File.expand_path('../../dummy/config/environment.rb',  __FILE__)
+require File.expand_path('../../../config/environment.rb',  __FILE__)
 
-FactoryGirl.definition_file_paths = [
-  File.expand_path('../../../test/factories',  __FILE__)
-]
-FactoryGirl.find_definitions
-
-InvoiceBar::Currency.delete_all
-InvoiceBar::User.delete_all
-InvoiceBar::Account.delete_all
+Currency.delete_all
+User.delete_all
+Account.delete_all
 
 # Create testing user with an account
 currency = FactoryGirl.create(

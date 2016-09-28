@@ -1,12 +1,12 @@
 FactoryGirl.define do
-  factory :invoice_bar_invoice_template, class: InvoiceBar::InvoiceTemplate do
+  factory :invoice_bar_invoice_template, class: InvoiceTemplate do
     name { generate :invoice_bar_invoice_template_name }
 
     user { FactoryGirl.create(:invoice_bar_user) }
     account { FactoryGirl.create(:invoice_bar_account) }
   end
 
-  factory :invoice_bar_filled_invoice_template, class: InvoiceBar::InvoiceTemplate do
+  factory :invoice_bar_filled_invoice_template, class: InvoiceTemplate do
     name { generate :invoice_bar_invoice_template_name }
     issue_date { Date.yesterday }
     due_date { issue_date + 28.days }

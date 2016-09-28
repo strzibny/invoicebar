@@ -1,0 +1,44 @@
+<%= form_for @contact do |f| %>
+  <%= render 'forms/errors', model: @contact %>
+  <div class="row">
+    <div class="span4 fixmax4">
+      <div class="control-group">
+        <%= f.label :name, t('attributes.contact.name') %>
+        <%= f.text_field :name, :class => 'suggested', placeholder: t('attributes.contact.name') %>
+      </div>
+      <div class="control-group">
+        <%= f.label :tax_id, t('attributes.contact.tax_id') %>
+        <%= f.text_field :tax_id, :class => 'suggested', placeholder: t('attributes.contact.tax_id') %>
+      </div>
+      <div class="control-group ">
+        <%= f.label :tax_id2, t('attributes.contact.tax_id2') %>
+        <%= f.text_field :tax_id2, :class => 'optional', placeholder: t('attributes.contact.tax_id2') %>
+      </div>
+    </div>
+    <div class="span4 fixmax4">
+      <div class="control-group">
+        <%= f.label :email, t('attributes.contact.email') %>
+        <%= f.text_field :email, placeholder: t('attributes.contact.email') %>
+      </div>
+      <div class="control-group">
+        <%= f.label :phone, t('attributes.contact.phone') %>
+        <%= f.text_field :phone, placeholder: t('attributes.contact.phone') %>
+      </div>
+      <div class="control-group">
+        <%= f.label :web, t('attributes.contact.web') %>
+        <%= f.text_field :web, :class => 'optional', placeholder: t('attributes.contact.web') %>
+      </div>
+      <div class="control-group">
+        <%= f.label :bank_account, t('attributes.contact.bank_account') %>
+        <%= f.text_field :bank_account, :class => 'optional', placeholder: t('attributes.contact.bank_account') %>
+      </div>
+    </div>
+    <div class="span4 fixmax4">
+      <%= f.fields_for :address do |f|
+         render 'forms/address_fields', f: f
+      end -%>
+    </div>
+  </div>
+  <%= f.hidden_field :user_id %>
+  <%= f.submit t('buttons.save'), class: 'btn btn-primary' %>
+<% end %>

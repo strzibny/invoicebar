@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= render partial: 'layouts/head' %>
+</head>
+<body style="padding:10px">
+    <%= render partial: 'layouts/navbar' %>
+    <div id="content" class="container">
+      <%= render partial: 'layouts/messages' %>
+      <%= yield %>
+    </div>
+</body>
+</html>

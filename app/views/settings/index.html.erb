@@ -1,0 +1,37 @@
+<div class="container">
+  <h1>Nastavení</h1>
+  <div class="row">
+    <%= form_for @user do |f| %>
+      <%= render 'forms/errors', model:  @user %>
+
+      <div class="span3">
+        <h4>Konto</h4>
+        <div class="control-group">
+          <%= f.label :email, t('attributes.user.email') %>
+          <%= f.text_field :email, placeholder: t('attributes.user.email'), class: 'suggested' %>
+        </div>
+        <div class="control-group">
+          <%= f.label :password, t('attributes.user.password') %>
+          <%= f.text_field :password, placeholder: t('attributes.user.password'), class: 'suggested' %>
+        </div>
+        <div class="control-group">
+          <%= f.label :name, t('attributes.user.name') %>
+          <%= f.text_field :name, placeholder: t('attributes.user.name'), class: 'suggested' %>
+        </div>
+        <div class="control-group">
+          <%= f.label :tax_id, t('attributes.user.tax_id') %>
+          <%= f.text_field :tax_id, placeholder: t('attributes.user.tax_id'), class: 'suggested' %>
+        </div>
+      </div>
+      <div class="span3">
+        <h4>Adresa</h4>
+        <%= f.fields_for :address do |f|
+          render 'forms/address_fields', f: f
+        end -%>
+      </div>
+      <div class="span10">
+         <%= f.submit I18n.t('buttons.save'), :class => 'btn' %>
+      </div>
+    <% end %>
+  </div>
+</div>

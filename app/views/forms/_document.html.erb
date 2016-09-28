@@ -1,0 +1,151 @@
+<%# Form for invoices, bills and receipts %>
+<%
+  action = 'edit' if params[:number]
+  @url = case document.class.to_s
+         when 'Invoice'
+           action != 'edit' ? invoices_path : invoice_path(number: document.number)
+         when 'Receipt'
+           action != 'edit' ? receipts_path : receipt_path(number: document.number)
+         when 'InvoiceTemplate'
+           action != 'edit' ? invoice_templates_path : invoice_template_path(document)
+         when 'ReceiptTemplate'
+           action != 'edit' ? receipt_templates_path : receipt_template_path(document)
+         end
+  @method = (action == 'edit') ? :patch : :post
+-%>
+<%= nested_form_for(document, url: @url, method: @method) do |f| %>
+  <%= render 'forms/errors', model: document %>
+  <% if document.instance_of? Invoice or document.instance_of? Receipt %>
+    <div id="prefill-form" class="row" style="display:none">
+      <div class="span4 fixmax4">
+        <div class="control-group">
+          <%= label_tag :template_ids, I18n.t('attributes.invoice_template.name')%>
+          <% if document.instance_of? Invoice %>
+            <%= select_tag :template_ids, options_from_collection_for_select(@invoice_templates, :id, :name), multiple: true %>
+          <% else document.instance_of? Receipt %>
+            <%= select_tag :template_ids, options_from_collection_for_select(@receipt_templates, :id, :name), multiple: true %>
+          <% end %>
+        </div>
+      </div>
+      <div class="span4 fixmax4">
+        <%= f.submit t('links.prefill'), name: 'fill_in', class: 'btn btn-small' %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+  <% if document.instance_of? Invoice or document.instance_of? Receipt %>
+    <div class="span3">
+      <div class="control-group">
+        <% if document.instance_of? Invoice %>
+           <%= f.label :number, I18n.t('attributes.invoice.number') %>
+        <% else %>
+          <%= f.label :number, I18n.t('attributes.receipt.number') %>
+        <% end %>
+         <%= f.text_field :number, placeholder: I18n.t('attributes.invoice.number'), class: 'suggested' %>
+      </div>
+    </div>
+  <% end %>
+  <% if document.instance_of? InvoiceTemplate or document.instance_of? ReceiptTemplate %>
+    <div class="span3">
+      <div class="control-group">
+         <%= f.label :name, I18n.t('attributes.invoice_template.name') %>
+         <%= f.text_field :name, placeholder: I18n.t('attributes.invoice_template.name'), class: 'suggested' %>
+      </div>
+    </div>
+  <% end %>
+  <% if document.instance_of? Invoice or document.instance_of? Receipt %>
+    <% if (@invoice_templates && @invoice_templates.size != 0) || (@receipt_templates && @receipt_templates.size != 0) %>
+    <div class="span4 fixmax4">
+      <div class="btn-group">
+        <a class="btn prefill-toggle" href="#"><i class="icon-align-justify"></i> Vybrat šablonu</a>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
+  <% if document.instance_of? Invoice %>
+    <div class="span4 fixmax4">
+      <div class="control-group" style="margin-top:25px;margin-left:10px">
+        <label class="radio">
+          <%= f.radio_button("issuer", "true") %>
+          <% if @next_issued %>
+            <%= hidden_field_tag 'issuer_true_hidden', nil, value: @next_issued %>
+          <% end %>
+          Vydaná
+        </label>
+        <label class="radio">
+          <%= f.radio_button("issuer", "false") %>
+          <% if @next_received %>
+            <%= hidden_field_tag 'issuer_false_hidden', nil, value: @next_received %>
+          <% end %>
+          Přijatá
+        </label>
+      </div>
+    </div>
+  <% end %>
+  <% if document.instance_of? Receipt %>
+    <div class="span4 fixmax4">
+      <div class="control-group" style="margin-top:25px;margin-left:10px">
+        <label class="radio">
+          <%= f.radio_button("issuer", "true") %>
+          <% if @next_income %>
+            <%= hidden_field_tag 'issuer_true_hidden', nil, value: @next_income %>
+          <% end %>
+          Příjem
+        </label>
+        <label class="radio">
+          <%= f.radio_button("issuer", "false") %>
+          <% if @next_expense %>
+            <%= hidden_field_tag 'issuer_false_hidden', nil, value: @next_expense %>
+          <% end %>
+          Výdaj
+        </label>
+      </div>
+    </div>
+  <% end %>
+  </div>
+
+  <%# Common form fields %>
+  <div class="row">
+    <div class="span5 fixmax5">
+      <h4>Pro firmu</h4>
+      <%= render 'forms/contact_main_fields', f: f %>
+    </div>
+    <div class="span4 fixmax4">
+      <h4>Na adresu</h4>
+      <%# Document's address %>
+      <% document.address = document.build_address unless document.address %>
+      <%= f.fields_for :address do |f|
+           render 'forms/address_fields', f: f
+      end -%>
+    </div>
+    <div class="span4 fixmax4">
+      <h4>Platba</h4>
+      <%= render 'forms/payment_fields', f: f, document: document %>
+    </div>
+    <%= f.hidden_field :user_id %>
+  </div>
+
+  <%# Document's items %>
+  <div class="items">
+    <%= f.fields_for :items do |f|
+       render 'forms/item_fields', f: f
+    end -%>
+  </div>
+
+  <%# Links and buttons %>
+  <div style="row">
+    <%= f.link_to_add I18n.t('links.new_item'), :items %>
+  </div>
+
+  <div class="row">
+    <div class="span4 fixmax4"  style="margin-top:25px;">
+      <%= f.text_field :note, placeholder: I18n.t('attributes.invoice.note') %>
+    </div>
+  </div>
+
+  <%# Links and buttons %>
+  <div style="row">
+    <%= f.submit I18n.t('buttons.save'), class: 'btn btn-primary' %>
+  </div>
+<% end %>

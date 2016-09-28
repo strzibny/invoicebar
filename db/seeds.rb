@@ -10,7 +10,7 @@ require 'factory_girl'
 FactoryGirl.definition_file_paths = [File.expand_path("../../test/factories",  __FILE__)]
 FactoryGirl.find_definitions
 
-currencies = InvoiceBar::Currency.create([
+currencies = Currency.create([
   { name: 'Česká koruna', symbol: 'Kč', priority: '4' },
   { name: 'Euro', symbol: '€', priority: '3' },
   { name: 'Americký dolar', symbol: 'US$', priority: '2' },
@@ -18,7 +18,7 @@ currencies = InvoiceBar::Currency.create([
 ])
 
 # Create administrator
-administrator = InvoiceBar::User.new(
+administrator = User.new(
   name: 'admin',
   email: 'admin@admin.cz',
   password: 'password',
@@ -26,7 +26,7 @@ administrator = InvoiceBar::User.new(
   administrator: true,
 )
 
-address = InvoiceBar::Address.new(
+address = Address.new(
   street: 'Ulice',
   street_number: '1',
   city: 'Mesto',
