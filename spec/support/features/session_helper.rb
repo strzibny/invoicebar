@@ -1,10 +1,10 @@
 module Features
   module SessionHelpers
-    def sign_in(login:, password:, remember_me: false)
+    def sign_in(login:, password:)
       visit '/login'
-      fill_in 'E-mail', with: login
-      fill_in 'Heslo', with: password
-      click_button 'Přihlásit'
+      fill_in t('attributes.user.email'), with: login
+      fill_in t('attributes.user.password'), with: password
+      click_button t('buttons.login')
     end
   end
 end
