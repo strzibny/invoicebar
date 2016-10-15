@@ -18,10 +18,7 @@ gem  "libv8", "~> 3.11.8"
 gem 'invoice_printer'
 
 gem 'sqlite3'
-gem 'faker'
-gem 'factory_girl', '4.5.0'
-gem 'factory_girl_rails', '4.5.0'
-#gem 'puma'
+gem 'puma'
 
 group :assets do
   gem 'sass-rails',   '~> 4.0'
@@ -34,9 +31,21 @@ end
 group :development do
   gem 'rdoc'
   gem 'web-console', '~> 2.0'
+  gem 'bundler-audit'
+  gem 'rubocop', '0.43.0', require: false
+  gem 'brakeman'
 end
 
 group :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'capybara-email'
   gem 'shoulda'
+end
+
+group :development, :test do
+  gem 'faker'
+  gem 'factory_girl', '4.5.0'
+  gem 'factory_girl_rails', '4.5.0'
 end
