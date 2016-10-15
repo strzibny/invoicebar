@@ -7,8 +7,8 @@ feature 'User signs in and out' do
       password: '123456781'
     )
     sign_in login: 'user@google.com', password: '123456781'
-    click_link 'Odhlásit se'
-    expect(page).to have_content('Prosím přihlašte se.')
+    click_link t('buttons.logout')
+    expect(page).to have_content(t('messages.not_authenticated'))
   end
 
   scenario 'with invalid email or password' do
@@ -17,6 +17,6 @@ feature 'User signs in and out' do
       password: '123456781'
     )
     sign_in login: 'user@google.com', password: '187654321'
-    expect(page).to have_content('Prosím přihlašte se.')
+    expect(page).to have_content(t('messages.not_authenticated'))
   end
 end

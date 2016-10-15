@@ -8,6 +8,6 @@ RSpec.shared_context 'Signed-in user' do
   end
 
   after do
-    click_link 'Odhlásit se'
+    click_link t('buttons.logout')
   end
 end
