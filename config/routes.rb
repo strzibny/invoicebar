@@ -12,6 +12,8 @@ InvoiceBar::Application.routes.draw do
   # Users
   get 'signup', to: 'users#new', as: 'signup'
   get 'profile', to: 'settings#index', as: 'profile'
+  get 'sequences', to: 'settings#sequences', as: 'sequences'
+  patch 'update_sequences', to: 'settings#update_sequences', as: 'update_sequences'
 
   resources :users
 

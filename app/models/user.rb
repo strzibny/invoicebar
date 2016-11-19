@@ -39,6 +39,9 @@ class User < ActiveRecord::Base
     %w( name tax_id email phone )
   end
 
+  # Preferences
+  serialize :preferences, Hash
+
   def tax_id2
     tax_id
   end

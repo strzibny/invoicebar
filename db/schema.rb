@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160805214217) do
+ActiveRecord::Schema.define(version: 20161119124834) do
 
   create_table "invoice_bar_accounts", force: :cascade do |t|
     t.string   "name",                            null: false
@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(version: 20160805214217) do
     t.boolean  "administrator"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "preferences"
   end
 
   add_index "invoice_bar_users", ["remember_me_token"], name: "index_invoice_bar_users_on_remember_me_token"
