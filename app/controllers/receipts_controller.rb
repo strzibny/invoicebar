@@ -34,10 +34,10 @@ class ReceiptsController < ApplicationController
   # GET /receipts/new
   def new
     # Set the number of the document
-    last_issued = current_user.receipts.income.try(:last).try(:number)
-    @next_income = ::InvoiceBar::Sequence.new(from: last_issued, format: ['VD', :year, :month]).nextn(by: :month)
-    last_received = current_user.receipts.expense.try(:last).try(:number)
-    @next_expense = ::InvoiceBar::Sequence.new(from: last_received, format: ['PD', :year, :month]).nextn(by: :month)
+    last_issued = current_user.receipts.income.try(:last).try(:number) || current_user.preferences[:last_income_bill_number]
+    @next_income = ::InvoiceBar::Sequence.new(from: last_issued, format: income_bill_format).nextn(by: :month)
+    last_received = current_user.receipts.expense.try(:last).try(:number) || current_user.preferences[:last_expense_bill_number]
+    @next_expense = ::InvoiceBar::Sequence.new(from: last_received, format: expense_bill_format).nextn(by: :month)
 
     @receipt = Receipt.new
     @receipt.number = @next_income
@@ -191,5 +191,17 @@ class ReceiptsController < ApplicationController
         contact = current_user.contacts.find(params[:contact_id])
         @receipt.use_contact(contact)
       end
+    end
+
+    def income_bill_format
+      InvoiceBar::Sequence.parse_format(
+        current_user.preferences[:income_bill_sequence]
+      ) || ['VD', :year, :month]
+    end
+
+    def expense_bill_format
+      InvoiceBar::Sequence.parse_format(
+        current_user.preferences[:expense_bill_sequence]
+      ) || ['PD', :year, :month]
     end
 end

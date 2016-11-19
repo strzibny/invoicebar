@@ -36,8 +36,8 @@ class InvoicesController < ApplicationController
     # Set the number of the document
     last_issued = current_user.invoices.issued.try(:last).try(:number) || current_user.preferences[:last_issued_invoice]
     @next_issued = ::InvoiceBar::Sequence.new(from: last_issued, format: issued_invoice_format).nextn(by: :month)
-    last_received = current_user.invoices.received.try(:last).try(:number)
-    @next_received = ::InvoiceBar::Sequence.new(from: last_received, format: ['PF', :year, :month]).nextn(by: :month)
+    last_received = current_user.invoices.received.try(:last).try(:number) || current_user.preferences[:last_received_invoice]
+    @next_received = ::InvoiceBar::Sequence.new(from: last_received, format: received_invoice_format).nextn(by: :month)
 
     @invoice = Invoice.new
     @invoice.number = @next_issued
@@ -61,12 +61,12 @@ class InvoicesController < ApplicationController
 
       if @invoice.issuer
         @receipt.issuer = true
-        last_issued = current_user.receipts.income.try(:last).try(:number)
-        @next_number = ::InvoiceBar::Sequence.new(from: last_issued, format: ['VD', :year, :month]).nextn(by: :month)
+        last_issued = current_user.receipts.income.try(:last).try(:number) || current_user.preferences[:last_income_bill_number]
+        @next_number = ::InvoiceBar::Sequence.new(from: last_issued, format: income_bill_format).nextn(by: :month)
       else
         @receipt.issuer = false
-        last_issued = current_user.receipts.expense.try(:last).try(:number)
-        @next_number = ::InvoiceBar::Sequence.new(from: last_issued, format: ['PD', :year, :month]).nextn(by: :month)
+        last_issued = current_user.receipts.expense.try(:last).try(:number) || current_user.preferences[:last_expense_bill_number]
+        @next_number = ::InvoiceBar::Sequence.new(from: last_issued, format: expense_bill_format).nextn(by: :month)
       end
 
       @receipt.number = @next_number
@@ -280,5 +280,23 @@ class InvoicesController < ApplicationController
       InvoiceBar::Sequence.parse_format(
         current_user.preferences[:issued_invoice_sequence]
       ) || ['VF', :year, :month]
+    end
+
+    def received_invoice_format
+      InvoiceBar::Sequence.parse_format(
+        current_user.preferences[:received_invoice_sequence]
+      ) || ['PF', :year, :month]
+    end
+
+    def income_bill_format
+      InvoiceBar::Sequence.parse_format(
+        current_user.preferences[:income_bill_sequence]
+      ) || ['VD', :year, :month]
+    end
+
+    def expense_bill_format
+      InvoiceBar::Sequence.parse_format(
+        current_user.preferences[:expense_bill_sequence]
+      ) || ['PD', :year, :month]
     end
 end
