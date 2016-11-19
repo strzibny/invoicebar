@@ -1,3 +1,5 @@
+require 'invoice_bar/sequence'
+
 class InvoicesController < ApplicationController
   before_action :require_login
   before_action :set_user_accounts, only: [:new, :create, :edit, :update, :from_template]
@@ -32,10 +34,10 @@ class InvoicesController < ApplicationController
   # GET /invoices/new
   def new
     # Set the number of the document
-    next_issued_in_line = current_user.invoices.issued.size + 1
-    next_received_in_line = current_user.invoices.received.size + 1
-    @next_issued = ::InvoiceBar::Generators.issued_invoice_number(next_issued_in_line)
-    @next_received = ::InvoiceBar::Generators.received_invoice_number(next_received_in_line)
+    last_issued = current_user.invoices.issued.try(:last).try(:number)
+    @next_issued = ::InvoiceBar::Sequence.new(from: last_issued, format: ['VF', :year, :month]).nextn(by: :month)
+    last_received = current_user.invoices.received.try(:last).try(:number)
+    @next_received = ::InvoiceBar::Sequence.new(from: last_received, format: ['PF', :year, :month]).nextn(by: :month)
 
     @invoice = Invoice.new
     @invoice.number = @next_issued
@@ -59,12 +61,12 @@ class InvoicesController < ApplicationController
 
       if @invoice.issuer
         @receipt.issuer = true
-        next_income_in_line = current_user.receipts.income.size + 1
-        @next_number = ::InvoiceBar::Generators.income_receipt_number(next_income_in_line)
+        last_issued = current_user.receipts.income.try(:last).try(:number)
+        @next_number = ::InvoiceBar::Sequence.new(from: last_issued, format: ['VD', :year, :month]).nextn(by: :month)
       else
         @receipt.issuer = false
-        next_expense_in_line = current_user.receipts.expense.size + 1
-        @next_number = ::InvoiceBar::Generators.income_receipt_number(next_income_in_line)
+        last_issued = current_user.receipts.expense.try(:last).try(:number)
+        @next_number = ::InvoiceBar::Sequence.new(from: last_issued, format: ['PD', :year, :month]).nextn(by: :month)
       end
 
       @receipt.number = @next_number

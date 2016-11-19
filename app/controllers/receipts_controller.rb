@@ -1,3 +1,5 @@
+require 'invoice_bar/sequence'
+
 class ReceiptsController < ApplicationController
   before_action :require_login
   before_action :set_user_accounts, only: [:new, :create, :edit, :update, :from_template]
@@ -32,10 +34,10 @@ class ReceiptsController < ApplicationController
   # GET /receipts/new
   def new
     # Set the number of the document
-    next_income_in_line = current_user.receipts.income.size + 1
-    next_expense_in_line = current_user.receipts.expense.size + 1
-    @next_income = ::InvoiceBar::Generators.income_receipt_number(next_income_in_line)
-    @next_expense = ::InvoiceBar::Generators.expense_receipt_number(next_expense_in_line)
+    last_issued = current_user.receipts.income.try(:last).try(:number)
+    @next_income = ::InvoiceBar::Sequence.new(from: last_issued, format: ['VD', :year, :month]).nextn(by: :month)
+    last_received = current_user.receipts.expense.try(:last).try(:number)
+    @next_expense = ::InvoiceBar::Sequence.new(from: last_received, format: ['PD', :year, :month]).nextn(by: :month)
 
     @receipt = Receipt.new
     @receipt.number = @next_income
