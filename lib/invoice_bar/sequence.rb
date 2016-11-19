@@ -34,6 +34,34 @@ module InvoiceBar
       next_value << next_number_with_zeros
     end
 
+    # Return sequence format from given string
+    def self.parse_format(chars)
+      return nil if !chars || chars.empty?
+      format = []
+
+      while !chars.empty?
+        case chars[0..1]
+        when '%Y'
+          format << :year
+          chars = chars[2..-1]
+        when '%y'
+          format << :y
+          chars = chars[2..-1]
+        when '%m'
+          format << :month
+          chars = chars[2..-1]
+        when '%d'
+          format << :day
+          chars = chars[2..-1]
+        else
+          format << chars[0]
+          chars = chars[1..-1]
+        end
+      end
+
+      format
+    end
+
     private
 
     # Creates a first number in sequece according to +format+

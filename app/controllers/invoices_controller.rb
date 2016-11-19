@@ -34,8 +34,8 @@ class InvoicesController < ApplicationController
   # GET /invoices/new
   def new
     # Set the number of the document
-    last_issued = current_user.invoices.issued.try(:last).try(:number)
-    @next_issued = ::InvoiceBar::Sequence.new(from: last_issued, format: ['VF', :year, :month]).nextn(by: :month)
+    last_issued = current_user.invoices.issued.try(:last).try(:number) || current_user.preferences[:last_issued_invoice]
+    @next_issued = ::InvoiceBar::Sequence.new(from: last_issued, format: issued_invoice_format).nextn(by: :month)
     last_received = current_user.invoices.received.try(:last).try(:number)
     @next_received = ::InvoiceBar::Sequence.new(from: last_received, format: ['PF', :year, :month]).nextn(by: :month)
 
@@ -274,5 +274,11 @@ class InvoicesController < ApplicationController
         contact = current_user.contacts.find(params[:contact_id])
         @invoice.use_contact(contact)
       end
+    end
+
+    def issued_invoice_format
+      InvoiceBar::Sequence.parse_format(
+        current_user.preferences[:issued_invoice_sequence]
+      ) || ['VF', :year, :month]
     end
 end
