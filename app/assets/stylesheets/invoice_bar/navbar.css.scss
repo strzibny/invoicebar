@@ -1,0 +1,25 @@
+.navbar-inner {
+  background: 0;
+  border: 0;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.navbar {
+  border-bottom: 1px solid lightgrey;
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.navbar .container a.brand, ul, form {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.navbar .container a.brand {
+  border-right:  1px solid lightgrey;
+  padding-top: 10px !important;
+  padding-bottom: 10px;
+  background: url('logo.png')
+}
