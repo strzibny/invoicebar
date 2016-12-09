@@ -2,9 +2,9 @@ require 'invoice_bar/sequence'
 
 class InvoicesController < ApplicationController
   before_action :require_login
-  before_action :set_user_accounts, only: [:new, :create, :edit, :update, :from_template]
-  before_action :set_user_contacts, only: [:new, :create, :edit, :update, :from_template]
-  before_action :set_user_invoice_templates, only: [:new, :create, :edit, :update, :from_template]
+  before_action :set_user_accounts, only: [:new, :new_deposit, :create, :edit, :update, :from_template]
+  before_action :set_user_contacts, only: [:new, :new_deposit, :create, :edit, :update, :from_template]
+  before_action :set_user_invoice_templates, only: [:new, :new_deposit, :create, :edit, :update, :from_template]
   before_action :set_invoice, only: [:show, :edit, :update, :destroy]
 
   # GET /invoices
@@ -41,6 +41,25 @@ class InvoicesController < ApplicationController
 
     @invoice = Invoice.new
     @invoice.number = @next_issued
+    @invoice.items.build
+    @invoice.build_address
+    @invoice.issue_date = Date.today
+    @invoice.due_date = @invoice.issue_date + 14.days
+
+    respond_on_new @invoice
+  end
+
+  # GET /invoices/new_deposit
+  def new_deposit
+    # Set the number of the document
+    last_issued = current_user.invoices.issued_deposit.try(:last).try(:number) || current_user.preferences[:last_issued_deposit_invoice]
+    @next_issued = ::InvoiceBar::Sequence.new(from: last_issued, format: issued_deposit_invoice_format).nextn(by: :month)
+    last_received = current_user.invoices.received_deposit.try(:last).try(:number) || current_user.preferences[:last_received_deposit_invoice]
+    @next_received = ::InvoiceBar::Sequence.new(from: last_received, format: received_deposit_invoice_format).nextn(by: :month)
+
+    @invoice = Invoice.new
+    @invoice.number = @next_issued
+    @invoice.invoice_type = :deposit
     @invoice.items.build
     @invoice.build_address
     @invoice.issue_date = Date.today
@@ -215,7 +234,7 @@ class InvoicesController < ApplicationController
     end
 
     def invoice_params
-      params.require(:invoice).permit(:number, :sent, :paid,
+      params.require(:invoice).permit(:number, :invoice_type, :sent, :paid,
                                       :amount, :contact_tax_id2, :contact_tax_id, :contact_name, :issue_date, :issuer,
                                       :due_date, :payment_identification_number, :issuer,
                                       :account_id, :user_id, :note,
@@ -285,6 +304,18 @@ class InvoicesController < ApplicationController
     def received_invoice_format
       InvoiceBar::Sequence.parse_format(
         current_user.preferences[:received_invoice_sequence]
+      ) || ['PF', :year, :month]
+    end
+
+    def issued_deposit_invoice_format
+      InvoiceBar::Sequence.parse_format(
+      current_user.preferences[:issued_deposit_invoice_sequence]
+      ) || ['VF', :year, :month]
+    end
+
+    def received_deposit_invoice_format
+      InvoiceBar::Sequence.parse_format(
+      current_user.preferences[:received_deposit_invoice_sequence]
       ) || ['PF', :year, :month]
     end
 

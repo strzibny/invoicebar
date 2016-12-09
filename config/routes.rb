@@ -35,7 +35,11 @@ InvoiceBar::Application.routes.draw do
   get 'invoices/issued', to: 'invoices#issued', as: 'issued_invoices', method: :get
   get 'invoices/received', to: 'invoices#received', as: 'received_invoices', method: :get
 
-  resources :invoices, param: :number
+  resources :invoices, param: :number do
+    collection do
+      get 'new_deposit', to: 'invoices#new_deposit', method: :get
+    end
+  end
   resources :invoice_templates
 
   # Receipts

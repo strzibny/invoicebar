@@ -11,11 +11,19 @@ module InvoiceBar
 
         class << self
           def received
-            where(issuer: false)
+            basic.where(issuer: false)
           end
 
           def issued
-            where(issuer: true)
+            basic.where(issuer: true)
+          end
+
+          def received_deposit
+            deposit.where(issuer: false)
+          end
+
+          def issued_deposit
+            deposit.where(issuer: true)
           end
         end
 

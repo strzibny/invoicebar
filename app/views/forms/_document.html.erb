@@ -63,6 +63,11 @@
     </div>
     <% end %>
   <% end %>
+
+  <% if document.instance_of? Invoice %>
+    <%= f.hidden_field :invoice_type %>
+  <% end %>
+
   <% if document.instance_of? Invoice %>
     <div class="span4 fixmax4">
       <div class="control-group" style="margin-top:25px;margin-left:10px">
