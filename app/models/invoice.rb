@@ -3,6 +3,8 @@ class Invoice < ActiveRecord::Base
 
   before_validation :update_amount
 
+  enum invoice_type: [ :basic, :deposit ]
+
   attr_accessible :number, :sent, :paid
 
   validates :number, presence: true
