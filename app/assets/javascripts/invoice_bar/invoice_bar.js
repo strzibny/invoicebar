@@ -99,3 +99,11 @@ $(function() {
     });
   });
 });
+
+function change_to_deposit_invoice(element) {
+  $(element).closest('.item').find('.number').hide();
+  $(element).closest('.item').find('.unit').hide();
+  $(element).closest('.item').find('.price').hide();
+  $(element).closest('.item').find('.deposit-invoice').show();
+  $(element).hide();
+};

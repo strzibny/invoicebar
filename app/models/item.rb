@@ -5,7 +5,7 @@ class Item < ActiveRecord::Base
 
   before_validation :update_amount
 
-  attr_accessible :name, :number, :price, :unit, :human_price, :human_amount, :deposit_invoice
+  attr_accessible :name, :number, :price, :unit, :human_price, :human_amount, :deposit_invoice_id
 
   validates :name, presence: true
   validates :number, numericality: true, length: { maximum: 10 }, allow_blank: true

@@ -231,7 +231,7 @@ class InvoicesController < ApplicationController
                                       :due_date, :payment_identification_number, :issuer,
                                       :account_id, :user_id, :note,
                                       address_attributes: [:street, :street_number, :city, :city_part, :postcode, :extra_address_line],
-                                      items_attributes: [:id, :name, :number, :price, :unit, :_destroy])
+                                      items_attributes: [:id, :name, :number, :price, :unit, :deposit_invoice_id, :_destroy])
     end
 
     def filter_params(bills)

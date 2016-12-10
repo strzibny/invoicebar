@@ -1,33 +1,45 @@
 <%# Item fields %>
 
-<div class="nested-fields item">
+<div class="nested-fields item item-<%= f.object.id %>">
   <div class="item-input-box name">
     <div class="input-prepend">
       <span class="add-on"><%= I18n.t('attributes.item.name') %></span>
         <%= f.text_field :name %>
     </div>
   </div>
-  <div class="item-input-box number">
+  <div class="item-input-box number"<%= " style=display:none;" if f.object.deposit_invoice_id %>>
     <div class="input-prepend">
       <span class="add-on"><%= I18n.t('attributes.item.number') %></span>
       <%= f.text_field :number %>
     </div>
   </div>
-  <div class="item-input-box unit">
+  <div class="item-input-box unit"<%= " style=display:none;" if f.object.deposit_invoice_id %>>
     <div class="input-prepend">
       <span class="add-on"><%= I18n.t('attributes.item.unit') %></span>
       <%= f.text_field :unit, placeholder: I18n.t('attributes.item.default_unit') %>
     </div>
   </div>
-  <div class="item-input-box price">
+  <div class="item-input-box price"<%= " style=display:none;" if f.object.deposit_invoice_id %>>
     <div class="input-prepend">
       <span class="add-on"><%= I18n.t('attributes.item.price') %></span>
       <%= f.text_field :price, value: formatted_money(f.object.price), placeholder: '0,00' %>
     </div>
   </div>
+
+  <div class="item-input-box deposit-invoice"<%= " style=display:none;" unless f.object.deposit_invoice_id %>>
+    <div class="input-prepend">
+      <span class="add-on"><%= I18n.t('attributes.item.deposit_invoice') %></span>
+      <%= f.collection_select :deposit_invoice_id, current_user.invoices.deposit, :id, :number, { include_blank: true } %>
+    </div>
+  </div>
+
   <%= f.hidden_field :id %>
   <%= f.hidden_field :_destroy %>
+
   <div class="item-input-box remove">
+    <% unless f.object.deposit_invoice_id %>
+      <a href="/javascript.html" onclick="change_to_deposit_invoice(this);return false;">Zálohová faktura</a>
+    <% end %>
     <%= f.link_to_remove I18n.t('links.delete_item') %>
   </div>
   <div style="clear:both;">&nbsp;</div>

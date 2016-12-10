@@ -226,6 +226,7 @@ cs:
       price: Cena za MJ
       unit: MJ
       default_unit: ks
+      deposit_invoice: Zálohová faktura
     invoice_template_item:
       amount: Celková částka
       invoice_id: Faktura
