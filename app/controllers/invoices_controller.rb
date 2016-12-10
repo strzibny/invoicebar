@@ -33,11 +33,7 @@ class InvoicesController < ApplicationController
 
   # GET /invoices/new
   def new
-    # Set the number of the document
-    last_issued = current_user.invoices.issued.try(:last).try(:number) || current_user.preferences[:last_issued_invoice]
-    @next_issued = ::InvoiceBar::Sequence.new(from: last_issued, format: issued_invoice_format).nextn(by: :month)
-    last_received = current_user.invoices.received.try(:last).try(:number) || current_user.preferences[:last_received_invoice]
-    @next_received = ::InvoiceBar::Sequence.new(from: last_received, format: received_invoice_format).nextn(by: :month)
+    build_next_sequence_numbers
 
     @invoice = Invoice.new
     @invoice.number = @next_issued
@@ -51,11 +47,7 @@ class InvoicesController < ApplicationController
 
   # GET /invoices/new_deposit
   def new_deposit
-    # Set the number of the document
-    last_issued = current_user.invoices.issued_deposit.try(:last).try(:number) || current_user.preferences[:last_issued_deposit_invoice]
-    @next_issued = ::InvoiceBar::Sequence.new(from: last_issued, format: issued_deposit_invoice_format).nextn(by: :month)
-    last_received = current_user.invoices.received_deposit.try(:last).try(:number) || current_user.preferences[:last_received_deposit_invoice]
-    @next_received = ::InvoiceBar::Sequence.new(from: last_received, format: received_deposit_invoice_format).nextn(by: :month)
+    build_next_deposit_sequence_numbers
 
     @invoice = Invoice.new
     @invoice.number = @next_issued
@@ -295,6 +287,39 @@ class InvoicesController < ApplicationController
       end
     end
 
+    # Set the number of the document
+    def build_next_sequence_numbers
+      begin
+        last_issued = current_user.invoices.issued.try(:last).try(:number) || current_user.preferences[:last_issued_invoice]
+        @next_issued = ::InvoiceBar::Sequence.new(from: last_issued, format: issued_invoice_format).nextn(by: :month)
+      rescue InvoiceBar::Sequence::ParseError
+        @next_issued = ''
+      end
+
+      begin
+        last_received = current_user.invoices.received.try(:last).try(:number) || current_user.preferences[:last_received_invoice]
+        @next_received = ::InvoiceBar::Sequence.new(from: last_received, format: received_invoice_format).nextn(by: :month)
+      rescue InvoiceBar::Sequence::ParseError
+        @next_received = ''
+      end
+    end
+
+    def build_next_deposit_sequence_numbers
+      begin
+        last_issued = current_user.invoices.issued_deposit.try(:last).try(:number) || current_user.preferences[:last_issued_deposit_invoice]
+        @next_issued = ::InvoiceBar::Sequence.new(from: last_issued, format: issued_deposit_invoice_format).nextn(by: :month)
+      rescue InvoiceBar::Sequence::ParseError
+        @next_issued = ''
+      end
+
+      begin
+        last_received = current_user.invoices.received_deposit.try(:last).try(:number) || current_user.preferences[:last_received_deposit_invoice]
+        @next_received = ::InvoiceBar::Sequence.new(from: last_received, format: received_deposit_invoice_format).nextn(by: :month)
+      rescue InvoiceBar::Sequence::ParseError
+        @next_received = ''
+      end
+    end
+
     def issued_invoice_format
       InvoiceBar::Sequence.parse_format(
         current_user.preferences[:issued_invoice_sequence]
@@ -310,13 +335,13 @@ class InvoicesController < ApplicationController
     def issued_deposit_invoice_format
       InvoiceBar::Sequence.parse_format(
       current_user.preferences[:issued_deposit_invoice_sequence]
-      ) || ['VF', :year, :month]
+      ) || ['ZVF', :year, :month]
     end
 
     def received_deposit_invoice_format
       InvoiceBar::Sequence.parse_format(
       current_user.preferences[:received_deposit_invoice_sequence]
-      ) || ['PF', :year, :month]
+      ) || ['ZPF', :year, :month]
     end
 
     def income_bill_format

@@ -32,6 +32,8 @@ module InvoiceBar
         end
       end
       next_value << next_number_with_zeros
+    rescue StandardError
+      raise ParseError, "cannot create next value from given format #{@format}"
     end
 
     # Return sequence format from given string
@@ -58,7 +60,6 @@ module InvoiceBar
           chars = chars[1..-1]
         end
       end
-
       format
     end
 
