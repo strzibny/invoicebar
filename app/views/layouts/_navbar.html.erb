@@ -1,6 +1,8 @@
+<div class="navbar-container">
+<div class="container">
 <div class="navbar">
   <div class="navbar-inner">
-    <div class="container">
+
       <a class="brand" href="/">
         <img src="/logo.png" width=50 height=50 />
       </a>
@@ -10,16 +12,16 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <div class="nav-collapse2 collapse2">
+        <div class="nav-collapse collapse">
           <ul class="nav">
-            <li class="<%= active_for_controller('/invoice') %>"><%= link_to t('invoice_bar.navbar.invoices'), invoices_path %></li>
-            <li class="<%= active_for_controller('/receipt') %>"><%= link_to t('invoice_bar.navbar.receipts'), receipts_path %></li>
-            <li class="<%= active_for_controller('/contact') %>"><%= link_to t('invoice_bar.navbar.contacts'), contacts_path %></li>
-            <li class="<%= active_for_controller('/account') %>"><%= link_to t('invoice_bar.navbar.accounts'), accounts_path %></li>
-            <li class="<%= active_for_controller('/settings') %>"><%= link_to t('invoice_bar.navbar.profile'), profile_path %></li>
+            <li class="<%= active_for_controller('invoice') %>"><%= link_to t('invoice_bar.navbar.invoices'), invoices_path %></li>
+            <li class="<%= active_for_controller('receipt') %>"><%= link_to t('invoice_bar.navbar.receipts'), receipts_path %></li>
+            <li class="<%= active_for_controller('contact') %>"><%= link_to t('invoice_bar.navbar.contacts'), contacts_path %></li>
+            <li class="<%= active_for_controller('account') %>"><%= link_to t('invoice_bar.navbar.accounts'), accounts_path %></li>
+            <li class="<%= active_for_controller('settings') %>"><%= link_to t('invoice_bar.navbar.profile'), profile_path %></li>
             <% if current_user.administrator %>
-              <li class="<%= active_for_controller('/users') %>"><%= link_to t('invoice_bar.navbar.users'), users_path %></li>
-              <li class="<%= active_for_controller('/currencies') %>"><%= link_to t('invoice_bar.navbar.currencies'), currencies_path %></li>
+              <li class="<%= active_for_controller('users') %>"><%= link_to t('invoice_bar.navbar.users'), users_path %></li>
+              <li class="<%= active_for_controller('currencies') %>"><%= link_to t('invoice_bar.navbar.currencies'), currencies_path %></li>
             <% end %>
           </ul>
           <ul class="nav pull-right">
@@ -30,8 +32,9 @@
           <% end %>
         </div>
       <% end %>
+      </div>
     </div>
-  </div>
+</div>
 </div>
 <div class="container sub-navigation">
   <%= yield :sub_navigation %>

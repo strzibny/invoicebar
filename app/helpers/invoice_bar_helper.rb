@@ -1,8 +1,8 @@
 module InvoiceBarHelper
   # Defines an active state of the navbar item according to
   # which controller is used.
-  def active_for_controller(controller)
-    'active' if params[:controller].include? controller
+  def active_for_controller(path)
+    'active' if params[:controller].include? path
   end
 
   # Format Czech (and a like) 5-digit-long postcode.

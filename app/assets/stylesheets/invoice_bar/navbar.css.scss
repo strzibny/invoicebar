@@ -1,3 +1,5 @@
+body { background: #FAFAFA; }
+
 .navbar-inner {
   background: 0;
   border: 0;
@@ -7,9 +9,13 @@
 }
 
 .navbar {
-  border-bottom: 1px solid lightgrey;
   margin: 0;
+}
+
+.navbar-container {
+  border-bottom: 1px solid lightgrey;
   margin-bottom: 30px;
+  background: white;
 }
 
 .navbar .container a.brand, ul, form {
@@ -21,5 +27,26 @@
   border-right:  1px solid lightgrey;
   padding-top: 10px !important;
   padding-bottom: 10px;
-  background: url('logo.png')
+}
+
+.navbar .brand {
+  padding-left: 0 !important;
+}
+
+.navbar li.active a, .navbar li.active a:focus, .navbar li.active a:active {
+  color: #640ABF !important;
+  background: none !important;
+  box-shadow: none !important;
+  display: inline-block;
+  position: relative;
+}
+
+.navbar li.active a:before{
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 1px;
+  bottom: 0;
+  left: calc(50% - 2px);
+  border-bottom: 3px solid #640ABF;
 }
