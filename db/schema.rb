@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161209204905) do
+ActiveRecord::Schema.define(version: 20161210132505) do
 
   create_table "invoice_bar_accounts", force: :cascade do |t|
     t.string   "name",                            null: false
@@ -110,15 +110,16 @@ ActiveRecord::Schema.define(version: 20161209204905) do
   add_index "invoice_bar_invoices", ["payment_identification_number"], name: "index_invoice_bar_invoices_on_payment_identification_number"
 
   create_table "invoice_bar_items", force: :cascade do |t|
-    t.string   "name",          null: false
-    t.integer  "price",         null: false
+    t.string   "name",               null: false
+    t.integer  "price",              null: false
     t.string   "unit"
     t.integer  "number"
-    t.integer  "amount",        null: false
-    t.integer  "itemable_id",   null: false
-    t.string   "itemable_type", null: false
+    t.integer  "amount",             null: false
+    t.integer  "itemable_id",        null: false
+    t.string   "itemable_type",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "deposit_invoice_id"
   end
 
   add_index "invoice_bar_items", ["name"], name: "index_invoice_bar_items_on_name"

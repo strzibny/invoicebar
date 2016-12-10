@@ -5,7 +5,7 @@ class Item < ActiveRecord::Base
 
   before_validation :update_amount
 
-  attr_accessible :name, :number, :price, :unit, :human_price, :human_amount
+  attr_accessible :name, :number, :price, :unit, :human_price, :human_amount, :deposit_invoice
 
   validates :name, presence: true
   validates :number, numericality: true, length: { maximum: 10 }, allow_blank: true
@@ -16,6 +16,10 @@ class Item < ActiveRecord::Base
   attr_accessible :itemable_id, :itemable_type
 
   belongs_to :itemable, polymorphic: true
+
+  # Each item can be paired with deposit invoice, in that case item's amount
+  # needs to match with the deposit invoice amount (only it's negative).
+  has_one :deposit_invoice, class_name: Invoice
 
   # Copies the item and returns a new instance.
   def copy
