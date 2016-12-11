@@ -16,11 +16,11 @@
     </li>
     <% if params[:deposit] == 'true' %>
       <li style="margin-left:90px;" class="selected">
-        <%= link_to t('titles.deposits'), filter_invoices_url(params.except(:deposit)) %>
+        <%= link_to t('titles.deposits'), action_invoices_url(params.except(:deposit)) %>
       </li>
     <% else %>
       <li style="margin-left:90px;" class="">
-        <%= link_to t('titles.deposits'), filter_invoices_url(params.merge(deposit: true)) %>
+        <%= link_to t('titles.deposits'), action_invoices_url(params.merge(deposit: true)) %>
       </li>
     <% end %>
     <li>
@@ -31,19 +31,19 @@
 
   <div class="status-filter">
     <span class="<% unless params[:status] == nil %>not-selected<% end %>">
-      <%= link_to t('buttons.all'), filter_invoices_url(params.merge(status: nil)), class: 'btn-small btn-inverse btn-no-link' %>
+      <%= link_to t('buttons.all'), action_invoices_url(params.merge(status: nil)), class: 'btn-small btn-inverse btn-no-link' %>
     </span>
     <span class="<% unless params[:status] == 'not_paid' %>not-selected<% end %>">
-      <%= link_to t('buttons.not_paid'), filter_invoices_url(params.merge(status: 'not_paid')), class: 'btn-small btn-danger btn-no-link' %>
+      <%= link_to t('buttons.not_paid'), action_invoices_url(params.merge(status: 'not_paid')), class: 'btn-small btn-danger btn-no-link' %>
     </span>
     <span class="<% unless params[:status] == 'paid' %>not-selected<% end %>">
-      <%= link_to t('buttons.paid'), filter_invoices_url(params.merge(status: 'paid')), class: 'btn-small btn-success btn-no-link' %>
+      <%= link_to t('buttons.paid'), action_invoices_url(params.merge(status: 'paid')), class: 'btn-small btn-success btn-no-link' %>
     </span>
     <span class="<% unless params[:status] == 'not_sent' %>not-selected<% end %>">
-      <%= link_to t('buttons.not_sent'), filter_invoices_url(params.merge(status: 'not_sent')), class: 'btn-small btn-warning btn-no-link' %>
+      <%= link_to t('buttons.not_sent'), action_invoices_url(params.merge(status: 'not_sent')), class: 'btn-small btn-warning btn-no-link' %>
     </span>
     <span class="<% unless params[:status] == 'sent' %>not-selected<% end %>">
-      <%= link_to t('buttons.sent'), filter_invoices_url(params.merge(status: 'sent')), class: 'btn-small btn-info btn-no-link' %>
+      <%= link_to t('buttons.sent'), action_invoices_url(params.merge(status: 'sent')), class: 'btn-small btn-info btn-no-link' %>
     </span>
   </div>
 
@@ -58,19 +58,19 @@
   <thead>
      <tr>
       <th class="number hidden-phone">
-        <%= link_to "# #{t('attributes.invoice.number')}", filter_invoices_url(params.merge(page: 1, sort: 'number')) %>
+        <%= link_to "# #{t('attributes.invoice.number')}", action_invoices_url(params.merge(page: 1, sort: 'number')) %>
       </th>
       <th class="contact_name">
-        <%= link_to t('attributes.invoice.contact_name'), filter_invoices_url(params.merge(page: 1, sort: 'contact_name')) %>
+        <%= link_to t('attributes.invoice.contact_name'), action_invoices_url(params.merge(page: 1, sort: 'contact_name')) %>
       </th>
        <th class="issue_date hidden-phone">
-        <%= link_to t('attributes.invoice.issue_date'), filter_invoices_url(params.merge(page: 1, sort: 'issue_date')) %>
+        <%= link_to t('attributes.invoice.issue_date'), action_invoices_url(params.merge(page: 1, sort: 'issue_date')) %>
       </th>
       <th class="due_date hidden-phone">
-        <%= link_to t('attributes.invoice.due_date'), filter_invoices_url(params.merge(page: 1, sort: 'due_date')) %>
+        <%= link_to t('attributes.invoice.due_date'), action_invoices_url(params.merge(page: 1, sort: 'due_date')) %>
       </th>
       <th class="amount">
-        <%= link_to t('attributes.invoice.amount'), filter_invoices_url(params.merge(page: 1, sort: 'amount')) %>
+        <%= link_to t('attributes.invoice.amount'), action_invoices_url(params.merge(page: 1, sort: 'amount')) %>
       </th>
       <th>
         <%= t('attributes.invoice_bar.invoice.status') %>

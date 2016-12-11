@@ -30,4 +30,26 @@ module InvoiceBarHelper
   def formatted_money(cents, currency_symbol = '')
     formatted_amount(cents, currency_symbol)
   end
+
+  def action_invoices_url(params)
+    case params[:action]
+    when 'issued'
+      issued_invoices_url(params)
+    when 'received'
+      received_invoices_url(params)
+    else
+      filter_invoices_url(params)
+    end
+  end
+
+  def action_receipts_url(params)
+    case params[:action]
+    when 'income'
+      income_receipts_url(params)
+    when 'expense'
+      expense_receipts_url(params)
+    else
+      filter_receipts_url(params)
+    end
+  end
 end

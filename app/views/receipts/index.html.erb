@@ -26,16 +26,16 @@
   <thead>
     <tr>
       <th class="number hidden-phone">
-        <%= link_to "# #{t('attributes.receipt.number')}", filter_receipts_url(params.merge(page: 1, sort: 'number')) %>
+        <%= link_to "# #{t('attributes.receipt.number')}", action_receipts_url(params.merge(page: 1, sort: 'number')) %>
       </th>
       <th class="contact_name">
-        <%= link_to t('attributes.receipt.contact_name'), filter_receipts_url(params.merge(page: 1, sort: 'contact_name')) %>
+        <%= link_to t('attributes.receipt.contact_name'), action_receipts_url(params.merge(page: 1, sort: 'contact_name')) %>
       </th>
       <th class="issue_date hidden-phone">
-        <%= link_to t('attributes.receipt.issue_date'), filter_receipts_url(params.merge(page: 1, sort: 'issue_date')) %>
+        <%= link_to t('attributes.receipt.issue_date'), action_receipts_url(params.merge(page: 1, sort: 'issue_date')) %>
       </th>
       <th class="amount">
-        <%= link_to t('attributes.receipt.amount'), filter_receipts_url(params.merge(page: 1, sort: 'amount')) %>
+        <%= link_to t('attributes.receipt.amount'), action_receipts_url(params.merge(page: 1, sort: 'amount')) %>
       </th>
     </tr>
   </thead>
