@@ -39,7 +39,7 @@ form a:hover, table a:hover { background: #0C6591; color: white; text-decoration
   justify-content: center;
 }
 .sub-navigation ul.nav-pills li.active a {
-  background: #5400A8;
+  background: #640ABF;
 }
 
 .sub-navigation ul.nav-pills li.active a:active, .sub-navigation ul.nav-pills li.active a:hover {
@@ -93,7 +93,9 @@ fieldset .top {
   .not-selected .btn-warning,
   .not-selected .btn-inverse,
   .not-selected .btn-danger {
-    background: grey;
+    background: #E6E6E6;
+    text-shadow: none !important;
+    color: #333333;
   }
 }
 
