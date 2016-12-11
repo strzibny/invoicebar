@@ -36,6 +36,7 @@ cs:
     receipt_templates: Šablony
     invoices: Faktury
     invoice_templates: Šablony
+    deposits: Zálohy
     invoice_pdf: Faktura
     number: č.
     bill: Účetní doklad

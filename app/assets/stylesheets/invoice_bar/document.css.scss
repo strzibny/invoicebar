@@ -13,12 +13,38 @@ h1 { margin-bottom: 30px; }
 // Buttons
 
 .btn-no-link, .btn-no-link:hover { text-decoration: none; }
+.btn-inverse { background-image: none; }
+.btn-success { background: #62c462; background-image: none; }
+.btn-warning {background-image: none; }
+.btn-info { background-image: none; }
+.btn-danger { background-image: none; }
 
 // Links
 
 form a:hover, table a:hover { background: #0C6591; color: white; text-decoration: none; }
 
 // Navigation
+
+.sub-navigation {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+}
+.sub-navigation ul.nav-pills {
+  margin-top: 0;
+  padding: 5px 0;
+
+  display: flex;
+  justify-content: center;
+}
+.sub-navigation ul.nav-pills li.active a {
+  background: #5400A8;
+}
+
+.sub-navigation ul.nav-pills li.active a:active, .sub-navigation ul.nav-pills li.active a:hover {
+  background: #082682 !important;
+}
 
 .sub-navigation .btn-group, .sub-navigation .nav { margin-top: 5px }
 .sub-navigation h1 {
@@ -52,8 +78,16 @@ fieldset .top {
 }
 
 // Filter status options
+.selected a {
+  background: #640ABF;
+  color: white;
+}
+.selected a:hover, .selected a:active {
+  background: #082682 !important;
+}
 .status-filter {
-  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 0px;
   .not-selected .btn-info,
   .not-selected .btn-success,
   .not-selected .btn-warning,

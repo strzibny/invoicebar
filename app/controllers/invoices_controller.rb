@@ -259,6 +259,8 @@ class InvoicesController < ApplicationController
         end
       end
 
+      bills = bills.deposit if params[:deposit] == 'true'
+
       @bills = bills.for_numbers(params[:number])
                     .within_dates(params[:from_date], params[:to_date])
                     .within_amounts(params[:from_amount], params[:to_amount])
