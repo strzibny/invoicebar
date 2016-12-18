@@ -22,6 +22,8 @@ cs:
     issued: Vydané
     expence: Výdajové
     income: Příjmové
+    account_settings: Konto
+    sequences_settings: Číselné řady
   form:
     contact: pro/od firmy
     from_date: od data
@@ -115,6 +117,9 @@ cs:
       web: Web
       password: Heslo
       account: Účet
+      preferences:
+        issued_invoice_sequence: Formát řady vydaných faktur
+        last_issued_invoice: Číslo poslední vydané faktury (při předochodu z jiného systému)
     currency:
       name: Označení měny
       symbol: Symbol

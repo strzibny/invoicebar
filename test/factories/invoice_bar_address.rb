@@ -5,7 +5,7 @@ FactoryGirl.define do
     postcode '45695'
     street 'Street'
     street_number '28a'
-    extra_address_line ''
+    extra_address_line 'Down the street'
     addressable_type nil
   end
 end

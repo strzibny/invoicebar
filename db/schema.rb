@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161210132505) do
+ActiveRecord::Schema.define(version: 20161218204813) do
 
   create_table "invoice_bar_accounts", force: :cascade do |t|
     t.string   "name",                            null: false

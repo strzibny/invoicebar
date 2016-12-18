@@ -2,8 +2,6 @@
 #system('RAILS_ENV=development rake db:create')
 #system('RAILS_ENV=development rake db:migrate')
 
-require File.expand_path("../../test/dummy/config/environment.rb",  __FILE__)
-
 # Use FactoryGirl definitions
 require 'faker'
 require 'factory_girl'

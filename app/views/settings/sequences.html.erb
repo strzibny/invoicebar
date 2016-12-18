@@ -1,0 +1,82 @@
+<%= content_for :sub_navigation do %>
+  <ul class="nav nav nav-pills" style="text-align:center;margin-bottom:1px;border:0;border-bottom:1px solid #F4F0FC;">
+    <li<% if @section == :account %> class="active"<% end %>>
+      <%= link_to t('navigation.account_settings'), account_settings_path %>
+    </li>
+    <li<% if @section == :sequences %> class="active"<% end %>>
+      <%= link_to t('navigation.sequences_settings'), sequences_settings_path %>
+    </li>
+    <div style="clear:both"></div>
+  </ul>
+<% end %>
+<div class="container">
+  <div class="row">
+    <%= form_tag update_sequences_path, method: :patch do |f| %>
+      <%= render 'forms/errors', model:  @user %>
+
+      <div class="span3">
+        <h4><%= t('navigation.sequences_settings') %></h4>
+        <div class="control-group">
+          <%= label_tag :received_invoice_sequence, t('attributes.user.preferences.received_invoice_sequence') %>
+          <%= text_field_tag :received_invoice_sequence, @user.preferences[:received_invoice_sequence], placeholder: 'e.g. 20160112' %>
+        </div>
+        <div class="control-group">
+          <%= label_tag :issued_invoice_sequence, t('attributes.user.preferences.issued_invoice_sequence') %>
+          <%= text_field_tag :issued_invoice_sequence, @user.preferences[:issued_invoice_sequence], placeholder: 'e.g. 20160112' %>
+        </div>
+        <div class="control-group">
+          <%= label_tag :received_deposit_invoice_sequence, t('attributes.user.preferences.received_deposit_invoice_sequence') %>
+          <%= text_field_tag :received_deposit_invoice_sequence, @user.preferences[:received_deposit_invoice_sequence], placeholder: 'e.g. 20160112' %>
+        </div>
+
+
+        <div class="control-group">
+          <%= label_tag :issued_deposit_invoice_sequence, t('attributes.user.preferences.issued_deposit_invoice_sequence') %>
+          <%= text_field_tag :issued_deposit_invoice_sequence, @user.preferences[:issued_deposit_invoice_sequence], placeholder: 'e.g. 20160112' %>
+        </div>
+        <div class="control-group">
+          <%= label_tag :income_bill_sequence, t('attributes.user.preferences.income_bill_sequence') %>
+          <%= text_field_tag :income_bill_sequence, @user.preferences[:income_bill_sequence], placeholder: 'e.g. 20160112' %>
+        </div>
+        <div class="control-group">
+          <%= label_tag :expense_bill_sequence, t('attributes.user.preferences.expense_bill_sequence') %>
+          <%= text_field_tag :expense_bill_sequence, @user.preferences[:expense_bill_sequence], placeholder: 'e.g. 20160112' %>
+        </div>
+
+        <div class="control-group">
+          <%= label_tag :last_received_invoice, t('attributes.user.preferences.last_received_invoice') %>
+          <%= text_field_tag :last_received_invoice, @user.preferences[:last_received_invoice], placeholder: 'e.g. 20160112' %>
+        </div>
+        <div class="control-group">
+          <%= label_tag :last_issued_invoice, t('attributes.user.preferences.last_issued_invoice') %>
+          <%= text_field_tag :last_issued_invoice, @user.preferences[:last_issued_invoice], placeholder: 'e.g. 20160112' %>
+        </div>
+        <div class="control-group">
+          <%= label_tag :last_received_deposit_invoice, t('attributes.user.preferences.last_received_deposit_invoice') %>
+          <%= text_field_tag :last_received_deposit_invoice, @user.preferences[:last_received_deposit_invoice], placeholder: 'e.g. 20160112' %>
+        </div>
+
+        <div class="control-group">
+          <%= label_tag :last_issued_deposit_invoice, t('attributes.user.preferences.last_issued_deposit_invoice') %>
+          <%= text_field_tag :last_issued_deposit_invoice, @user.preferences[:last_issued_deposit_invoice], placeholder: 'e.g. 20160112' %>
+        </div>
+        <div class="control-group">
+          <%= label_tag :last_income_bill_number, t('attributes.user.preferences.last_income_bill_number') %>
+          <%= text_field_tag :last_income_bill_number, @user.preferences[:last_income_bill_number], placeholder: 'e.g. 20160112' %>
+        </div>
+        <div class="control-group">
+          <%= label_tag :last_expense_bill_number, t('attributes.user.preferences.last_expense_bill_number') %>
+          <%= text_field_tag :last_expense_bill_number, @user.preferences[:last_expense_bill_number], placeholder: 'e.g. 20160112' %>
+        </div>
+      </div>
+      <div class="span3">
+
+      </div>
+
+
+      <div class="span10">
+         <%= submit_tag I18n.t('buttons.save'), :class => 'btn' %>
+      </div>
+    <% end %>
+  </div>
+</div>
