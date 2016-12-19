@@ -38,7 +38,7 @@
     <div class="span3">
       <div class="control-group">
         <% if document.instance_of? Invoice %>
-           <%= f.label :number, I18n.t('attributes.invoice.number') %>
+          <%= f.label :number, I18n.t('attributes.invoice.number') %>
         <% else %>
           <%= f.label :number, I18n.t('attributes.receipt.number') %>
         <% end %>

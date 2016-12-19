@@ -3,32 +3,32 @@
 <div class="nested-fields item item-<%= f.object.id %>">
   <div class="item-input-box name">
     <div class="input-prepend">
-      <span class="add-on"><%= I18n.t('attributes.item.name') %></span>
-        <%= f.text_field :name %>
+      <%= f.label :name, I18n.t('attributes.item.name'), class: 'add-on' %>
+      <%= f.text_field :name %>
     </div>
   </div>
   <div class="item-input-box number"<%= " style=display:none;" if f.object.deposit_invoice_id %>>
     <div class="input-prepend">
-      <span class="add-on"><%= I18n.t('attributes.item.number') %></span>
+      <%= f.label :name, I18n.t('attributes.item.number'), class: 'add-on' %>
       <%= f.text_field :number %>
     </div>
   </div>
   <div class="item-input-box unit"<%= " style=display:none;" if f.object.deposit_invoice_id %>>
     <div class="input-prepend">
-      <span class="add-on"><%= I18n.t('attributes.item.unit') %></span>
+      <%= f.label :name, I18n.t('attributes.item.unit'), class: 'add-on' %>
       <%= f.text_field :unit, placeholder: I18n.t('attributes.item.default_unit') %>
     </div>
   </div>
   <div class="item-input-box price"<%= " style=display:none;" if f.object.deposit_invoice_id %>>
     <div class="input-prepend">
-      <span class="add-on"><%= I18n.t('attributes.item.price') %></span>
+      <%= f.label :name, I18n.t('attributes.item.price'), class: 'add-on' %>
       <%= f.text_field :price, value: formatted_money(f.object.price), placeholder: '0,00' %>
     </div>
   </div>
 
   <div class="item-input-box deposit-invoice"<%= " style=display:none;" unless f.object.deposit_invoice_id %>>
     <div class="input-prepend">
-      <span class="add-on"><%= I18n.t('attributes.item.deposit_invoice') %></span>
+      <%= f.label :name, I18n.t('attributes.item.deposit_invoice'), class: 'add-on' %>
       <%= f.collection_select :deposit_invoice_id, current_user.invoices.deposit, :id, :number, { include_blank: true } %>
     </div>
   </div>
