@@ -28,7 +28,7 @@
 
   <div class="item-input-box deposit-invoice"<%= " style=display:none;" unless f.object.deposit_invoice_id %>>
     <div class="input-prepend">
-      <%= f.label :name, I18n.t('attributes.item.deposit_invoice'), class: 'add-on' %>
+      <%= f.label :deposit_invoice_id, I18n.t('attributes.item.deposit_invoice'), class: 'add-on' %>
       <%= f.collection_select :deposit_invoice_id, current_user.invoices.deposit, :id, :number, { include_blank: true } %>
     </div>
   </div>

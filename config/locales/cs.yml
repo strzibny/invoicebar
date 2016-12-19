@@ -120,6 +120,7 @@ cs:
       preferences:
         issued_invoice_sequence: Formát řady vydaných faktur
         last_issued_invoice: Číslo poslední vydané faktury (při předochodu z jiného systému)
+        issued_deposit_invoice_sequence: Formát řady vydaných zálohových faktur
     currency:
       name: Označení měny
       symbol: Symbol

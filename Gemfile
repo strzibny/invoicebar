@@ -40,6 +40,8 @@ group :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'database_cleaner'
   gem 'capybara'
+  gem 'capybara-selenium'
+  gem 'capybara-webkit'
   gem 'capybara-email'
   gem 'shoulda'
 end

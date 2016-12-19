@@ -28,12 +28,11 @@
           <%= label_tag :received_deposit_invoice_sequence, t('attributes.user.preferences.received_deposit_invoice_sequence') %>
           <%= text_field_tag :received_deposit_invoice_sequence, @user.preferences[:received_deposit_invoice_sequence], placeholder: 'e.g. 20160112' %>
         </div>
-
-
         <div class="control-group">
           <%= label_tag :issued_deposit_invoice_sequence, t('attributes.user.preferences.issued_deposit_invoice_sequence') %>
           <%= text_field_tag :issued_deposit_invoice_sequence, @user.preferences[:issued_deposit_invoice_sequence], placeholder: 'e.g. 20160112' %>
         </div>
+
         <div class="control-group">
           <%= label_tag :income_bill_sequence, t('attributes.user.preferences.income_bill_sequence') %>
           <%= text_field_tag :income_bill_sequence, @user.preferences[:income_bill_sequence], placeholder: 'e.g. 20160112' %>

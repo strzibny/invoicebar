@@ -59,6 +59,14 @@ GEM
     capybara-email (2.5.0)
       capybara (~> 2.4)
       mail
+    capybara-selenium (0.0.6)
+      capybara
+      selenium-webdriver
+    capybara-webkit (1.1.0)
+      capybara (~> 2.0, >= 2.0.2)
+      json
+    childprocess (0.5.9)
+      ffi (~> 1.0, >= 1.0.11)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -80,6 +88,7 @@ GEM
       i18n (~> 0.5)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
+    ffi (1.9.14)
     formatted-money (0.0.2)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
@@ -93,7 +102,7 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (5.0.5)
+    jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
     json (1.8.3)
     jwt (1.5.4)
@@ -109,14 +118,14 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mini_portile (0.6.2)
-    minitest (5.8.1)
+    mini_portile2 (2.1.0)
+    minitest (5.10.1)
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     nested_form (0.3.2)
-    nokogiri (1.6.6.2)
-      mini_portile (~> 0.6.0)
+    nokogiri (1.6.8.1)
+      mini_portile2 (~> 2.1.0)
     oauth (0.5.1)
     oauth2 (1.2.0)
       faraday (>= 0.8, < 0.10)
@@ -138,7 +147,7 @@ GEM
     protected_attributes (1.1.3)
       activemodel (>= 4.0.1, < 5.0)
     puma (3.6.0)
-    rack (1.6.4)
+    rack (1.6.5)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.4)
@@ -158,7 +167,7 @@ GEM
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
-    rails-html-sanitizer (1.0.2)
+    rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
     rails-i18n (4.0.9)
       i18n (~> 0.7)
@@ -169,7 +178,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
-    rake (10.4.2)
+    rake (12.0.0)
     rdoc (4.2.0)
     ref (2.0.0)
     rspec-core (3.3.2)
@@ -198,12 +207,17 @@ GEM
     ruby-ares (0.0.3)
       libxml-ruby
     ruby-progressbar (1.8.1)
+    rubyzip (1.2.0)
     sass (3.2.19)
     sass-rails (4.0.5)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
+    selenium-webdriver (3.0.3)
+      childprocess (~> 0.5)
+      rubyzip (~> 1.0)
+      websocket (~> 1.0)
     shoulda (3.5.0)
       shoulda-context (~> 1.0, >= 1.0.1)
       shoulda-matchers (>= 1.4.1, < 3.0)
@@ -228,7 +242,7 @@ GEM
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
-    thor (0.19.1)
+    thor (0.19.4)
     thread_safe (0.3.5)
     tilt (1.4.1)
     ttfunk (1.4.0)
@@ -243,6 +257,7 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
+    websocket (1.2.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -255,6 +270,8 @@ DEPENDENCIES
   bundler-audit
   capybara
   capybara-email
+  capybara-selenium
+  capybara-webkit
   coffee-rails (~> 4.0)
   database_cleaner
   factory_girl (= 4.5.0)
@@ -286,3 +303,6 @@ DEPENDENCIES
   therubyracer
   uglifier (>= 1.0.3)
   web-console (~> 2.0)
+
+BUNDLED WITH
+   1.13.4

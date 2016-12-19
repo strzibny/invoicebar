@@ -13,6 +13,9 @@ Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+Capybara.javascript_driver = :webkit
+Capybara.current_driver = Capybara.javascript_driver
+
 I18n.enforce_available_locales = false
 
 RSpec.configure do |config|
