@@ -1,5 +1,5 @@
 <%= content_for :sub_navigation do %>
-  <ul class="nav nav nav-pills" style="text-align:center;margin-bottom:1px;border:0;border-bottom:1px solid #F4F0FC;">
+  <ul class="nav nav nav-pills">
     <li<% if @section == :account %> class="active"<% end %>>
       <%= link_to t('navigation.account_settings'), account_settings_path %>
     </li>

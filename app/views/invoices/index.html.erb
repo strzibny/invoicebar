@@ -1,7 +1,7 @@
 <%= content_for :sub_navigation do %>
-  <ul class="nav nav nav-pills" style="text-align:center;margin-bottom:1px;border:0;border-bottom:1px solid #F4F0FC;">
+  <ul class="nav nav nav-pills">
     <li>
-      <a href="<%= new_invoice_path %>" style="background:#D2FAC3;color:black;margin-right:90px;">
+      <a href="<%= new_invoice_path %>" class="left highlight">
         <%= t('links.new_invoice') %>
       </a>
     </li>
@@ -15,11 +15,11 @@
       <%= link_to t('navigation.received'), received_invoices_url(params.merge(page: 1)) %>
     </li>
     <% if params[:deposit] == 'true' %>
-      <li style="margin-left:90px;" class="selected">
+      <li class="right selected">
         <%= link_to t('titles.deposits'), action_invoices_url(params.except(:deposit)) %>
       </li>
     <% else %>
-      <li style="margin-left:90px;" class="">
+      <li class="right">
         <%= link_to t('titles.deposits'), action_invoices_url(params.merge(deposit: true)) %>
       </li>
     <% end %>

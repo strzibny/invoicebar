@@ -1,7 +1,7 @@
 <%= content_for :sub_navigation do %>
-  <ul class="nav nav-pills" style="text-align:center;margin-bottom:1px;border:0;border-bottom:1px solid #F4F0FC;">
+  <ul class="nav nav-pills">
     <li>
-      <a href="<%= new_receipt_path %>" style="background:#D2FAC3;color:black;margin-right:90px;">
+      <a href="<%= new_receipt_path %>" class="left highlight">
         <%= t('links.new_receipt') %>
       </a>
     </li>
@@ -14,7 +14,7 @@
     <li<% if @section == :income %> class="active"<% end %>>
       <%= link_to t('navigation.income'), income_receipts_url(params.merge(page: 1)) %>
     </li>
-    <li style="margin-left:90px;">
+    <li class="right">
       <%= link_to t('titles.receipt_templates'), receipt_templates_path %>
     </li>
   </ul>

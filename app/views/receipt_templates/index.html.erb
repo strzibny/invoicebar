@@ -1,5 +1,10 @@
 <%= content_for :sub_navigation do %>
-  <ul class="nav nav-pills" style="float:right;">
+  <ul class="nav nav-pills">
+    <li>
+      <a href="<%= new_receipt_template_path %>" class="left highlight">
+        <%= t('links.new_receipt_template') %>
+      </a>
+    </li>
     <li>
       <%= link_to t('titles.receipts'), receipts_path %>
     </li>
@@ -7,14 +12,6 @@
       <%= link_to t('titles.receipt_templates'), receipt_templates_path %>
     </li>
   </ul>
-  <div class="btn-group"  style="float:left;">
-    <a class="btn btn-success" href="<%= new_receipt_template_path %>">
-      <i class="icon-pencil icon-white"></i> <%= t('links.new_receipt_template') %>
-    </a>
-  </div>
-  <h1>
-    <%= t('titles.receipt_templates') %>
-  </h1>
 <% end %>
 
 <table class="table table-striped table-bordered table-hover">

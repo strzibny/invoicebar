@@ -31,6 +31,23 @@ form a:hover, table a:hover { background: #0C6591; color: white; text-decoration
   text-align: center;
   width: 100%;
 }
+
+.sub-navigation ul {
+  text-align: center; margin-bottom: 10px; border: 0; border-bottom: 1px solid #F4F0FC;
+}
+
+.sub-navigation ul .right {
+  margin-left: 90px;
+}
+
+.sub-navigation ul .left {
+  margin-right: 90px;
+}
+
+.sub-navigation ul .highlight, .sub-navigation ul .highlight:hover {
+  background: #D2FAC3; color: black;
+}
+
 .sub-navigation ul.nav-pills {
   margin-top: 0;
   padding: 5px 0;
@@ -86,7 +103,7 @@ fieldset .top {
   background: #082682 !important;
 }
 .status-filter {
-  margin-top: 20px;
+  margin-top: 0px;
   margin-bottom: 0px;
   .not-selected .btn-info,
   .not-selected .btn-success,
