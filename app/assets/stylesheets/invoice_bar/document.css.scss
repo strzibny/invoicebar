@@ -160,6 +160,10 @@ fieldset .top {
   input { margin-top: 25px; }
 }
 
+div.pagination ul {
+  box-shadow: none;
+}
+
 // No data
 .no-data {
   padding: 20px;
