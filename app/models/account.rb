@@ -1,8 +1,6 @@
 class Account < ActiveRecord::Base
   self.table_name = 'invoice_bar_accounts'
 
-  attr_accessible :amount, :bank_account_number, :iban, :name, :swift
-
   validates :name,    presence: true
   validates :amount,  presence: true, numericality: true
 
@@ -12,8 +10,6 @@ class Account < ActiveRecord::Base
   validate :name_is_unique
 
   # Assosiations
-  attr_accessible :user_id, :currency_id
-
   belongs_to :currency
   belongs_to :user
   has_many :invoices

@@ -1,9 +1,6 @@
 class Address < ActiveRecord::Base
   self.table_name = 'invoice_bar_addresses'
 
-  attr_accessible :street, :street_number, :city, :city_part, :postcode,
-                  :extra_address_line
-
   validates :city,          presence: true, length: { maximum: 50 }
   validates :postcode,      presence: true, length: { in: 3..10 }
   validates :street,        presence: true, length: { maximum: 50 }
@@ -13,8 +10,6 @@ class Address < ActiveRecord::Base
                            extra_address_line )
 
   # Associations
-  attr_accessible :addressable_id, :addressable_type
-
   belongs_to :addressable, polymorphic: true
 
   # Search

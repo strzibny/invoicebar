@@ -6,8 +6,6 @@ module InvoiceBar
       extend ActiveSupport::Concern
 
       included do
-        attr_accessible :amount, :contact_tax_id2, :contact_tax_id, :contact_name, :issue_date, :issuer, :note
-
         validates :contact_tax_id,  length: { in:  2..8 },  numericality: true, allow_blank: true
         validates :contact_tax_id2, length: { in:  4..14 }, allow_blank: true
 

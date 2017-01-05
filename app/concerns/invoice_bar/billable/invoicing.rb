@@ -6,7 +6,6 @@ module InvoiceBar
       extend ActiveSupport::Concern
 
       included do
-        attr_accessible :due_date, :payment_identification_number, :issuer
         validates :payment_identification_number, numericality: true, allow_blank: true
 
         class << self

@@ -3,8 +3,6 @@ class Receipt < ActiveRecord::Base
 
   before_validation :update_amount
 
-  attr_accessible :number, :sent, :paid
-
   validates :number, presence: true
   validate :number_is_unique
   validates :items, length: { minimum: 1, message: 'Needs an item' }

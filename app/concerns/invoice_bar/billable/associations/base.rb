@@ -5,10 +5,6 @@ module InvoiceBar
         extend ActiveSupport::Concern
 
         included do
-          attr_accessible :account_id, :user_id,
-                          :address, :address_attributes,
-                          :items_attributes
-
           delegate :city, :city_part, :extra_address_line, :postcode, :street, :street_number,
                    to: :user, prefix: true
 

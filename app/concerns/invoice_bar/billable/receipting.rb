@@ -6,8 +6,6 @@ module InvoiceBar
       extend ActiveSupport::Concern
 
       included do
-        attr_accessible :issuer
-
         class << self
           def expense
             where(issuer: false)

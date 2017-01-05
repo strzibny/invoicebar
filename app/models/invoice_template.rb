@@ -3,8 +3,6 @@ class InvoiceTemplate < ActiveRecord::Base
 
   before_validation :update_amount
 
-  attr_accessible :name
-
   validates :name, presence: true
   validate :name_is_unique
 

@@ -1,8 +1,6 @@
 class User < ActiveRecord::Base
   self.table_name = 'invoice_bar_users'
 
-  attr_accessible :name, :email, :tax_id, :phone, :web, :administrator
-
   validates :name,  presence: true
   validates :email, presence: true, uniqueness: true
   validates :tax_id,    presence: true, numericality: true#, length: { in: 2..8 }
@@ -10,14 +8,7 @@ class User < ActiveRecord::Base
   # Sorcery auth
   authenticates_with_sorcery!
 
-  attr_accessible :password, :crypted_password, :salt,
-                  :remember_me_token, :remember_me_token_expires_at,
-                  :reset_password_email_sent_at, :reset_password_token,
-                  :reset_password_token_expires_at
-
   # Associations
-  attr_accessible :address_attributes
-
   delegate :street, :street_number, :city, :city_part, :postcode, :extra_address_line,
            to: :address
 

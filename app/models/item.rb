@@ -5,16 +5,12 @@ class Item < ActiveRecord::Base
 
   before_validation :update_amount
 
-  attr_accessible :name, :number, :price, :unit, :human_price, :human_amount, :deposit_invoice_id
-
   validates :name, presence: true
   validates :number, numericality: true, length: { maximum: 10 }, allow_blank: true
   validates :price, presence: true, numericality: true
   validates :unit, length: { maximum: 10 }, allow_blank: true
 
   # Associations
-  attr_accessible :itemable_id, :itemable_type
-
   belongs_to :itemable, polymorphic: true
 
   # Each item can be paired with deposit invoice, in that case item's amount

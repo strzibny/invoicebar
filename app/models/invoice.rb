@@ -5,8 +5,6 @@ class Invoice < ActiveRecord::Base
 
   enum invoice_type: [ :basic, :deposit ]
 
-  attr_accessible :invoice_type, :number, :sent, :paid
-
   validates :number, presence: true
   validate :number_is_unique
   validates :items, length: { minimum: 1, message: 'Needs an item' }
