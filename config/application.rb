@@ -12,5 +12,11 @@ module InvoiceBar
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.assets.paths << Rails.root.join('vendor', 'assets')
+
+    config.i18n.default_locale = :cs
   end
 end
+
+# Concerns
+require File.expand_path("../../app/concerns/invoice_bar/searchable.rb",  __FILE__)
+require File.expand_path("../../app/concerns/invoice_bar/billable.rb",  __FILE__)
