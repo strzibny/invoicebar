@@ -1,4 +1,4 @@
-<h1><%= document.number %></h1>
+<h1><%= headline = document.try(:number) || document.name %></h1>
 
 <div style="margin-bottom: 15px">
   <% if document.instance_of? Invoice %>

@@ -152,12 +152,34 @@ RSpec.feature 'User story 1', js: true do
       deposit: 'VZF2016030001'
     )
 
+    # May 2016
+    travel_to Time.new(2016, 05, 27, 1, 04, 44)
+
     # Create invoice templates
+    create_invoice_template(
+      name: 'Client B Template',
+      contact: client_b,
+      account_name: 'Account 1',
+      note: 'Podnikatel je zapsán do živnostenského rejstříku',
+      items: [
+        build(:invoice_bar_item, name: 'Konzultace', unit: 'hod', number: '35', price: '30'),
+      ]
+    )
 
-    # 11 invoices in one month
-
-
-
+    # 11 invoices in one busy month, luckily we have a template
+    (1..11).each do |invoice_number|
+      create_invoice(
+        template: 'Client B Template',
+        contact: client_b,
+        issue_date: '2016-05-27',
+        due_date: '2016-06-10',
+        items: [
+          build(:invoice_bar_item, name: 'Programování', unit: 'hod', number: '35', price: '35'),
+        ]
+      )
+      invoice_number = "0#{invoice_number}" if invoice_number < 10
+      expect(page).to have_content("VF20160500#{invoice_number}")
+    end
     #click_button t('buttons.create')
 
     # Log out
@@ -197,15 +219,23 @@ RSpec.feature 'User story 1', js: true do
   end
 
   def create_invoice(number: nil,
-                     contact:,
-                     account_name:,
-                     issue_date:,
-                     due_date:,
-                     note:,
-                     items:,
-                     deposit: nil)
+                     contact: nil,
+                     account_name: nil,
+                     issue_date: nil,
+                     due_date: nil,
+                     note: nil,
+                     items: [],
+                     deposit: nil,
+                     template: nil)
     click_link t('invoice_bar.navbar.invoices')
     click_link t('links.new_invoice')
+
+    if template
+      click_link 'Vybrat šablonu'
+      select template, from: 'Název šablony'
+      click_button 'Použít'
+    end
+
     fillin_invoice(
       number: number,
       contact: contact,
@@ -218,6 +248,30 @@ RSpec.feature 'User story 1', js: true do
     )
     click_button t('buttons.save')
   end
+
+  def create_invoice_template(name:,
+                              contact: nil,
+                              account_name: nil,
+                              issue_date: nil,
+                              due_date: nil,
+                              note: nil,
+                              items: [])
+    click_link t('invoice_bar.navbar.invoices')
+    click_link t('titles.invoice_templates')
+    click_link t('links.new_invoice_template')
+
+    fill_in t('attributes.invoice_template.name'), with: name
+    fillin_invoice(
+      contact: contact,
+      account_name: account_name,
+      issue_date: issue_date,
+      due_date: due_date,
+      note: note,
+      items: items
+    )
+    click_button t('buttons.save')
+  end
+
 
   def create_deposit_invoice(number: nil,
                              contact:,
@@ -242,13 +296,13 @@ RSpec.feature 'User story 1', js: true do
     click_button t('buttons.save')
   end
 
-  def fillin_invoice(number:,
-                     contact:,
-                     account_name:,
-                     issue_date:,
-                     due_date:,
-                     note:,
-                     items:,
+  def fillin_invoice(number: nil,
+                     contact: nil,
+                     account_name: nil,
+                     issue_date: nil,
+                     due_date: nil,
+                     note: nil,
+                     items: [],
                      deposit: nil)
 
     fill_in t('attributes.invoice.number'), with: number if number
@@ -261,16 +315,19 @@ RSpec.feature 'User story 1', js: true do
     fill_in t('attributes.address.city'), with: contact.city
     fill_in t('attributes.address.city_part'), with: contact.city_part
     fill_in t('attributes.address.extra_address_line'), with: contact.extra_address_line
-    select account_name, from: t('attributes.invoice.account_id')
+    select account_name, from: t('attributes.invoice.account_id') if account_name
     fill_in t('attributes.invoice.issue_date'), with: issue_date
     fill_in t('attributes.invoice.due_date'), with: due_date
     fill_in t('attributes.invoice.note'), with: note
 
     items.each do |item|
-      fill_in t('attributes.item.name'), with: item.name
-      fill_in t('attributes.item.number'), with: item.number
-      fill_in t('attributes.item.unit'), with: item.unit
-      fill_in t('attributes.item.price'), with: item.price
+      # TODO: change to last; applying template should not leave empty item as first one
+      within(page.all('.item').first) do
+        fill_in t('attributes.item.name'), with: item.name
+        fill_in t('attributes.item.number'), with: item.number
+        fill_in t('attributes.item.unit'), with: item.unit
+        fill_in t('attributes.item.price'), with: item.price
+      end
     end
 
     if deposit
