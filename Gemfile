@@ -19,13 +19,12 @@ gem 'invoice_printer'
 gem 'sqlite3'
 gem 'puma'
 
-group :assets do
-  gem 'sass-rails',   '~> 5.0'
-  gem 'bootstrap-sass', '~> 2.0'
-  gem 'coffee-rails', '~> 4.0'
-  gem 'skeleton-rails'
-  gem 'uglifier', '>= 1.0.3'
-end
+# Assets
+gem 'sass-rails',   '~> 5.0'
+gem 'bootstrap-sass', '~> 2.0'
+gem 'coffee-rails', '~> 4.0'
+gem 'skeleton-rails'
+gem 'uglifier', '>= 1.0.3'
 
 group :development do
   gem 'rdoc'
