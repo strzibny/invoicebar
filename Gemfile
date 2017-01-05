@@ -1,7 +1,6 @@
 source "https://rubygems.org"
 
-gem  "rails", "~> 4.2"
-gem  "protected_attributes"
+gem  "rails", "~> 5.0.1"
 gem  "rails-i18n"
 gem  "nested_form"
 gem  "jquery-rails"
@@ -14,14 +13,14 @@ gem  "json"
 gem  "ruby-ares"
 gem  "kaminari"
 gem  "therubyracer"
-gem  "libv8", "~> 3.11.8"
+gem  "libv8"
 gem 'invoice_printer'
 
 gem 'sqlite3'
 gem 'puma'
 
 group :assets do
-  gem 'sass-rails',   '~> 4.0'
+  gem 'sass-rails',   '~> 5.0'
   gem 'bootstrap-sass', '~> 2.0'
   gem 'coffee-rails', '~> 4.0'
   gem 'skeleton-rails'
