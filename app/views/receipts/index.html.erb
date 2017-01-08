@@ -6,36 +6,36 @@
       </a>
     </li>
     <li<% unless @section %> class="active"<% end %>>
-      <%= link_to t('navigation.all'), filter_receipts_url(params.merge(page: 1)) %>
+      <%= link_to t('navigation.all'), filter_receipts_url(@permitted_params.merge(page: 1)) %>
     </li>
     <li<% if @section == :expence %> class="active"<% end %>>
-      <%= link_to t('navigation.expence'), expence_receipts_url(params.merge(page: 1)) %>
+      <%= link_to t('navigation.expence'), expence_receipts_url(@permitted_params.merge(page: 1)) %>
     </li>
     <li<% if @section == :income %> class="active"<% end %>>
-      <%= link_to t('navigation.income'), income_receipts_url(params.merge(page: 1)) %>
+      <%= link_to t('navigation.income'), income_receipts_url(@permitted_params.merge(page: 1)) %>
     </li>
     <li class="right">
       <%= link_to t('titles.receipt_templates'), receipt_templates_path %>
     </li>
   </ul>
 
-  <%= render partial: 'forms/filter', params: params %>
+  <%= render partial: 'forms/filter', params: @permitted_params %>
 <% end %>
 
 <table class="table table-striped table-bordered table-hover">
   <thead>
     <tr>
       <th class="number hidden-phone">
-        <%= link_to "# #{t('attributes.receipt.number')}", action_receipts_url(params.merge(page: 1, sort: 'number')) %>
+        <%= link_to "# #{t('attributes.receipt.number')}", action_receipts_url(@permitted_params.merge(page: 1, sort: 'number')) %>
       </th>
       <th class="contact_name">
-        <%= link_to t('attributes.receipt.contact_name'), action_receipts_url(params.merge(page: 1, sort: 'contact_name')) %>
+        <%= link_to t('attributes.receipt.contact_name'), action_receipts_url(@permitted_params.merge(page: 1, sort: 'contact_name')) %>
       </th>
       <th class="issue_date hidden-phone">
-        <%= link_to t('attributes.receipt.issue_date'), action_receipts_url(params.merge(page: 1, sort: 'issue_date')) %>
+        <%= link_to t('attributes.receipt.issue_date'), action_receipts_url(@permitted_params.merge(page: 1, sort: 'issue_date')) %>
       </th>
       <th class="amount">
-        <%= link_to t('attributes.receipt.amount'), action_receipts_url(params.merge(page: 1, sort: 'amount')) %>
+        <%= link_to t('attributes.receipt.amount'), action_receipts_url(@permitted_params.merge(page: 1, sort: 'amount')) %>
       </th>
     </tr>
   </thead>

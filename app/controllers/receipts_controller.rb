@@ -2,6 +2,7 @@ require 'invoice_bar/sequence'
 
 class ReceiptsController < ApplicationController
   before_action :require_login
+  before_action :set_permitted_params
   before_action :set_user_accounts, only: [:new, :create, :edit, :update, :from_template]
   before_action :set_user_contacts, only: [:new, :create, :edit, :update, :from_template]
   before_action :set_user_receipt_templates, only: [:new, :create, :edit, :update, :from_template]
@@ -164,6 +165,11 @@ class ReceiptsController < ApplicationController
                                       :account_id, :user_id, :note,
                                       address_attributes: [:street, :street_number, :city, :city_part, :postcode, :extra_address_line],
                                       items_attributes: [:id, :name, :number, :price, :unit, :_destroy])
+    end
+
+    def set_permitted_params
+      @permitted_params = params.permit(:controller, :action, :page) if params
+      @parmitted_params ||= ActionController::Parameters.new
     end
 
     def filter_params(bills)
