@@ -61,7 +61,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to profile_path, notice: t('flash.actions.update.notice') }
+        format.html { redirect_to account_settings_path, notice: t('flash.actions.update.notice') }
         format.json { render json: @user, status: 200, location: @user }
       else
         format.html { render template: 'invoice_bar/settings/index' }
@@ -88,7 +88,7 @@ class UsersController < ApplicationController
                                    :administrator, :password, :crypted_password,
                                    :salt, :remember_me_token, :remember_me_token_expires_at,
                                    :reset_password_email_sent_at, :reset_password_token,
-                                   :reset_password_token_expires_at,
+                                   :reset_password_token_expires_at, :time_zone,
                                    :address_attributes => [
                                      :street,
                                      :street_number,

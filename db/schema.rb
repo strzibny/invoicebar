@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161218204813) do
+ActiveRecord::Schema.define(version: 20170108201312) do
 
   create_table "invoice_bar_accounts", force: :cascade do |t|
     t.string   "name",                            null: false
@@ -23,9 +22,8 @@ ActiveRecord::Schema.define(version: 20161218204813) do
     t.integer  "currency_id",         default: 1, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["name"], name: "index_invoice_bar_accounts_on_name"
   end
-
-  add_index "invoice_bar_accounts", ["name"], name: "index_invoice_bar_accounts_on_name"
 
   create_table "invoice_bar_addresses", force: :cascade do |t|
     t.string   "street",             null: false
@@ -51,10 +49,9 @@ ActiveRecord::Schema.define(version: 20161218204813) do
     t.integer  "user_id",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["name"], name: "index_invoice_bar_contacts_on_name"
+    t.index ["tax_id"], name: "index_invoice_bar_contacts_on_tax_id"
   end
-
-  add_index "invoice_bar_contacts", ["name"], name: "index_invoice_bar_contacts_on_name"
-  add_index "invoice_bar_contacts", ["tax_id"], name: "index_invoice_bar_contacts_on_tax_id"
 
   create_table "invoice_bar_currencies", force: :cascade do |t|
     t.string  "name",                 null: false
@@ -76,9 +73,8 @@ ActiveRecord::Schema.define(version: 20161218204813) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "note"
+    t.index ["name"], name: "index_invoice_bar_invoice_templates_on_name"
   end
-
-  add_index "invoice_bar_invoice_templates", ["name"], name: "index_invoice_bar_invoice_templates_on_name"
 
   create_table "invoice_bar_invoices", force: :cascade do |t|
     t.string   "number",                                        null: false
@@ -102,12 +98,11 @@ ActiveRecord::Schema.define(version: 20161218204813) do
     t.string   "user_tax_id2"
     t.text     "note"
     t.integer  "invoice_type",                  default: 0
+    t.index ["contact_name"], name: "index_invoice_bar_invoices_on_contact_name"
+    t.index ["contact_tax_id"], name: "index_invoice_bar_invoices_on_contact_tax_id"
+    t.index ["number"], name: "index_invoice_bar_invoices_on_number"
+    t.index ["payment_identification_number"], name: "index_invoice_bar_invoices_on_payment_identification_number"
   end
-
-  add_index "invoice_bar_invoices", ["contact_name"], name: "index_invoice_bar_invoices_on_contact_name"
-  add_index "invoice_bar_invoices", ["contact_tax_id"], name: "index_invoice_bar_invoices_on_contact_tax_id"
-  add_index "invoice_bar_invoices", ["number"], name: "index_invoice_bar_invoices_on_number"
-  add_index "invoice_bar_invoices", ["payment_identification_number"], name: "index_invoice_bar_invoices_on_payment_identification_number"
 
   create_table "invoice_bar_items", force: :cascade do |t|
     t.string   "name",               null: false
@@ -120,9 +115,8 @@ ActiveRecord::Schema.define(version: 20161218204813) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "deposit_invoice_id"
+    t.index ["name"], name: "index_invoice_bar_items_on_name"
   end
-
-  add_index "invoice_bar_items", ["name"], name: "index_invoice_bar_items_on_name"
 
   create_table "invoice_bar_receipt_templates", force: :cascade do |t|
     t.string   "name",            null: false
@@ -136,9 +130,8 @@ ActiveRecord::Schema.define(version: 20161218204813) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "note"
+    t.index ["name"], name: "index_invoice_bar_receipt_templates_on_name"
   end
-
-  add_index "invoice_bar_receipt_templates", ["name"], name: "index_invoice_bar_receipt_templates_on_name"
 
   create_table "invoice_bar_receipts", force: :cascade do |t|
     t.string   "number",                         null: false
@@ -156,14 +149,13 @@ ActiveRecord::Schema.define(version: 20161218204813) do
     t.integer  "user_tax_id"
     t.string   "user_tax_id2"
     t.text     "note"
+    t.index ["contact_name"], name: "index_invoice_bar_receipts_on_contact_name"
+    t.index ["contact_tax_id"], name: "index_invoice_bar_receipts_on_contact_tax_id"
+    t.index ["number"], name: "index_invoice_bar_receipts_on_number"
   end
 
-  add_index "invoice_bar_receipts", ["contact_name"], name: "index_invoice_bar_receipts_on_contact_name"
-  add_index "invoice_bar_receipts", ["contact_tax_id"], name: "index_invoice_bar_receipts_on_contact_tax_id"
-  add_index "invoice_bar_receipts", ["number"], name: "index_invoice_bar_receipts_on_number"
-
   create_table "invoice_bar_users", force: :cascade do |t|
-    t.string   "email",                           null: false
+    t.string   "email",                                                       null: false
     t.string   "crypted_password"
     t.string   "salt"
     t.string   "remember_me_token"
@@ -171,17 +163,17 @@ ActiveRecord::Schema.define(version: 20161218204813) do
     t.string   "reset_password_token"
     t.datetime "reset_password_token_expires_at"
     t.datetime "reset_password_email_sent_at"
-    t.string   "name",                            null: false
+    t.string   "name",                                                        null: false
     t.string   "phone"
     t.string   "web"
-    t.integer  "tax_id",                          null: false
+    t.integer  "tax_id",                                                      null: false
     t.boolean  "administrator"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "preferences"
+    t.string   "time_zone",                       limit: 255, default: "UTC"
+    t.index ["remember_me_token"], name: "index_invoice_bar_users_on_remember_me_token"
+    t.index ["reset_password_token"], name: "index_invoice_bar_users_on_reset_password_token"
   end
-
-  add_index "invoice_bar_users", ["remember_me_token"], name: "index_invoice_bar_users_on_remember_me_token"
-  add_index "invoice_bar_users", ["reset_password_token"], name: "index_invoice_bar_users_on_reset_password_token"
 
 end

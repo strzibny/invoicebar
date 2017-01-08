@@ -39,6 +39,10 @@
           render 'forms/address_fields', f: f
         end -%>
       </div>
+      <div class="span3">
+        <h4>Časová zóna</h4>
+        <%= f.time_zone_select :time_zone %>
+      </div>
       <div class="span10">
          <%= f.submit I18n.t('buttons.save'), :class => 'btn' %>
       </div>
