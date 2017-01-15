@@ -48,11 +48,11 @@ GEM
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
     brakeman (3.4.1)
-    builder (3.2.2)
+    builder (3.2.3)
     bundler-audit (0.5.0)
       bundler (~> 1.2)
       thor (~> 0.18)
-    capybara (2.7.1)
+    capybara (2.11.0)
       addressable
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -65,11 +65,9 @@ GEM
     capybara-selenium (0.0.6)
       capybara
       selenium-webdriver
-    capybara-webkit (1.11.1)
-      capybara (>= 2.3.0, < 2.8.0)
-      json
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
+    cliver (0.3.2)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.2.x)
@@ -92,7 +90,7 @@ GEM
       i18n (~> 0.5)
     faraday (0.10.1)
       multipart-post (>= 1.2, < 3)
-    ffi (1.9.14)
+    ffi (1.9.17)
     formatted-money (0.0.2)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
@@ -107,12 +105,21 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    json (2.0.2)
+    json (2.0.3)
     jwt (1.5.6)
-    kaminari (0.17.0)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
-    libv8 (3.16.14.17)
+    kaminari (1.0.0)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.0.0)
+      kaminari-activerecord (= 1.0.0)
+      kaminari-core (= 1.0.0)
+    kaminari-actionview (1.0.0)
+      actionview
+      kaminari-core (= 1.0.0)
+    kaminari-activerecord (1.0.0)
+      activerecord
+      kaminari-core (= 1.0.0)
+    kaminari-core (1.0.0)
+    libv8 (5.3.332.38.3)
     libxml-ruby (2.9.0)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
@@ -123,6 +130,8 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
+    mini_racer (0.1.7)
+      libv8 (~> 5.3)
     minitest (5.10.1)
     multi_json (1.12.1)
     multi_xml (0.6.0)
@@ -141,6 +150,10 @@ GEM
     parser (2.3.3.1)
       ast (~> 2.2)
     pdf-core (0.6.1)
+    poltergeist (1.12.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      websocket-driver (>= 0.2.0)
     powerpack (0.1.1)
     prawn (2.1.0)
       pdf-core (~> 0.6.1)
@@ -183,7 +196,10 @@ GEM
     rainbow (2.2.1)
     rake (12.0.0)
     rdoc (5.0.0)
-    ref (2.0.0)
+    rspec (3.5.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
     rspec-core (3.5.4)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -218,6 +234,17 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    sassc (1.11.1)
+      bundler
+      ffi (~> 1.9.6)
+      sass (>= 3.3.0)
+    sassc-rails (1.3.0)
+      railties (>= 4.0.0)
+      sass
+      sassc (~> 1.9)
+      sprockets (> 2.11)
+      sprockets-rails
+      tilt
     selenium-webdriver (3.0.5)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
@@ -241,9 +268,6 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     sqlite3 (1.3.13)
-    therubyracer (0.12.3)
-      libv8 (~> 3.16.14.15)
-      ref
     thor (0.19.4)
     thread_safe (0.3.5)
     tilt (2.0.5)
@@ -252,7 +276,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.4)
       execjs (>= 0.3.0, < 3)
-    unicode-display_width (1.1.2)
+    unicode-display_width (1.1.3)
     web-console (2.3.0)
       activemodel (>= 4.0)
       binding_of_caller (>= 0.7.2)
@@ -275,7 +299,6 @@ DEPENDENCIES
   capybara
   capybara-email
   capybara-selenium
-  capybara-webkit
   coffee-rails (~> 4.0)
   database_cleaner
   factory_girl (= 4.5.0)
@@ -287,25 +310,27 @@ DEPENDENCIES
   jquery-ui-rails
   json
   kaminari
-  libv8
+  mini_racer (= 0.1.7)
   nested_form
+  poltergeist
   prawn
   prawnto
   puma
   rails (~> 5.0.1)
   rails-i18n
   rdoc
+  rspec
   rspec-rails (~> 3.0)
   rubocop (= 0.43.0)
   ruby-ares
   sass-rails (~> 5.0)
+  sassc-rails (= 1.3.0)
   shoulda
   skeleton-rails
   sorcery
   sqlite3
-  therubyracer
   uglifier (>= 1.0.3)
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.13.4
+   1.13.7

@@ -12,8 +12,6 @@ gem  "formatted-money", "0.0.2"
 gem  "json"
 gem  "ruby-ares"
 gem  "kaminari"
-gem  "therubyracer"
-gem  "libv8"
 gem 'invoice_printer'
 
 gem 'sqlite3'
@@ -26,6 +24,10 @@ gem 'coffee-rails', '~> 4.0'
 gem 'skeleton-rails'
 gem 'uglifier', '>= 1.0.3'
 
+# Speed optimization
+gem 'sassc-rails', '1.3.0'
+gem 'mini_racer', '0.1.7'
+
 group :development do
   gem 'rdoc'
   gem 'web-console', '~> 2.0'
@@ -35,11 +37,14 @@ group :development do
 end
 
 group :test do
+  gem 'rspec'
   gem 'rspec-rails', '~> 3.0'
   gem 'database_cleaner'
   gem 'capybara'
   gem 'capybara-selenium'
-  gem 'capybara-webkit'
+  #gem 'capybara-webkit', '1.11.0'
+  # Requires phantomjs executable
+  gem 'poltergeist'
   gem 'capybara-email'
   gem 'shoulda'
 end

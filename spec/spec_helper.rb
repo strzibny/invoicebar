@@ -3,6 +3,7 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'capybara/email/rspec'
+require 'capybara/poltergeist'
 require 'factory_girl'
 
 #FactoryGirl.find_definitions
@@ -13,8 +14,8 @@ Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
-Capybara.javascript_driver = :webkit
-Capybara.current_driver = Capybara.javascript_driver
+Capybara.javascript_driver = :poltergeist
+Capybara.current_driver = :poltergeist
 
 I18n.enforce_available_locales = false
 
