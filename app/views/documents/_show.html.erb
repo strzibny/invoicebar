@@ -116,3 +116,7 @@
 <div id="items">
   <%= "Poznámka: #{document.note}" if document.note %>
 </div>
+
+<div>
+  Vytvořeno: <%= l(document.created_at, format: :short) %>
+</div>

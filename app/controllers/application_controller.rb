@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   helper InvoiceBarHelper
   layout 'layouts/signed_in'
 
+  around_action :set_time_zone, if: :current_user
+
   protected
     def respond_on_index(collection)
       respond_to do |format|
@@ -108,5 +110,9 @@ class ApplicationController < ActionController::Base
       else
         object
       end
+    end
+
+    def set_time_zone
+      Time.use_zone(current_user.time_zone) { yield }
     end
 end
