@@ -30,7 +30,7 @@
   </ul>
 
   <div class="status-filter">
-    <span class="<% unless params[:status] == nil %>not-selected<% end %>">
+    <span class="<% unless params[:status] == nil || params[:status].empty? %>not-selected<% end %>">
       <%= link_to t('buttons.all'), action_invoices_url(@permitted_params.merge(status: nil)), class: 'btn-small btn-inverse btn-no-link' %>
     </span>
     <span class="<% unless params[:status] == 'not_paid' %>not-selected<% end %>">

@@ -236,7 +236,20 @@ class InvoicesController < ApplicationController
     end
 
     def set_permitted_params
-      @permitted_params = params.permit(:controller, :action, :page) if params
+      @permitted_params = params.permit(
+        :controller,
+        :action,
+        :page,
+        :deposit,
+        :sort,
+        :status,
+        :number,
+        :contact,
+        :from_amount,
+        :to_amount,
+        :from_date,
+        :to_date
+      ) if params
       @parmitted_params ||= ActionController::Parameters.new
     end
 

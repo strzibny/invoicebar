@@ -1,5 +1,4 @@
 <div id="filter-form">
-
   <% if @invoices %>
     <% url = filter_invoices_url %>
   <% else %>
@@ -7,6 +6,10 @@
   <% end %>
 
   <%= form_tag url, method: 'get', class: "navbar-form" do %>
+    <%# Keep the other filters if selected %>
+    <%= hidden_field_tag 'status', params[:status] %>
+    <%= hidden_field_tag 'deposit', params[:deposit] %>
+
     <%= text_field_tag :number, params[:number], placeholder: t('form.bill_number'), class: 'span2' %>
     <%= text_field_tag :contact, params[:contact], placeholder: t('form.contact'), class: 'span2' %>
     <%= text_field_tag :from_date, params[:from_date], placeholder: t('form.from_date'), class: 'smaller' %>
@@ -25,5 +28,4 @@
     <%= text_field_tag :to_amount, params[:to_amount], placeholder: t('form.to_amount'), class: 'span2' %>
     <%= submit_tag t('buttons.filter'), class: 'btn' %>
   <% end %>
-
 </div>
