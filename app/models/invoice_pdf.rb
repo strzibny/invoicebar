@@ -9,8 +9,11 @@ class InvoicePDF
   end
 
   def render
+    labels = @invoice.deposit? ? { name: 'Zálohová faktura' } : {}
+
     InvoicePrinter.render(
       document: printable_invoice,
+      labels: labels,
       font: File.expand_path('app/assets/fonts/invoice_bar/Overpass_Regular.ttf', InvoiceBar::Application.root)
     )
   end
@@ -29,6 +32,7 @@ class InvoicePDF
       provider_city_part: @invoice.user_city_part.to_s,
       provider_extra_address_line: @invoice.user_extra_address_line.to_s,
       purchaser_name: @invoice.contact_name.to_s,
+      # for invoice_printer 0.0.8 this is reversed.
       purchaser_tax_id: @invoice.contact_tax_id.to_s,
       purchaser_tax_id2: @invoice.contact_tax_id2.to_s,
       purchaser_street: @invoice.address_street.to_s,

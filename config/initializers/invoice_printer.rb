@@ -1,11 +1,16 @@
 require 'invoice_printer'
 
 InvoicePrinter.labels = {
+  # for invoice_printer 0.0.8
+  tax_id2: 'DIČ',
+  tax_id: 'IČ',
   name: 'Faktura',
   provider: 'Dodavatel',
+  provider_tax_id: 'IČ',
+  provider_tax_id2: 'DIČ',
   purchaser: 'Odběratel',
-  ic: 'IČ',
-  dic: 'DIČ',
+  purchaser_tax_id: 'IČ',
+  purchaser_tax_id2: 'DIČ',
   payment: 'Forma úhrady',
   payment_in_cash: 'Platba v hotovosti',
   payment_by_transfer: 'Platba na následující účet:',
