@@ -6,8 +6,8 @@ module InvoiceBar
       extend ActiveSupport::Concern
 
       included do
-        validates :contact_tax_id,  length: { in:  2..8 },  numericality: true, allow_blank: true
-        validates :contact_tax_id2, length: { in:  4..14 }, allow_blank: true
+        #validates :contact_tax_id,  length: { in:  2..8 },  numericality: true, allow_blank: true
+        #validates :contact_tax_id2, length: { in:  4..14 }, allow_blank: true
 
         # Generates a new bill from a given +template+.
         def self.from_template(template)

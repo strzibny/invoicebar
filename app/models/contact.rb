@@ -3,8 +3,8 @@ class Contact < ActiveRecord::Base
 
   validates :name, presence: true
 
-  validates :tax_id,  length: { in: 2..8 },   allow_blank: true
-  validates :tax_id2, length: { in: 4..14 },  allow_blank: true
+  #validates :tax_id,  length: { in: 2..8 },   allow_blank: true
+  #validates :tax_id2, length: { in: 4..14 },  allow_blank: true
 
   # Associations
   delegate :city, :city_part, :extra_address_line, :postcode, :street, :street_number,

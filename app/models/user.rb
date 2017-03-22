@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 
   validates :name,  presence: true
   validates :email, presence: true, uniqueness: true
-  validates :tax_id,    presence: true, numericality: true#, length: { in: 2..8 }
+  #validates :tax_id,    presence: true, numericality: true#, length: { in: 2..8 }
 
   # Sorcery auth
   authenticates_with_sorcery!

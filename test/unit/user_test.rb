@@ -16,7 +16,7 @@ class UserTest < ActiveSupport::TestCase
   should allow_mass_assignment_of :reset_password_token_expires_at
   should allow_mass_assignment_of :address_attributes
   should validate_presence_of :name
-  should validate_presence_of :tax_id
+  #should validate_presence_of :tax_id
   should validate_presence_of :email
   should accept_nested_attributes_for :address
   should have_one(:address).dependent(:destroy)
