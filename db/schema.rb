@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170108201312) do
+ActiveRecord::Schema.define(version: 20170322194319) do
 
   create_table "invoice_bar_accounts", force: :cascade do |t|
     t.string   "name",                            null: false
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20170108201312) do
     t.string   "phone"
     t.string   "web"
     t.string   "bank_account"
-    t.integer  "tax_id"
+    t.string   "tax_id"
     t.string   "tax_id2"
     t.integer  "user_id",      null: false
     t.datetime "created_at"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20170108201312) do
     t.date     "issue_date"
     t.date     "due_date"
     t.string   "contact_name"
-    t.integer  "contact_tax_id"
+    t.string   "contact_tax_id"
     t.string   "contact_tax_id2"
     t.integer  "user_id"
     t.integer  "payment_identification_number"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20170108201312) do
     t.date     "issue_date",                                    null: false
     t.date     "due_date",                                      null: false
     t.string   "contact_name",                                  null: false
-    t.integer  "contact_tax_id"
+    t.string   "contact_tax_id"
     t.string   "contact_tax_id2"
     t.integer  "user_id",                                       null: false
     t.integer  "payment_identification_number"
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 20170108201312) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_name"
-    t.integer  "user_tax_id"
+    t.string   "user_tax_id"
     t.string   "user_tax_id2"
     t.text     "note"
     t.integer  "invoice_type",                  default: 0
@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 20170108201312) do
     t.string   "name",            null: false
     t.date     "issue_date"
     t.string   "contact_name"
-    t.integer  "contact_tax_id"
+    t.string   "contact_tax_id"
     t.string   "contact_tax_id2"
     t.integer  "user_id"
     t.integer  "account_id"
@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(version: 20170108201312) do
     t.string   "number",                         null: false
     t.date     "issue_date",                     null: false
     t.string   "contact_name",                   null: false
-    t.integer  "contact_tax_id"
+    t.string   "contact_tax_id"
     t.string   "contact_tax_id2"
     t.integer  "user_id",                        null: false
     t.integer  "account_id",                     null: false
@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(version: 20170108201312) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_name"
-    t.integer  "user_tax_id"
+    t.string   "user_tax_id"
     t.string   "user_tax_id2"
     t.text     "note"
     t.index ["contact_name"], name: "index_invoice_bar_receipts_on_contact_name"
@@ -166,7 +166,7 @@ ActiveRecord::Schema.define(version: 20170108201312) do
     t.string   "name",                                                        null: false
     t.string   "phone"
     t.string   "web"
-    t.integer  "tax_id",                                                      null: false
+    t.string   "tax_id",                                                      null: false
     t.boolean  "administrator"
     t.datetime "created_at"
     t.datetime "updated_at"
