@@ -2,6 +2,7 @@ class Invoice < ActiveRecord::Base
   self.table_name = 'invoice_bar_invoices'
 
   before_validation :update_amount
+  after_save :recount_deposits
 
   enum invoice_type: [ :basic, :deposit ]
 
@@ -65,5 +66,16 @@ class Invoice < ActiveRecord::Base
       if invoices.any? && !invoices.include?(self)
         errors.add(:number, :uniqueness)
       end
+    end
+
+    # If this document is referenced as deposit all references
+    # need to be updated
+    def recount_deposits
+      ids = Item.where(deposit_invoice_id: self.id).pluck(:itemable_id)
+
+      return if ids.blank?
+
+      Invoice.where(id: ids).each { |i| i.save! }
+      Receipt.where(id: ids).each { |i| i.save! }
     end
 end

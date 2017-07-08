@@ -33,6 +33,12 @@ class Item < ActiveRecord::Base
 
   def update_amount
     self.amount = total
+
+    # In case it's actually a referenced document, its items has to be
+    # used as well
+    if deposit_invoice_id && deposit = Invoice.find_by(id: deposit_invoice_id)
+      self.amount -= deposit.amount
+    end
   end
 
   # Calculates the total by multiplying price by number (of units).
